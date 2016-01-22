@@ -99,5 +99,5 @@ int				get_next_line(int const fd, char **line)
 		if (end)
 			break ;
 	}
-	return ((*line = tmp) && sbuf.ret != 0);
+	return ((*line = tmp) && (sbuf.ret != 0 || ft_strlen(tmp)));
 }

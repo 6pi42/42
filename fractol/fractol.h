@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/09 11:50:07 by cboyer            #+#    #+#             */
-/*   Updated: 2016/01/23 16:19:20 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/01/24 15:28:14 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 # define FRACTOL_H
 # include "libft.h"
 # include "mlx.h"
+# include <math.h>
 #include <stdio.h>
 # define HEIGHT 1000
 # define WIDTH 1000
 # define KEY_ESC 53
 # define MAX_DEPTH 8
+# define MAX_ITER 100
 
 typedef struct		s_env
 {
@@ -67,16 +69,23 @@ typedef struct		s_map
 	double			zoom;
 	char			*mode;
 	t_comp			julia;
+	t_point			mouse;
 }					t_map;
 
 void				ft_print_choices(void);
 void				ft_error(void);
 void				pixel_put(t_map *map, int x, int y, int color);
 void				init_img(t_map *map, int color);
-void				mandelbrot(t_map *map, int max_iter);
+void				mandelbrot(t_map *map);
 void				draw(t_map *map);
-void				julia(t_map *map, int max_iter);
+void				julia(t_map *map);
 void				draw_line(t_point pt1, t_point pt2, t_map *map);
 void				sierpinski(t_map *map);
+void				burning_ship(t_map *map);
+int					key_hook(int keycode, t_map *map);
+int					motion_notify(int x, int y, t_map *map);
+int					expose_hook(t_map *map);
+int					circulate_notify_down(t_map *map);
+int					circulate_notify_up(t_map *map);
 
 #endif

@@ -6,30 +6,30 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/23 13:18:11 by cboyer            #+#    #+#             */
-/*   Updated: 2016/01/23 16:19:14 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/01/24 15:41:40 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	julia(t_map *map, int max_iter)
+void	julia(t_map *map)
 {
 	t_comp	comp;
-	int		i;
-	int		j;
+	int		y;
+	int		x;
 	int		iter;
 	t_comp	comptmp;
 
-	i = 0;
-	while (i < HEIGHT)
+	y = 0;
+	while (y < HEIGHT)
 	{
-		j = 0;
-		while (j < WIDTH)
+		x = 0;
+		while (x < WIDTH)
 		{
-			comp.i = 1.5 * (i - WIDTH / 2) / (0.5 * map->zoom * WIDTH);
-			comp.r = 1.5 * (j - HEIGHT / 2) / (0.5 * map->zoom * HEIGHT);
+			comp.r = 1.5 * (x - map->mouse.x / 2) / (0.5 * map->zoom * WIDTH);
+			comp.i = 1.5 * (y - map->mouse.y / 2) / (0.5 * map->zoom * HEIGHT);
 			iter = 0;
-			while(iter < max_iter)
+			while(iter < MAX_ITER)
 			{
 				iter++;
 				comptmp = comp;
@@ -38,11 +38,11 @@ void	julia(t_map *map, int max_iter)
 				if (comp.r * comp.r + comp.i * comp.i > 4)
 					break ;
 			}
-			pixel_put(map, j, i, 256 * 256 * (256 - iter * 10)
-				+ 256 + (256 - iter) + (256 - iter));
-			//pixel_put(map, i, j, iter % 360 - iter * (iter));
-			j++;
+			//pixel_put(map, x, y, 256 * 256 * (256 - iter * 10)
+			//	+ 256 + (256 - iter) + (256 - iter));
+			pixel_put(map, x, y, iter % 360 - iter * iter);
+			x++;
 		}
-		i++;
+		y++;
 	}
 }

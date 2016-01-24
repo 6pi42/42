@@ -6,13 +6,13 @@
 /*   Br: cborer <cborer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/23 13:41:11 br cborer            #+#    #+#             */
-/*   Updated: 2016/01/24 15:25:43 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/01/24 15:41:39 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	mandelbrot(t_map *map)
+void	burning_ship(t_map *map)
 {
 	t_comp	comp;
 	int		x;
@@ -27,23 +27,22 @@ void	mandelbrot(t_map *map)
 		x = 0;
 		while (x < WIDTH)
 		{
-			comp.r = 1.5 * (x - map->mouse.x / 2) / (0.5 * map->zoom * WIDTH);
 			comp.i = 1.5 * (y - map->mouse.y / 2) / (0.5 * map->zoom * HEIGHT);
+			comp.r = 1.5 * (x - map->mouse.x / 2) / (0.5 * map->zoom * WIDTH);
 			comp2.i = 0.0;
 			comp2.r = 0.0;
 			iter = 0;
 			while(iter < MAX_ITER)
 			{
 				iter++;
-				comptmp.r = comp2.r * comp2.r - comp2.i * comp2.i + comp.r;
-				comp2.i = 2 * comp2.r * comp2.i + comp.i;
+				comptmp.r = comp2.r * comp2.r - comp2.i * comp2.i - comp.r;
+				comp2.i = 2 * (fabs(comp2.r * comp2.i)) + comp.i;
 				comp2.r = comptmp.r;
 				if (comp2.r * comp2.r + comp2.i * comp2.i > 4)
 					break ;
 			}
-			//pixel_put(map, x, y, 256 * 256 * (256 - iter * 10)
-			//	+ 256 + (256 - iter) + (256 - iter));
-			pixel_put(map, x, y, (int)(iter + 512 - 512 * exp(-iter / 50.0) / 3.0));
+			pixel_put(map, x, y, 256 * 256 * (256 - iter * 10)
+				+ 256 + (256 - iter) + (256 - iter));
 			x++;
 		}
 		y++;

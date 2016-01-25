@@ -87,6 +87,7 @@ static	t_point	**get_map(char *file, int *height, int *width)
 	{
 		map[i] = parse_line(ft_strsplit(line, ' '), i, width);
 		free(line);
+		line = NULL;
 		i++;
 	}
 	if (close(fd) == -1)

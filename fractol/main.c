@@ -23,7 +23,7 @@ int			main(int argc, const char *argv[])
 	if (!(e.win = mlx_new_window(e.mlx, WIDTH, HEIGHT, "fractol")))
 		ft_error();
 	if (argc != 2)
-		ft_error();
+		ft_print_choices();
 	else
 	{
 		map->mode = ft_strdup(argv[1]);

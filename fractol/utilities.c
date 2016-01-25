@@ -20,7 +20,7 @@ void		ft_error(void)
 
 void		ft_print_choices(void)
 {
-	ft_putstr("-mandelbrot\n-julia\n-sierpinski\nburning_ship\n");
+	ft_putstr("-mandelbrot\n-julia\n-sierpinski\n-burning_ship\n");
 	exit(0);
 }
 

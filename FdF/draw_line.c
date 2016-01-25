@@ -98,6 +98,8 @@ static void		draw_line(t_point pt1, t_point pt2, t_map *map)
 		bresenmann_1(bres, pt1, map);
 	else
 		bresenmann_2(bres, pt1, map);
+	free(bres);
+	bres = NULL;
 }
 
 void			draw(t_map *map)

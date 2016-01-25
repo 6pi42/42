@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/09 11:50:10 by cboyer            #+#    #+#             */
-/*   Updated: 2016/01/24 15:18:46 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/01/25 16:02:42 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int			main(int argc, const char *argv[])
 		map->zoom = 1;
 		map->mouse.y = HEIGHT;
 		map->mouse.x = WIDTH;
+		map->max_iter = 100;
 		mlx_key_hook(map->e.win, key_hook, map);
 		mlx_expose_hook(map->e.win, expose_hook, map);
 		mlx_hook(e.win, 6, (1L<<6), motion_notify, map);

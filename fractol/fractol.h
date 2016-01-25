@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/09 11:50:07 by cboyer            #+#    #+#             */
-/*   Updated: 2016/01/24 15:28:14 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/01/25 16:02:25 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ typedef struct		s_map
 	char			*mode;
 	t_comp			julia;
 	t_point			mouse;
+	int				max_iter;
 }					t_map;
 
 void				ft_print_choices(void);

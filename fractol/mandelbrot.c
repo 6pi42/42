@@ -6,7 +6,7 @@
 /*   Br: cborer <cborer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/23 13:41:11 br cborer            #+#    #+#             */
-/*   Updated: 2016/01/24 15:25:43 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/01/25 16:02:07 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	mandelbrot(t_map *map)
 			comp2.i = 0.0;
 			comp2.r = 0.0;
 			iter = 0;
-			while(iter < MAX_ITER)
+			while(iter < map->max_iter)
 			{
 				iter++;
 				comptmp.r = comp2.r * comp2.r - comp2.i * comp2.i + comp.r;
@@ -41,9 +41,8 @@ void	mandelbrot(t_map *map)
 				if (comp2.r * comp2.r + comp2.i * comp2.i > 4)
 					break ;
 			}
-			//pixel_put(map, x, y, 256 * 256 * (256 - iter * 10)
-			//	+ 256 + (256 - iter) + (256 - iter));
-			pixel_put(map, x, y, (int)(iter + 512 - 512 * exp(-iter / 50.0) / 3.0));
+			pixel_put(map, x, y, 256 * 256 * (256 - iter * 10)
+				+ 256 + (256 - iter) + (256 - iter));
 			x++;
 		}
 		y++;

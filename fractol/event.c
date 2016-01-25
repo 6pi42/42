@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/24 15:05:59 by cboyer            #+#    #+#             */
-/*   Updated: 2016/01/24 15:30:08 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/01/25 16:04:20 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,19 @@ int	key_hook(int keycode, t_map *map)
 
 int	motion_notify(int x, int y, t_map *map)
 {
-	if (x < WIDTH && y < HEIGHT && x >= 0 && y >= 0 && !ft_strcmp(map->mode ,"julia"))
+	if (x < WIDTH && y < HEIGHT && x >= 0 && y >= 0)
 	{
-		map->julia.i = 1.5 * (y - map->mouse.y / 2) / (0.5 * map->zoom * HEIGHT);
-		map->julia.r = 1.5 * (x - map->mouse.x / 2) / (0.5 * map->zoom * WIDTH);
-		draw(map);
+		if (!ft_strcmp(map->mode ,"julia"))
+		{
+			map->julia.i = 1.5 * (y - map->mouse.y / 2) / (0.5 * map->zoom * HEIGHT);
+			map->julia.r = 1.5 * (x - map->mouse.x / 2) / (0.5 * map->zoom * WIDTH);
+			draw(map);
+		}
+		if (!ft_strcmp(map->mode ,"mandelbrot") && y != 0)
+		{
+			map->max_iter = 2 * HEIGHT / y;
+			draw(map);
+		}
 	}
 	return (0);
 }

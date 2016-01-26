@@ -14,35 +14,30 @@
 
 void	julia(t_map *map)
 {
-	t_comp	comp;
-	int		y;
-	int		x;
-	int		iter;
-	t_comp	comptmp;
+	t_comp	c[2];
+	int		iter[3];
 
-	y = 0;
-	while (y < HEIGHT)
+	iter[1] = 0;
+	while (++iter[1] < HEIGHT)
 	{
-		x = 0;
-		while (x < WIDTH)
+		iter[0] = 0;
+		while (++iter[0] < WIDTH)
 		{
-			comp.r = 1.5 * (x - map->mouse.x / 2) / (0.5 * map->zoom * WIDTH);
-			comp.i = 1.5 * (y - map->mouse.y / 2) / (0.5 * map->zoom * HEIGHT);
-			iter = 0;
-			while(iter < MAX_ITER)
+			c[0].r = 1.5 * (iter[0] - map->mouse.x / 2) /
+			(0.5 * map->zoom * WIDTH);
+			c[0].i = 1.5 * (iter[1] - map->mouse.y / 2) /
+			(0.5 * map->zoom * HEIGHT);
+			iter[2] = 0;
+			while(++iter[2] < MAX_ITER)
 			{
-				iter++;
-				comptmp = comp;
-				comp.r = comptmp.r * comptmp.r - comptmp.i * comptmp.i + map->julia.r;
-				comp.i = 2 * comptmp.r * comptmp.i + map->julia.i;
-				if (comp.r * comp.r + comp.i * comp.i > 4)
+				c[1] = c[0];
+				c[0].r = c[1].r * c[1].r - c[1].i * c[1].i + map->julia.r;
+				c[0].i = 2 * c[1].r * c[1].i + map->julia.i;
+				if (c[0].r * c[0].r + c[0].i * c[0].i > 4)
 					break ;
 			}
-			pixel_put(map, x, y, 256 * 256 * (256 - iter * 10)
-				+ 256 + (256 - iter) + (256 - iter));
-			//pixel_put(map, x, y, iter % 360 - iter * iter);
-			x++;
+			pixel_put(map, iter[0], iter[1], 256 * 256 * (256 - iter[2] * 10)
+				+ 256 + (256 - iter[2]) + (256 - iter[2]));
 		}
-		y++;
 	}
 }

@@ -20,7 +20,7 @@ void		ft_error(void)
 
 void		ft_print_choices(void)
 {
-	ft_putstr("-mandelbrot\n-julia\n-sierpinski\n-burning_ship\n");
+	ft_putstr("-mandelbrot\n-julia\n-burning_ship\n");
 	exit(0);
 }
 
@@ -35,8 +35,6 @@ void	draw(t_map *map)
 		mandelbrot(map);
 	else if (!ft_strcmp(map->mode, "julia"))
 		julia(map);
-	else if (!ft_strcmp(map->mode, "sierpinski"))
-		sierpinski(map);
 	else if (!ft_strcmp(map->mode, "burning_ship"))
 		burning_ship(map);
 	else

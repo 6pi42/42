@@ -38,9 +38,9 @@ void	julia(t_map *map)
 				if (comp.r * comp.r + comp.i * comp.i > 4)
 					break ;
 			}
-			//pixel_put(map, x, y, 256 * 256 * (256 - iter * 10)
-			//	+ 256 + (256 - iter) + (256 - iter));
-			pixel_put(map, x, y, iter % 360 - iter * iter);
+			pixel_put(map, x, y, 256 * 256 * (256 - iter * 10)
+				+ 256 + (256 - iter) + (256 - iter));
+			//pixel_put(map, x, y, iter % 360 - iter * iter);
 			x++;
 		}
 		y++;

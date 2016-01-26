@@ -17,8 +17,6 @@ SRC =	main.c			\
 		mandelbrot.c	\
 		utilities.c		\
 		julia.c			\
-		draw_line.c		\
-		sierpinski.c	\
 		burning_ship.c	\
 		event.c			\
 

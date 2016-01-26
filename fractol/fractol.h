@@ -49,17 +49,6 @@ typedef struct		s_comp
 	double			i;
 }					t_comp;
 
-typedef struct		s_bres
-{
-	int				dx;
-	int				dy;
-	int				e;
-	int				sx;
-	int				sy;
-	int				inc1;
-	int				inc2;
-}					t_bres;
-
 typedef struct		s_map
 {
 	t_env			e;
@@ -80,8 +69,6 @@ void				init_img(t_map *map, int color);
 void				mandelbrot(t_map *map);
 void				draw(t_map *map);
 void				julia(t_map *map);
-void				draw_line(t_point pt1, t_point pt2, t_map *map);
-void				sierpinski(t_map *map);
 void				burning_ship(t_map *map);
 int					key_hook(int keycode, t_map *map);
 int					motion_notify(int x, int y, t_map *map);

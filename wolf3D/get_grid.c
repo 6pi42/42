@@ -6,11 +6,11 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/09 11:50:10 by cboyer            #+#    #+#             */
-/*   Updated: 2016/01/26 13:25:30 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/01/26 13:24:27 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "wolf3d.h"
 
 static int		get_height(char *file)
 {
@@ -39,10 +39,6 @@ static	t_point	set_point(int x, int y, char *value)
 	t_point	tmp;
 
 	tmp.z = ft_atoi(value);
-	if ((ft_strchr(value, ',')) && (ft_strlen(ft_strchr(value, ',')) == 10))
-		tmp.color = ft_strsub(ft_strchr(value, ','), 0, 10);
-	else
-		tmp.color = NULL;
 	tmp.y = y;
 	tmp.x = x;
 	free(value);
@@ -67,7 +63,7 @@ static	t_point	*parse_line(char **line, int height, int *width)
 	}
 	*width = i;
 	free(line);
-	line = 0;
+	line = NULL;
 	return (tmp);
 }
 
@@ -87,12 +83,14 @@ static	t_point	**get_map(char *file, int *height, int *width)
 	while (get_next_line(fd, &line) == 1)
 	{
 		map[i] = parse_line(ft_strsplit(line, ' '), i, width);
+		i++;
 		free(line);
 		line = NULL;
-		i++;
 	}
 	if (close(fd) == -1)
 		return (NULL);
+	free(line);
+	line = NULL;
 	return (map);
 }
 
@@ -108,6 +106,5 @@ t_map			*ft_parse(char *file)
 		return (NULL);
 	map->height = height;
 	map->width = width;
-	map = center(map);
 	return (map);
 }

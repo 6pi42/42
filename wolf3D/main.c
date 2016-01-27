@@ -50,10 +50,8 @@ int			main(int argc, const char *argv[])
 		print_grid(map);
 		map->e = e;
 		//mlx_key_hook(map->e.win, key_hook, map);
-		//mlx_expose_hook(map->e.win, expose_hook, map);
+		mlx_expose_hook(map->e.win, expose_hook, map);
 		//mlx_hook(e.win, 6, (1L<<6), motion_notify, map);
-		//mlx_hook(e.win, 6, (1L<<11), circulate_notify_down, map);
-		//mlx_hook(e.win, 6, (1L<<12), circulate_notify_up, map);
 		mlx_loop(e.mlx);
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 16:07:16 by cboyer            #+#    #+#             */
-/*   Updated: 2016/01/26 13:12:14 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/01/28 15:22:37 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,24 @@ void		print_grid(t_map *map)
 	}
 }
 
+void	draw(t_map *map)
+{
+	if (!(map->img.img = mlx_new_image(map->e.mlx, WIDTH, HEIGHT)))
+		ft_error();
+	map->img.data = mlx_get_data_addr(map->img.img, &(map->img.bpp),
+			&(map->img.size_line), &(map->img.endian));
+	init_img(map, 0x000000);
+	raycasting(map);
+	mlx_put_image_to_window(map->e.mlx, map->e.win, map->img.img, 0, 0);
+	mlx_destroy_image(map->e.mlx, map->img.img);
+}
+
+int		expose_hook(t_map *map)
+{
+	draw(map);
+	return (1);
+}
+
 int			main(int argc, const char *argv[])
 {
 	t_map	*map;
@@ -47,9 +65,13 @@ int			main(int argc, const char *argv[])
 	else
 	{
 		map = ft_parse((char*)argv[1]);
-		print_grid(map);
+		//print_grid(map);
 		map->e = e;
-		//mlx_key_hook(map->e.win, key_hook, map);
+		map->cam.fov = 60;
+		map->cam.x = 96;
+		map->cam.y = 96;
+		map->cam.r = 270;
+		mlx_key_hook(map->e.win, key_hook, map);
 		mlx_expose_hook(map->e.win, expose_hook, map);
 		//mlx_hook(e.win, 6, (1L<<6), motion_notify, map);
 		mlx_loop(e.mlx);

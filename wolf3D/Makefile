@@ -6,7 +6,7 @@
 #    By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/01/08 12:28:01 by cboyer            #+#    #+#              #
-#    Updated: 2016/01/26 11:31:10 by cboyer           ###   ########.fr        #
+#    Updated: 2016/01/28 12:40:17 by cboyer           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,9 @@ SRC =	main.c			\
 		pixel_put.c		\
 		get_grid.c		\
 		utilities.c		\
+		get_dist.c		\
+		event.c			\
+		draw_line.c		\
 
 OBJ = $(SRC:.c=.o)
 NAME = wolf3d

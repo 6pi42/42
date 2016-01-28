@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/24 15:05:59 by cboyer            #+#    #+#             */
-/*   Updated: 2016/01/25 16:04:20 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/01/27 12:08:23 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,16 @@
 
 int	key_hook(int keycode, t_map *map)
 {
+	map->pow = 1;
 	if (keycode == KEY_ESC)
 	{
 		mlx_destroy_window(map->e.mlx, map->e.win);
 		exit(0);
 	}
 	if (keycode == 24)
-		map->zoom += 1;
+		map->zoom *= pow(1.2, map->pow);
 	if (keycode == 27)
-		map->zoom -= 1;
+		map->zoom /= pow(1.2, map->pow);
 	if (keycode == 126)
 		map->mouse.y += 10;
 	if (keycode == 125)
@@ -41,13 +42,15 @@ int	motion_notify(int x, int y, t_map *map)
 {
 	if (x < WIDTH && y < HEIGHT && x >= 0 && y >= 0)
 	{
-		if (!ft_strcmp(map->mode ,"julia"))
+		if (!ft_strcmp(map->mode, "julia"))
 		{
-			map->julia.i = 1.5 * (y - map->mouse.y / 2) / (0.5 * map->zoom * HEIGHT);
-			map->julia.r = 1.5 * (x - map->mouse.x / 2) / (0.5 * map->zoom * WIDTH);
+			map->julia.i = 1.5 * (y - map->mouse.y / 2) /
+				(map->zoom * HEIGHT / 2);
+			map->julia.r = 1.5 * (x - map->mouse.x / 2) /
+				(map->zoom * WIDTH / 2);
 			draw(map);
 		}
-		if (!ft_strcmp(map->mode ,"mandelbrot") && y != 0)
+		if (!ft_strcmp(map->mode, "mandelbrot") && y != 0)
 		{
 			map->max_iter = 2 * HEIGHT / y;
 			draw(map);

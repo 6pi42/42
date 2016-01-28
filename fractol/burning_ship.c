@@ -1,18 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mandelbroot.c                                      :+:      :+:    :+:   */
+/*   burning_ship.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   Br: cborer <cborer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/01/23 13:41:11 br cborer            #+#    #+#             */
-/*   Updated: 2016/01/24 15:41:39 bi[1] cboi[1]er           ###   ########.fr       */
+/*   Created: 2016/01/27 11:25:59 by cboyer            #+#    #+#             */
+/*   Updated: 2016/01/27 11:47:10 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	burning_ship(t_map *map)
+static void	init_tmp(t_comp *c)
+{
+	c->i = 0.0;
+	c->r = 0.0;
+}
+
+void		burning_ship(t_map *map)
 {
 	t_comp	c[3];
 	int		i[3];
@@ -25,10 +31,9 @@ void	burning_ship(t_map *map)
 		{
 			c[0].i = 1.5 * (i[1] - map->mouse.y / 2) / (map->zoom * HEIGHT / 2);
 			c[0].r = 1.5 * (i[0] - map->mouse.x / 2) / (map->zoom * WIDTH / 2);
-			c[1].i = 0.0;
-			c[1].r = 0.0;
+			init_tmp(&c[1]);
 			i[2] = 0;
-			while(++i[2] < MAX_ITER)
+			while (++i[2] < MAX_ITER)
 			{
 				c[2].r = c[1].r * c[1].r - c[1].i * c[1].i - c[0].r;
 				c[1].i = 2 * (fabs(c[1].r * c[1].i)) + c[0].i;

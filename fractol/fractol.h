@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/09 11:50:07 by cboyer            #+#    #+#             */
-/*   Updated: 2016/01/25 16:02:25 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/01/27 12:06:30 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 # include "libft.h"
 # include "mlx.h"
 # include <math.h>
-#include <stdio.h>
 # define HEIGHT 1000
 # define WIDTH 1000
 # define KEY_ESC 53
@@ -60,6 +59,7 @@ typedef struct		s_map
 	t_comp			julia;
 	t_point			mouse;
 	int				max_iter;
+	int				pow;
 }					t_map;
 
 void				ft_print_choices(void);

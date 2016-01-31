@@ -16,12 +16,14 @@ int			main(int argc, const char *argv[])
 {
 	t_map	*map;
 
-	map = (t_map*)malloc(sizeof(t_map));
-	map->mode = ft_strdup(argv[1]);
-	if (argc != 2 || (ft_strcmp(map->mode, "julia") && ft_strcmp(map->mode,
-					"mandelbrot") && ft_strcmp(map->mode, "burning_ship")
-				&& ft_strcmp(map->mode, "rabbit")))
+	if (argc != 2 || (ft_strcmp(argv[1], "julia") && ft_strcmp(argv[1],
+					"mandelbrot") && ft_strcmp(argv[1], "burning_ship")
+				&& ft_strcmp(argv[1], "rabbit") && ft_strcmp(argv[1],
+				"siegel")))
 		ft_print_choices();
+	if (!(map = (t_map*)malloc(sizeof(t_map))))
+		return (0);
+	map->mode = ft_strdup(argv[1]);
 	if (!(map->e.mlx = mlx_init()))
 		ft_error();
 	if (!(map->e.win = mlx_new_window(map->e.mlx, WIDTH, HEIGHT, "fractol")))

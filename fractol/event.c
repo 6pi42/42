@@ -51,7 +51,9 @@ int	motion_notify(int x, int y, t_map *map)
 			draw(map);
 		}
 		if ((!ft_strcmp(map->mode, "mandelbrot") ||
-					!ft_strcmp(map->mode, "rabbit")) && y != 0)
+					!ft_strcmp(map->mode, "rabbit") ||
+					!ft_strcmp(map->mode, "siegel") ||
+					!ft_strcmp(map->mode, "burning_ship")) && y != 0)
 		{
 			map->max_iter = 2 * HEIGHT / y;
 			draw(map);

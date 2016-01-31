@@ -76,5 +76,6 @@ int					motion_notify(int x, int y, t_map *map);
 int					expose_hook(t_map *map);
 int					circulate_notify_down(t_map *map);
 int					circulate_notify_up(t_map *map);
+void				siegel(t_map *map);
 
 #endif

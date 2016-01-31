@@ -20,7 +20,7 @@ void	ft_error(void)
 
 void	ft_print_choices(void)
 {
-	ft_putstr("-mandelbrot\n-julia\n-burning_ship\nrabbit\n");
+	ft_putstr("-mandelbrot\n-julia\n-burning_ship\n-rabbit\n-siegel\n");
 	exit(0);
 }
 
@@ -39,6 +39,8 @@ void	draw(t_map *map)
 		burning_ship(map);
 	else if (!ft_strcmp(map->mode, "rabbit"))
 		rabbit(map);
+	else if (!ft_strcmp(map->mode, "siegel"))
+		siegel(map);
 	mlx_put_image_to_window(map->e.mlx, map->e.win, map->img.img, 0, 0);
 	mlx_destroy_image(map->e.mlx, map->img.img);
 }

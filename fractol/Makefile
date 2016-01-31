@@ -16,10 +16,11 @@ SRC =	main.c			\
 		pixel_put.c		\
 		mandelbrot.c	\
 		utilities.c		\
-		julia.c			\
 		burning_ship.c	\
 		event.c			\
 		rabbit.c		\
+		julia.c			\
+		siegel.c		\
 
 OBJ = $(SRC:.c=.o)
 NAME = fractol
@@ -57,7 +58,7 @@ fclean: clean
 debug: $(OBJ)
 	gcc -I ./libft/includes/ -I /usr/local/include -lmlx -framework OpenGL -framework AppKit -g  $(SRC) libft/libft.a
 
-maison: $(OBJ)
-	gcc -L./libft/includes/ -I./libft/ -L./minilibx_macos/ -lft -I./minilibx_macos/ -lmlx -framework OpenGL -framework AppKit $(SRC) -L ./libft/ -lft -o fractol
+maison: lib $(OBJ)
+	gcc -I./libft/includes/ -L./libft/ -lft -L./minilibx_macos/ -I./minilibx_macos/ -lmlx -framework OpenGL -framework AppKit $(SRC) -L ./libft/ -lft -o fractol
 
 re: fclean all

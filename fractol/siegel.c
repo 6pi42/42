@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rabbit.c                                           :+:      :+:    :+:   */
+/*   siegel.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "fractol.h"
 
-void	rabbit(t_map *map)
+void	siegel(t_map *map)
 {
 	t_comp	c[2];
 	int		i[3];
@@ -29,8 +29,8 @@ void	rabbit(t_map *map)
 			while (++i[2] < map->max_iter)
 			{
 				c[1] = c[0];
-				c[0].r = c[1].r * c[1].r - c[1].i * c[1].i - 0.12;
-				c[0].i = 2 * c[1].r * c[1].i + 0.75;
+				c[0].r = c[1].r * c[1].r - c[1].i * c[1].i - 0.39;
+				c[0].i = 2 * c[1].r * c[1].i - 0.58;
 				if (c[0].r * c[0].r + c[0].i * c[0].i > 4)
 					break ;
 			}

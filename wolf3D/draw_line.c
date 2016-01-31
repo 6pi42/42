@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/11 15:21:22 by cboyer            #+#    #+#             */
-/*   Updated: 2016/01/28 13:41:59 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/01/30 14:18:04 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void		bresenmann_1(t_bres *bres, t_point pt1, t_map *map)
 		else
 			bres->e += bres->inc2;
 		x += bres->sx;
-		pixel_put(map, x, y, 0xFFFFFF);
+		pixel_put(map, x, y, 0xFF0000);
 		i++;
 	}
 }
@@ -57,7 +57,7 @@ static void		bresenmann_2(t_bres *bres, t_point pt1, t_map *map)
 		else
 			bres->e += bres->inc2;
 		y += bres->sy;
-		pixel_put(map, x, y, 0xFFFFFF);
+		pixel_put(map, x, y, 0xFF0000);
 		i++;
 	}
 }

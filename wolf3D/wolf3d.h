@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 16:11:53 by cboyer            #+#    #+#             */
-/*   Updated: 2016/01/28 13:26:44 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/01/31 14:23:36 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,15 @@ typedef struct		s_point
 	int				z;
 }					t_point;
 
+typedef struct		s_ray
+{
+	double			dirx;
+	double			diry;
+	double			posx;
+	double			posy;
+	double			camx;
+}					t_ray;
+
 typedef struct		s_bres
 {
 	int				dx;
@@ -67,6 +76,7 @@ typedef struct		s_cam
 	double			y;
 	double			r;
 	int				fov;
+	t_vector		plane;
 }					t_cam;
 
 typedef struct		s_map
@@ -77,6 +87,7 @@ typedef struct		s_map
 	t_img			img;
 	t_point			**map;
 	t_cam			cam;
+	t_vector		dir_perso;
 }					t_map;
 
 void				ft_error(void);

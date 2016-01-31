@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 16:07:16 by cboyer            #+#    #+#             */
-/*   Updated: 2016/01/28 15:22:37 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/01/31 14:12:52 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,12 @@ int			main(int argc, const char *argv[])
 	else
 	{
 		map = ft_parse((char*)argv[1]);
-		//print_grid(map);
 		map->e = e;
-		map->cam.fov = 60;
+		map->cam.fov = 66;
 		map->cam.x = 96;
 		map->cam.y = 96;
+		map->cam.plane.dx = 0;
+		map->cam.plane.dy = 0.66;
 		map->cam.r = 270;
 		mlx_key_hook(map->e.win, key_hook, map);
 		mlx_expose_hook(map->e.win, expose_hook, map);

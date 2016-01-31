@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_dist.c                                         :+:      :+:    :+:   */
+/*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/01/25 16:38:14 by cboyer            #+#    #+#             */
-/*   Updated: 2016/01/28 15:53:01 by cboyer           ###   ########.fr       */
+/*   Created: 2016/01/30 15:56:09 by cboyer            #+#    #+#             */
+/*   Updated: 2016/01/30 15:56:13 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,13 @@ static int	get_vertical(t_map *map, double a, int xa)
 		p1.x += xa;
 		p1.y += ya;
 	}
+	printf("p1.x %d p1.y %d\n", p1.x / UNIT, p1.y / UNIT);
 	return (fabs(map->cam.x - p1.x) / cos(a * M_PI / 180));
 }
 
 static int	get_horizontal(t_map *map, double a, int ya)
 {
-	int	xa;
+	int		xa;
 	t_point	p1;
 	int		i;
 
@@ -55,6 +56,7 @@ static int	get_horizontal(t_map *map, double a, int ya)
 		p1.x += xa;
 		p1.y += ya;
 	}
+	printf("p1.x %d p1.y %d\n", p1.x / UNIT, p1.y / UNIT);
 	return (fabs(map->cam.x - p1.x) / cos(a * M_PI / 180));
 }
 
@@ -65,7 +67,7 @@ static double	get_dist(t_map *map, double a)
 
 	d1 = get_horizontal(map, a, a <= 180 ? UNIT : -UNIT);
 	d2 = get_vertical(map, a, a < 90 || a > 270 ? -UNIT : UNIT);
-	return (d2 > d1 ? d1 : d2);
+	return (d2 > d1 ? fabs(d1) : fabs(d2));
 }
 
 void	raycasting(t_map *map)
@@ -74,7 +76,7 @@ void	raycasting(t_map *map)
 	double	angle;
 	double	height;
 	double	dist;
-	double beta;
+	double	beta;
 	t_point	p[2];
 
 	i = 0;
@@ -82,7 +84,7 @@ void	raycasting(t_map *map)
 	beta = -(map->cam.fov / 2);
 	while (i < WIDTH)
 	{
-		dist = get_dist(map, angle) * cos(beta * M_PI * 180);
+		dist = get_dist(map, angle * cos(beta * M_PI * 180));
 		height = UNIT / dist * (WIDTH / 2 / tan(map->cam.fov / 2 * M_PI / 180));
 		p[0].y = HEIGHT / 2 - (height / 2);
 		p[0].x = i;

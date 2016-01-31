@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/09 11:50:10 by cboyer            #+#    #+#             */
-/*   Updated: 2016/01/27 11:50:36 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/01/31 16:35:40 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int			main(int argc, const char *argv[])
 	map = (t_map*)malloc(sizeof(t_map));
 	map->mode = ft_strdup(argv[1]);
 	if (argc != 2 || (ft_strcmp(map->mode, "julia") && ft_strcmp(map->mode,
-					"mandelbrot") && ft_strcmp(map->mode, "burning_ship")))
+					"mandelbrot") && ft_strcmp(map->mode, "burning_ship")
+				&& ft_strcmp(map->mode, "rabbit")))
 		ft_print_choices();
 	if (!(map->e.mlx = mlx_init()))
 		ft_error();

@@ -1,34 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   event.c                                            :+:      :+:    :+:   */
+/*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/01/27 11:54:41 by cboyer            #+#    #+#             */
-/*   Updated: 2016/01/30 14:53:22 by cboyer           ###   ########.fr       */
+/*   Created: 2016/01/30 15:56:09 by cboyer            #+#    #+#             */
+/*   Updated: 2016/01/31 14:23:30 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
 
-int	key_hook(int keycode, t_map *map)
+void	raycasting(t_map *map)
 {
-	if (keycode == KEY_ESC)
-	{
-		mlx_destroy_window(map->e.mlx, map->e.win);
-		exit(0);
-	}
-	if (keycode == 123)
-	{
-		map->cam.r += 10;
-		draw(map);
-	}
-	if (keycode == 124)
-	{
-		map->cam.r -= 10;
-		draw(map);
-	}
-	return (1);
-}
+	int	i;
+	t_ray	ray;
 
+	i = 0;
+	while (i < WIDTH)
+	{
+		ray.camx = 2 * i / WIDTH - 1;
+		ray.posx = map->cam.x;
+		ray.posy = map->cam.y;
+		ray.dirx = map->dir_perso.dx + map->cam.plane.dx * map->cam.x;
+		ray.diry = map->dir_perso.dy + map->cam.plane.dy * map->cam.y;
+		
+	}
+}

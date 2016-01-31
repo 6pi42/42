@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 12:16:27 by cboyer            #+#    #+#             */
-/*   Updated: 2016/01/25 16:10:31 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/01/30 14:16:07 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	pixel_put(t_map *map, int x, int y, int color)
 	unsigned char	blue;
 	unsigned int	color_value;
 
+	if (x < 0 && x >= WIDTH && y < 0 && y >= HEIGHT)
+		return ;
 	color_value = mlx_get_color_value(map->e.mlx, color);
 	red = (color_value & 0xFF0000) >> 16;
 	green = (color_value & 0xFF00) >> 8;

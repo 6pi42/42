@@ -6,7 +6,7 @@
 #    By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/01/08 12:28:01 by cboyer            #+#    #+#              #
-#    Updated: 2016/01/24 15:06:39 by cboyer           ###   ########.fr        #
+#    Updated: 2016/01/31 16:35:20 by cboyer           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ SRC =	main.c			\
 		julia.c			\
 		burning_ship.c	\
 		event.c			\
+		rabbit.c		\
 
 OBJ = $(SRC:.c=.o)
 NAME = fractol

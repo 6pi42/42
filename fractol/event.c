@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/24 15:05:59 by cboyer            #+#    #+#             */
-/*   Updated: 2016/01/27 12:08:23 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/01/31 16:35:00 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ int	motion_notify(int x, int y, t_map *map)
 				(map->zoom * WIDTH / 2);
 			draw(map);
 		}
-		if (!ft_strcmp(map->mode, "mandelbrot") && y != 0)
+		if ((!ft_strcmp(map->mode, "mandelbrot") ||
+					!ft_strcmp(map->mode, "rabbit")) && y != 0)
 		{
 			map->max_iter = 2 * HEIGHT / y;
 			draw(map);

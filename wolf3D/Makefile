@@ -6,7 +6,7 @@
 #    By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/01/08 12:28:01 by cboyer            #+#    #+#              #
-#    Updated: 2016/01/28 12:40:17 by cboyer           ###   ########.fr        #
+#    Updated: 2016/01/30 15:55:54 by cboyer           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,8 @@ SRC =	main.c			\
 		pixel_put.c		\
 		get_grid.c		\
 		utilities.c		\
-		get_dist.c		\
 		event.c			\
+		raycasting.c	\
 		draw_line.c		\
 
 OBJ = $(SRC:.c=.o)

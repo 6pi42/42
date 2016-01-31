@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/09 11:50:07 by cboyer            #+#    #+#             */
-/*   Updated: 2016/01/27 12:06:30 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/01/31 16:34:01 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void				mandelbrot(t_map *map);
 void				draw(t_map *map);
 void				julia(t_map *map);
 void				burning_ship(t_map *map);
+void				rabbit(t_map *map);
 int					key_hook(int keycode, t_map *map);
 int					motion_notify(int x, int y, t_map *map);
 int					expose_hook(t_map *map);

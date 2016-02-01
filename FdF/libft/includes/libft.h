@@ -6,7 +6,7 @@
 /*   By: cboyer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/10 17:17:42 by cboyer            #+#    #+#             */
-/*   Updated: 2016/01/14 15:15:53 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/01/27 11:36:42 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct		s_buf
 	int				ret;
 }					t_buf;
 
-int				get_next_line(int const fd, char **line);
+int					get_next_line(int const fd, char **line);
 
 void				*ft_memset(void *s, int c, size_t n);
 void				ft_bzero(void *s, size_t n);

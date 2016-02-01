@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/09 11:50:07 by cboyer            #+#    #+#             */
-/*   Updated: 2016/01/14 15:05:57 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/01 21:13:29 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include "libft/includes/libft.h"
 # include "mlx.h"
 # include <fcntl.h>
+# include <math.h>
 # define HEIGHT 1000
 # define WIDTH 1000
 # define KEY_ESC 53
@@ -49,6 +50,8 @@ typedef struct		s_map
 	int				width;
 	t_point			**map;
 	t_img			img;
+	double			angle;
+	t_point			**cart;
 }					t_map;
 
 typedef struct		s_bres
@@ -69,5 +72,6 @@ void				draw(t_map *map);
 void				print_grid(t_map *map);
 void				pixel_put(t_map *map, int x, int y, int color);
 void				init_img(t_map *map, int color);
+void				copy_cart(t_map *map);
 
 #endif

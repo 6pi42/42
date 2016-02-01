@@ -6,7 +6,7 @@
 #    By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/01/08 12:28:01 by cboyer            #+#    #+#              #
-#    Updated: 2016/01/18 10:41:12 by cboyer           ###   ########.fr        #
+#    Updated: 2016/02/01 21:15:15 by cboyer           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ SRC =	main.c			\
 		draw_line.c		\
 		center.c		\
 		pixel_put.c		\
+		cart_grid.c		\
 
 OBJ = $(SRC:.c=.o)
 NAME = fdf

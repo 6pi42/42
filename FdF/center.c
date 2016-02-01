@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/13 10:48:03 by cboyer            #+#    #+#             */
-/*   Updated: 2016/01/14 15:05:24 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/01 22:53:13 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,30 +60,43 @@ static	t_map	*get_offset(t_map *map)
 	return (map);
 }
 
+static void		get_z(t_map *map, int i, int j)
+{
+	if (fmod(map->angle, 180) == 90.0)
+	{
+		map->map[i][j].x -= map->map[i][j].z;
+		map->map[i][j].y -= map->map[i][j].z;
+	}
+	else
+	{
+		map->map[i][j].y += map->map[i][j].z;
+		map->map[i][j].x += map->map[i][j].z;
+	}
+}
+
 t_map			*center(t_map *map)
 {
 	int		i;
 	int		j;
 	int		tmp;
 
-	i = 0;
-	while (i < map->height)
+	i = -1;
+	while (++i < map->height)
 	{
-		j = 0;
-		while (j < map->width)
+		j = -1;
+		while (++j < map->width)
 		{
+			map->map[i][j].x = map->cart[i][j].x;
+			map->map[i][j].y = map->cart[i][j].y;
 			map->map[i][j].x -= (map->width / 2);
 			map->map[i][j].y -= (map->height / 2);
-			map->map[i][j].x -= map->map[i][j].z;
-			map->map[i][j].y -= map->map[i][j].z;
+			get_z(map, i, j);
 			map->map[i][j].x *= WIDTH;
 			map->map[i][j].y *= WIDTH;
 			tmp = map->map[i][j].x;
 			map->map[i][j].x = tmp - map->map[i][j].y;
 			map->map[i][j].y = (tmp + map->map[i][j].y) / 2;
-			j++;
 		}
-		i++;
 	}
 	map = get_offset(map);
 	return (map);

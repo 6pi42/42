@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/11 15:21:22 by cboyer            #+#    #+#             */
-/*   Updated: 2016/01/14 15:05:40 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/01 22:27:03 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ void			draw(t_map *map)
 	int	j;
 
 	i = 0;
+	map = center(map);
 	while (i < map->height)
 	{
 		j = 0;

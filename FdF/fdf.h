@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/09 11:50:07 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/01 21:13:29 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/02 14:27:54 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct		s_bres
 	int				sy;
 	int				inc1;
 	int				inc2;
+	int				z;
 }					t_bres;
 
 t_map				*center(t_map *map);
@@ -73,5 +74,6 @@ void				print_grid(t_map *map);
 void				pixel_put(t_map *map, int x, int y, int color);
 void				init_img(t_map *map, int color);
 void				copy_cart(t_map *map);
+int					get_color(int i);
 
 #endif

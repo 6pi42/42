@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/11 15:21:22 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/01 22:27:03 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/02 14:34:11 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void		bresenmann_1(t_bres *bres, t_point pt1, t_map *map)
 	y = pt1.y;
 	x = pt1.x;
 	i = 0;
-	pixel_put(map, x + (WIDTH / 2), y + (HEIGHT / 2), 0xFF0000);
+	pixel_put(map, x + (WIDTH / 2), y + (HEIGHT / 2), get_color(bres->z));
 	while (i < bres->dx)
 	{
 		if (bres->e >= 0)
@@ -32,7 +32,7 @@ static void		bresenmann_1(t_bres *bres, t_point pt1, t_map *map)
 		else
 			bres->e += bres->inc2;
 		x += bres->sx;
-		pixel_put(map, x + (WIDTH / 2), y + HEIGHT / 2, 0xFFFFFF);
+		pixel_put(map, x + (WIDTH / 2), y + HEIGHT / 2, get_color(bres->z));
 		i++;
 	}
 }
@@ -42,11 +42,12 @@ static void		bresenmann_2(t_bres *bres, t_point pt1, t_map *map)
 	int	i;
 	int	y;
 	int	x;
+//	int	diff;
 
 	y = pt1.y;
 	x = pt1.x;
 	i = 0;
-	pixel_put(map, x + (WIDTH / 2), y + (HEIGHT / 2), 0xFF0000);
+	pixel_put(map, x + (WIDTH / 2), y + (HEIGHT / 2), get_color(bres->z));
 	while (i < bres->dy)
 	{
 		if (bres->e >= 0)
@@ -57,7 +58,7 @@ static void		bresenmann_2(t_bres *bres, t_point pt1, t_map *map)
 		else
 			bres->e += bres->inc2;
 		y += bres->sy;
-		pixel_put(map, x + (WIDTH / 2), y + HEIGHT / 2, 0xFFFFFF);
+		pixel_put(map, x + (WIDTH / 2), y + HEIGHT / 2, get_color(bres->z));
 		i++;
 	}
 }
@@ -86,6 +87,7 @@ static t_bres	*get_bres(t_point pt1, t_point pt2)
 		bres->inc1 = 2 * (bres->dx - bres->dy);
 		bres->inc2 = 2 * (bres->dx);
 	}
+	bres->z = pt1.z != pt2.z ? abs(pt1.z - pt2.z) / 2 : pt1.z;
 	return (bres);
 }
 

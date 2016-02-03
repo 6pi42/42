@@ -6,15 +6,15 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 12:16:27 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/02 14:11:32 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/03 13:51:16 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	get_color(int i)
+int		get_color(int i)
 {
-	return (256 * 256 * (175 - sin(i)) + 256 * (175 - cos(i)) + 175 - sin(i));
+	return (256 * 256 * (175 - cos(i)) + 256 * (175 - sin(i)) + 175 - cos(i));
 }
 
 void	pixel_put(t_map *map, int x, int y, int color)

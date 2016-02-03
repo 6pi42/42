@@ -6,13 +6,13 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/09 11:50:07 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/02 14:27:54 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/03 16:06:36 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
-# include "libft/includes/libft.h"
+# include "libft.h"
 # include "mlx.h"
 # include <fcntl.h>
 # include <math.h>
@@ -52,6 +52,7 @@ typedef struct		s_map
 	t_img			img;
 	double			angle;
 	t_point			**cart;
+	int				z_offset;
 }					t_map;
 
 typedef struct		s_bres
@@ -64,13 +65,13 @@ typedef struct		s_bres
 	int				inc1;
 	int				inc2;
 	int				z;
+	int				tmp;
 }					t_bres;
 
 t_map				*center(t_map *map);
 void				ft_error(void);
 t_map				*ft_parse(char *file);
 void				draw(t_map *map);
-void				print_grid(t_map *map);
 void				pixel_put(t_map *map, int x, int y, int color);
 void				init_img(t_map *map, int color);
 void				copy_cart(t_map *map);

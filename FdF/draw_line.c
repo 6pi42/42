@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/11 15:21:22 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/02 14:34:11 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/03 13:23:14 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ static void		bresenmann_2(t_bres *bres, t_point pt1, t_map *map)
 	int	i;
 	int	y;
 	int	x;
-//	int	diff;
 
 	y = pt1.y;
 	x = pt1.x;
@@ -65,7 +64,7 @@ static void		bresenmann_2(t_bres *bres, t_point pt1, t_map *map)
 
 static t_bres	*get_bres(t_point pt1, t_point pt2)
 {
-	t_bres *bres;
+	t_bres	*bres;
 
 	if (!(bres = malloc(sizeof(t_bres))))
 		ft_error();
@@ -87,7 +86,8 @@ static t_bres	*get_bres(t_point pt1, t_point pt2)
 		bres->inc1 = 2 * (bres->dx - bres->dy);
 		bres->inc2 = 2 * (bres->dx);
 	}
-	bres->z = pt1.z != pt2.z ? abs(pt1.z - pt2.z) / 2 : pt1.z;
+	bres->tmp = pt1.z > pt2.z ? pt2.z : pt1.z;
+	bres->z = pt1.z != pt2.z ? abs(pt1.z - pt2.z) / 2 + bres->tmp : pt1.z;
 	return (bres);
 }
 

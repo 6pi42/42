@@ -6,13 +6,11 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 16:07:16 by cboyer            #+#    #+#             */
-/*   Updated: 2016/01/31 14:12:52 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/04 18:12:43 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
-
-#   include <stdio.h>
 
 void		print_grid(t_map *map)
 {
@@ -65,13 +63,13 @@ int			main(int argc, const char *argv[])
 	else
 	{
 		map = ft_parse((char*)argv[1]);
+		map->player.pos.x = 4.0;
+		map->player.pos.y = 4.0;
+		map->player.dir.x = -1.0;
+		map->player.dir.y = 0.0;
+		map->plane.x = 0.0;
+		map->plane.y = 0.66;
 		map->e = e;
-		map->cam.fov = 66;
-		map->cam.x = 96;
-		map->cam.y = 96;
-		map->cam.plane.dx = 0;
-		map->cam.plane.dy = 0.66;
-		map->cam.r = 270;
 		mlx_key_hook(map->e.win, key_hook, map);
 		mlx_expose_hook(map->e.win, expose_hook, map);
 		//mlx_hook(e.win, 6, (1L<<6), motion_notify, map);

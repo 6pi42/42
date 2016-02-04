@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 16:11:53 by cboyer            #+#    #+#             */
-/*   Updated: 2016/01/31 14:23:36 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/04 18:12:43 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,12 @@ typedef struct		s_img
 	void			*img;
 }					t_img;
 
+typedef struct		s_vec
+{
+	double			x;
+	double			y;
+}					t_vec;
+
 typedef struct		s_point
 {
 	int				x;
@@ -44,14 +50,18 @@ typedef struct		s_point
 	int				z;
 }					t_point;
 
-typedef struct		s_ray
+typedef struct		s_dda
 {
-	double			dirx;
-	double			diry;
-	double			posx;
-	double			posy;
-	double			camx;
-}					t_ray;
+	double			x;
+	double			y;
+	t_vec			dir;
+	t_point			step;
+	t_point			mapcoord;
+	t_vec			side;
+	t_vec			delta;
+	int				sidehit;
+	double			walldist;
+}					t_dda;
 
 typedef struct		s_bres
 {
@@ -64,20 +74,11 @@ typedef struct		s_bres
 	int				inc2;
 }					t_bres;
 
-typedef struct		s_vector
+typedef	struct		s_player
 {
-	double			dx;
-	double			dy;
-}					t_vector;
-
-typedef struct		s_cam
-{
-	double			x;
-	double			y;
-	double			r;
-	int				fov;
-	t_vector		plane;
-}					t_cam;
+	t_vec		dir;
+	t_vec		pos;
+}					t_player;
 
 typedef struct		s_map
 {
@@ -86,8 +87,8 @@ typedef struct		s_map
 	int				width;
 	t_img			img;
 	t_point			**map;
-	t_cam			cam;
-	t_vector		dir_perso;
+	t_player		player;
+	t_vec			plane;
 }					t_map;
 
 void				ft_error(void);

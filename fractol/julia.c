@@ -12,6 +12,11 @@
 
 #include "fractol.h"
 
+int		get_color(int i)
+{
+	return (256 * 256 * (175 - cos(i)) + 256 * (175 - sin(i)) + 175 - sin(i));
+}
+
 void	julia(t_map *map)
 {
 	t_comp	c[2];
@@ -34,8 +39,7 @@ void	julia(t_map *map)
 				if (c[0].r * c[0].r + c[0].i * c[0].i > 4)
 					break ;
 			}
-			pixel_put(map, i[0], i[1], 256 * 256 * (256 - i[2] * 10)
-				+ 256 + (256 - i[2]) + (256 - i[2]));
+			pixel_put(map, i[0], i[1], get_color(i[2]));
 		}
 	}
 }

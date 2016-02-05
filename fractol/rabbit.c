@@ -12,6 +12,11 @@
 
 #include "fractol.h"
 
+static	int		get_color_2(int i)
+{
+	return (256 * 256 * (175 - sin(i)) + 256 * (175 - sin(i)) + 175 - cos(i));
+}
+
 void	rabbit(t_map *map)
 {
 	t_comp	c[2];
@@ -34,8 +39,9 @@ void	rabbit(t_map *map)
 				if (c[0].r * c[0].r + c[0].i * c[0].i > 4)
 					break ;
 			}
-			pixel_put(map, i[0], i[1], 256 * 256 * (256 - i[2] * 10)
-				+ 256 + (256 - i[2]) + (256 - i[2]));
+			//pixel_put(map, i[0], i[1], 256 * 256 * (256 - i[2] * 10)
+			//	+ 256 + (256 - i[2]) + (256 - i[2]));
+			pixel_put(map, i[0], i[1], get_color_2(i[2]));
 		}
 	}
 }

@@ -34,8 +34,7 @@ void	siegel(t_map *map)
 				if (c[0].r * c[0].r + c[0].i * c[0].i > 4)
 					break ;
 			}
-			pixel_put(map, i[0], i[1], 256 * 256 * (256 - i[2] * 10)
-				+ 256 + (256 - i[2]) + (256 - i[2]));
+			pixel_put(map, i[0], i[1], get_color(i[2]));
 		}
 	}
 }

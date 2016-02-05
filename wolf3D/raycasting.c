@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/30 15:56:09 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/04 18:12:42 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/05 12:50:14 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,22 @@ static	void	init_dda(t_dda *dda)
 	dda->delta.y = sqrt(1 + dda->dir.x * dda->dir.x) / (dda->dir.y * dda->dir.y);
 	if (dda->dir.x < 0)
 	{
-		dda->step.x = -1;
+		dda->step.x = -1.0;
 		dda->side.x = (dda->x - (double)dda->mapcoord.x) * dda->delta.x;
 	}
 	else
 	{
-		dda->step.x = 1;
+		dda->step.x = 1.0;
 		dda->side.x = ((double)dda->mapcoord.x + 1.0 - dda->x) * dda->delta.x;
 	}
 	if (dda->dir.y < 0)
 	{
-		dda->step.y = -1;
+		dda->step.y = -1.0;
 		dda->side.y = (dda->y - (double)dda->mapcoord.y) * dda->delta.y;
 	}
 	else
 	{
-		dda->step.y = 1;
+		dda->step.y = 1.0;
 		dda->side.y = ((double)dda->mapcoord.y + 1.0 - dda->y) * dda->delta.y;
 	}
 }
@@ -73,13 +73,14 @@ static void	draw_wall_slice(t_map *map, t_dda *dda, int i)
 	int	height;
 	t_point	pt[2];
 
-	height = abs((int)dda->walldist / HEIGHT);
+	height = abs((int)HEIGHT / (int)dda->walldist);
 	pt[0].x = i;
 	pt[0].y = -height / 2 + HEIGHT / 2;
 	pt[0].y = pt[0].y < 0 ? 0 : pt[0].y;
 	pt[1].y = height / 2 + HEIGHT / 2;
 	pt[1].y = pt[1].y >= HEIGHT ? HEIGHT - 1 : pt[1].y;
 	pt[1].x = pt[0].x;
+	printf("height: %d\n", height);
 	draw_line(pt[0], pt[1], map);
 
 }
@@ -91,14 +92,15 @@ void	raycasting(t_map *map)
 	t_dda	dda;
 
 	i = 0;
-	dda.x = map->player.pos.x;
-	dda.y = map->player.pos.y;
 	while (i < WIDTH)
 	{
-		camX = 2 * (double)i / WIDTH - 1;
+		dda.y = map->player.pos.y;
+		dda.x = map->player.pos.x;
+		camX = (double)(2.0 * (double)i / WIDTH - 1);
 		dda.dir.x = map->player.dir.x + map->plane.x * camX;
 		dda.dir.y = map->player.dir.y + map->plane.y * camX;
 		ft_dda(&dda, map);
+		printf("walldist: %f\n", dda.walldist);
 		draw_wall_slice(map, &dda, i);
 		i++;
 	}

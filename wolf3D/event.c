@@ -6,27 +6,81 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/27 11:54:41 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/04 14:16:36 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/06 21:46:52 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
 
-int	key_hook(int keycode, t_map *map)
+int		expose_hook(t_map *map)
 {
+	draw(map);
+	return (1);
+}
+
+int		key_hook(int keycode, t_map *map)
+{
+	if (keycode == KEY_W)
+		map->key.forward = 0;
+	if (keycode == KEY_S)
+		map->key.behind = 0;
+	if (keycode == KEY_A)
+		map->key.left = 0;
+	if (keycode == KEY_D)
+		map->key.right = 0;
+	if (keycode == KEY_LEFT)
+		map->key.turn_left = 0;
+	if (keycode == KEY_RIGHT)
+		map->key.turn_right = 0;
 	if (keycode == KEY_ESC)
 	{
 		mlx_destroy_window(map->e.mlx, map->e.win);
 		exit(0);
 	}
-	if (keycode == 123)
-	{
-		draw(map);
-	}
-	if (keycode == 124)
-	{
-		draw(map);
-	}
 	return (1);
 }
 
+int		key_press(int keycode, t_map *map)
+{
+	if (keycode == KEY_W)
+		map->key.forward = 1;
+	if (keycode == KEY_S)
+		map->key.behind = 1;
+	if (keycode == KEY_A)
+		map->key.left = 1;
+	if (keycode == KEY_D)
+		map->key.right = 1;
+	if (keycode == KEY_LEFT)
+		map->key.turn_left = 1;
+	if (keycode == KEY_RIGHT)
+		map->key.turn_right = 1;
+	return (1);
+}
+
+void	move(t_map *map)
+{
+	if (map->key.forward == 1)
+	{
+		map->player.pos.x += map->player.dir.x * 0.1;
+		map->player.pos.y += map->player.dir.y * 0.1;
+		draw(map);
+	}
+	if (map->key.behind == 1)
+	{
+		map->player.pos.x -= map->player.dir.x * 0.1;
+		map->player.pos.y -= map->player.dir.y * 0.1;
+		draw(map);
+	}
+	if (map->key.left == 1)
+	{
+		map->player.pos.x += -map->player.dir.y * 0.1;
+		map->player.pos.y += map->player.dir.x * 0.1;
+		draw(map);
+	}
+	if (map->key.right == 1)
+	{
+		map->player.pos.x -= -map->player.dir.y * 0.1;
+		map->player.pos.y -= map->player.dir.x * 0.1;
+		draw(map);
+	}
+}

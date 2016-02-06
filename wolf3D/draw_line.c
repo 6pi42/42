@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/11 15:21:22 by cboyer            #+#    #+#             */
-/*   Updated: 2016/01/30 14:18:04 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/06 21:40:48 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ static t_bres	*get_bres(t_point pt1, t_point pt2)
 	return (bres);
 }
 
-void		draw_line(t_point pt1, t_point pt2, t_map *map)
+void			draw_line(t_point pt1, t_point pt2, t_map *map)
 {
 	t_bres	*bres;
 

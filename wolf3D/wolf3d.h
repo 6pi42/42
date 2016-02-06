@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 16:11:53 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/04 18:12:43 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/06 21:40:09 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,15 @@
 # include <math.h>
 #include <stdio.h>
 
-# define HEIGHT 200
-# define WIDTH 320
+# define HEIGHT 400
+# define WIDTH 640
 # define KEY_ESC 53
+# define KEY_W 13
+# define KEY_S 1
+# define KEY_A 0
+# define KEY_D 2
+# define KEY_LEFT 123
+# define KEY_RIGHT 124
 # define UNIT 64
 
 typedef struct		s_env
@@ -49,6 +55,16 @@ typedef struct		s_point
 	int				y;
 	int				z;
 }					t_point;
+
+typedef struct		s_key
+{
+	int				left;
+	int				right;
+	int				forward;
+	int				behind;
+	int				turn_left;
+	int				turn_right;
+}					t_key;
 
 typedef struct		s_dda
 {
@@ -89,6 +105,7 @@ typedef struct		s_map
 	t_point			**map;
 	t_player		player;
 	t_vec			plane;
+	t_key			key;
 }					t_map;
 
 void				ft_error(void);
@@ -101,5 +118,8 @@ int					motion_notify(int x, int y, t_map *map);
 int					expose_hook(t_map *map);
 t_map				*ft_parse(char *file);
 void				raycasting(t_map *map);
+int					key_press(int keycode, t_map *map);
+void				move(t_map *map);
+void				rotate(t_map *map);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 16:07:16 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/06 13:01:45 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/06 21:43:38 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void		print_grid(t_map *map)
 	}
 }
 
-void	draw(t_map *map)
+void		draw(t_map *map)
 {
 	if (!(map->img.img = mlx_new_image(map->e.mlx, WIDTH, HEIGHT)))
 		ft_error();
@@ -43,10 +43,20 @@ void	draw(t_map *map)
 	mlx_destroy_image(map->e.mlx, map->img.img);
 }
 
-int		expose_hook(t_map *map)
+static void	init_map(t_map *map)
 {
-	draw(map);
-	return (1);
+	map->player.pos.x = 4.0;
+	map->player.pos.y = 3.0;
+	map->player.dir.x = -1.0;
+	map->player.dir.y = 0.0;
+	map->plane.x = 0.0;
+	map->plane.y = 0.66;
+}
+
+static int	loop_hook(t_map *map)
+{
+	move(map);
+	return (0);
 }
 
 int			main(int argc, const char *argv[])
@@ -63,16 +73,12 @@ int			main(int argc, const char *argv[])
 	else
 	{
 		map = ft_parse((char*)argv[1]);
-		map->player.pos.x = 1.0;
-		map->player.pos.y = 3.0;
-		map->player.dir.x = -1.0;
-		map->player.dir.y = 0.0;
-		map->plane.x = 0.0;
-		map->plane.y = 0.66;
+		init_map(map);
 		map->e = e;
+		mlx_hook(e.win, 2, (1L << 0), key_press, map);
 		mlx_key_hook(map->e.win, key_hook, map);
 		mlx_expose_hook(map->e.win, expose_hook, map);
-		//mlx_hook(e.win, 6, (1L<<6), motion_notify, map);
+		mlx_loop_hook(e.mlx, loop_hook, map);
 		mlx_loop(e.mlx);
 	}
 	return (0);

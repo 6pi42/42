@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 16:07:16 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/05 12:49:35 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/06 13:01:45 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int			main(int argc, const char *argv[])
 	{
 		map = ft_parse((char*)argv[1]);
 		map->player.pos.x = 1.0;
-		map->player.pos.y = 2.0;
+		map->player.pos.y = 3.0;
 		map->player.dir.x = -1.0;
 		map->player.dir.y = 0.0;
 		map->plane.x = 0.0;

@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 16:11:53 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/06 21:40:09 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/07 14:48:06 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,5 +121,6 @@ void				raycasting(t_map *map);
 int					key_press(int keycode, t_map *map);
 void				move(t_map *map);
 void				rotate(t_map *map);
+int					collision(t_map *map, int a);
 
 #endif

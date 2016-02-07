@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 16:07:16 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/06 21:43:38 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/07 13:44:04 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,18 @@ void		draw(t_map *map)
 
 static void	init_map(t_map *map)
 {
-	map->player.pos.x = 4.0;
+	map->player.pos.x = 3.0;
 	map->player.pos.y = 3.0;
 	map->player.dir.x = -1.0;
 	map->player.dir.y = 0.0;
 	map->plane.x = 0.0;
 	map->plane.y = 0.66;
+	map->key.right = 0;
+	map->key.left = 0;
+	map->key.forward = 0;
+	map->key.behind = 0;
+	map->key.turn_left = 0;
+	map->key.turn_right = 0;
 }
 
 static int	loop_hook(t_map *map)

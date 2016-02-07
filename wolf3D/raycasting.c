@@ -6,12 +6,26 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/30 15:56:09 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/06 21:46:38 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/07 14:46:41 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
+static int	get_wall_color(int sx, int sy, int side)
+{
+	int color;
 
+	color = 0xFFFFF;
+	if (side == 0 && sx > 0)
+		color = 0xFF0000;
+	else if (side == 0 && sx < 0)
+		color = 0x0000FF;
+	else if (side == 1 && sy > 0)
+		color = 0x00FF00;
+	else if (side == 1 && sy < 0)
+		color = 0xFFFF00;
+	return (color);
+}
 static void	init_dda(t_dda *dda)
 {
 	dda->delta.x = sqrt(1 + (dda->dir.y * dda->dir.y) /
@@ -72,7 +86,9 @@ static void	draw_wall_slice(t_map *map, t_dda *dda, int i)
 {
 	double	height;
 	t_point	pt[2];
+	int		j;
 
+	j = 0;
 	height = fabs((double)HEIGHT / dda->walldist);
 	pt[0].x = i;
 	pt[0].y = HEIGHT / 2 - height / 2;
@@ -82,7 +98,12 @@ static void	draw_wall_slice(t_map *map, t_dda *dda, int i)
 	if (pt[1].y < 0 || pt[1].y > HEIGHT)
 		pt[1].y = HEIGHT - 1;
 	pt[1].x = pt[0].x;
-	draw_line(pt[0], pt[1], map);
+	while (j < abs(pt[0].y - pt[1].y))
+	{
+		pixel_put(map, pt[0].x, pt[0].y + j, get_wall_color(dda->step.x,
+					dda->step.y, dda->sidehit));
+		j++;
+	}
 }
 
 void		raycasting(t_map *map)

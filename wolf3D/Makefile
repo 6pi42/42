@@ -18,7 +18,7 @@ SRC =	main.c			\
 		utilities.c		\
 		event.c			\
 		raycasting.c	\
-		draw_line.c		\
+		move.c			\
 
 OBJ = $(SRC:.c=.o)
 NAME = wolf3d
@@ -57,6 +57,6 @@ debug: $(OBJ)
 	gcc -I ./libft/includes/ -I /usr/local/include -lmlx -framework OpenGL -framework AppKit -g  $(SRC) libft/libft.a
 
 maison: $(OBJ)
-	gcc -L./libft/includes/ -I./libft/ -L./minilibx_macos/ -lft -I./minilibx_macos/ -lmlx -framework OpenGL -framework AppKit $(SRC) -L ./libft/ -lft -o fractol
+	gcc -I./libft/includes/ -L./libft/ -L./minilibx_macos/ -lft -I./minilibx_macos/ -lmlx -framework OpenGL -framework AppKit $(SRC) -o wolf3d
 
 re: fclean all

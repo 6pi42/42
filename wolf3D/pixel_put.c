@@ -41,7 +41,7 @@ void	init_img(t_map *map, int color)
 		j = 0;
 		while (j < WIDTH)
 		{
-			pixel_put(map, j, i, color/*i > HEIGHT / 2 ? color : 0x0000FF*/);
+			pixel_put(map, j, i, i > HEIGHT / 2 ? color : 0x33FFFF);
 			j++;
 		}
 		i++;

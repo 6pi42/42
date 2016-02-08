@@ -17,13 +17,13 @@ static int	get_wall_color(int sx, int sy, int side)
 
 	color = 0xFFFFF;
 	if (side == 0 && sx > 0)
-		color = 0xFF0000;
+		color = 0x330033;
 	else if (side == 0 && sx < 0)
-		color = 0x0000FF;
+		color = 0x0066CC;
 	else if (side == 1 && sy > 0)
-		color = 0x00FF00;
+		color = 0x66FF66;
 	else if (side == 1 && sy < 0)
-		color = 0xFFFF00;
+		color = 0xFFCC66;
 	return (color);
 }
 static void	init_dda(t_dda *dda)

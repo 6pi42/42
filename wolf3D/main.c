@@ -37,7 +37,7 @@ void		draw(t_map *map)
 		ft_error();
 	map->img.data = mlx_get_data_addr(map->img.img, &(map->img.bpp),
 			&(map->img.size_line), &(map->img.endian));
-	init_img(map, 0x000000);
+	init_img(map, 0xA52A2A);
 	raycasting(map);
 	mlx_put_image_to_window(map->e.mlx, map->e.win, map->img.img, 0, 0);
 	mlx_destroy_image(map->e.mlx, map->img.img);

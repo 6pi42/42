@@ -62,6 +62,7 @@ static void	init_map(t_map *map)
 static int	loop_hook(t_map *map)
 {
 	move(map);
+	rotate(map);
 	return (0);
 }
 

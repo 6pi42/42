@@ -56,7 +56,7 @@ fclean: clean
 debug: $(OBJ)
 	gcc -I ./libft/includes/ -I /usr/local/include -lmlx -framework OpenGL -framework AppKit -g  $(SRC) libft/libft.a
 
-maison: $(OBJ)
+maison: lib $(OBJ)
 	gcc -I./libft/includes/ -L./libft/ -L./minilibx_macos/ -lft -I./minilibx_macos/ -lmlx -framework OpenGL -framework AppKit $(SRC) -o wolf3d
 
 re: fclean all

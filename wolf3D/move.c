@@ -28,9 +28,37 @@ int		collision(t_map *map, int a)
 		return (1);
 	return (0);
 }
-/*
+
 void	rotate(t_map *map)
 {
-	
+	t_vec tmp;
+
+	if (map->key.turn_right == 1)
+	{
+		tmp = map->player.dir;
+		map->player.dir.x = tmp.x * cos(-2 * M_PI / 180.0) -
+			tmp.y * sin(-2 * M_PI / 180.0);
+		map->player.dir.y = tmp.x * sin(-2 * M_PI / 180.0) +
+			tmp.y * cos(-2 * M_PI / 180.0);
+		tmp = map->plane;
+		map->plane.x = tmp.x * cos(-2 * M_PI / 180.0) -
+			tmp.y * sin(-2 * M_PI / 180.0);
+		map->plane.y = tmp.x * sin(-2 * M_PI / 180.0) +
+			tmp.y * cos(-2 * M_PI / 180.0);
+		draw(map);
+	}
+	if (map->key.turn_left == 1)
+	{
+		tmp = map->player.dir;
+		map->player.dir.x = tmp.x * cos(2 * M_PI / 180.0) -
+			tmp.y * sin(2 * M_PI / 180.0);
+		map->player.dir.y = tmp.x * sin(2 * M_PI / 180.0) +
+			tmp.y * cos(2 * M_PI / 180.0);
+		tmp = map->plane;
+		map->plane.x = tmp.x * cos(2 * M_PI / 180.0) -
+			tmp.y * sin(2 * M_PI / 180.0);
+		map->plane.y = tmp.x * sin(2 * M_PI / 180.0) +
+			tmp.y * cos(2 * M_PI / 180.0);
+		draw(map);
+	}
 }
-*/

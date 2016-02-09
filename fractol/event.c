@@ -70,9 +70,19 @@ int	buttonpress_hook(int button, int x, int y, t_map *map)
 {
 	if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
 	{
-		if (button == 5)
+		if (button == 5 || button == 1)
+		{
+			if (x > WIDTH / 2)
+				map->mouse.x -= x;
+			else
+				map->mouse.x += x;
+			if (y > HEIGHT / 2)
+				map->mouse.y -= y;
+			else
+				map->mouse.y += y;
 			map->zoom *= 1.1;
-		if (button == 4)
+		}
+		if (button == 4 || button == 2)
 			map->zoom /= 1.1;
 		draw(map);
 	}

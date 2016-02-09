@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/23 15:51:24 by cboyer            #+#    #+#             */
-/*   Updated: 2016/01/31 16:36:08 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/09 16:38:47 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@ void	ft_print_choices(void)
 
 void	draw(t_map *map)
 {
+	char *str;
+	char *tmp;
+
+	str = ft_itoa_base(map->max_iter, 10);
+	tmp = ft_strjoin("Iter:", str);
+	free(str);
 	if (!(map->img.img = mlx_new_image(map->e.mlx, WIDTH, HEIGHT)))
 		ft_error();
 	map->img.data = mlx_get_data_addr(map->img.img, &(map->img.bpp),
@@ -42,5 +48,7 @@ void	draw(t_map *map)
 	else if (!ft_strcmp(map->mode, "siegel"))
 		siegel(map);
 	mlx_put_image_to_window(map->e.mlx, map->e.win, map->img.img, 0, 0);
+	mlx_string_put(map->e.mlx, map->e.win, 0, 0, 0x000000, tmp);
+	free(tmp);
 	mlx_destroy_image(map->e.mlx, map->img.img);
 }

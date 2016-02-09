@@ -6,15 +6,20 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/23 13:18:11 by cboyer            #+#    #+#             */
-/*   Updated: 2016/01/27 11:34:38 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/09 15:55:36 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int		get_color(int i)
+int		get_c(int i)
 {
 	return (256 * 256 * (175 - cos(i)) + 256 * (175 - sin(i)) + 175 - sin(i));
+}
+
+int		get_c2(int i)
+{
+	return (256 * 256 * (175 - sin(i)) + 256 * (175 - sin(i)) + 175 - sin(i));
 }
 
 void	julia(t_map *map)
@@ -39,7 +44,7 @@ void	julia(t_map *map)
 				if (c[0].r * c[0].r + c[0].i * c[0].i > 4)
 					break ;
 			}
-			pixel_put(map, i[0], i[1], get_color(i[2]));
+			pixel_put(map, i[0], i[1], !map->c ? get_c(i[2]) : get_c2(i[2]));
 		}
 	}
 }

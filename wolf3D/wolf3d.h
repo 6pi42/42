@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 16:11:53 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/07 14:48:06 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/09 14:53:42 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define KEY_D 2
 # define KEY_LEFT 123
 # define KEY_RIGHT 124
+# define KEY_P 35
 # define UNIT 64
 
 typedef struct		s_env
@@ -106,6 +107,7 @@ typedef struct		s_map
 	t_player		player;
 	t_vec			plane;
 	t_key			key;
+	int				pause;
 }					t_map;
 
 void				ft_error(void);

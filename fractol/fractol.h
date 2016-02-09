@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/09 11:50:07 by cboyer            #+#    #+#             */
-/*   Updated: 2016/01/31 16:34:01 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/09 16:30:07 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct		s_map
 	t_point			mouse;
 	int				max_iter;
 	int				pow;
+	int				c;
 }					t_map;
 
 void				ft_print_choices(void);
@@ -74,9 +75,10 @@ void				rabbit(t_map *map);
 int					key_hook(int keycode, t_map *map);
 int					motion_notify(int x, int y, t_map *map);
 int					expose_hook(t_map *map);
-int					circulate_notify_down(t_map *map);
-int					circulate_notify_up(t_map *map);
 void				siegel(t_map *map);
-int					get_color(int i);
+int					get_c(int i);
+int					get_c2(int i);
+int					buttonpress_hook(int button, int x, int y, t_map *map);
+char				*ft_itoa_base(int n, int base);
 
 #endif

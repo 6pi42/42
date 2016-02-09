@@ -6,30 +6,12 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 16:07:16 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/07 13:44:04 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/09 16:32:17 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
 
-void		print_grid(t_map *map)
-{
-	int i;
-	int j;
-
-	i = 0;
-	while (i < map->height)
-	{
-		j = 0;
-		while (j < map->width)
-		{
-			printf(" %d ", map->map[i][j].z);
-			j++;
-		}
-		printf("\n");
-		i++;
-	}
-}
 
 void		draw(t_map *map)
 {
@@ -40,6 +22,9 @@ void		draw(t_map *map)
 	init_img(map, 0xA52A2A);
 	raycasting(map);
 	mlx_put_image_to_window(map->e.mlx, map->e.win, map->img.img, 0, 0);
+	if (map->pause)
+		mlx_string_put(map->e.mlx, map->e.win, WIDTH / 2, HEIGHT / 2, 0x606060,
+				"Pause");
 	mlx_destroy_image(map->e.mlx, map->img.img);
 }
 
@@ -57,12 +42,16 @@ static void	init_map(t_map *map)
 	map->key.behind = 0;
 	map->key.turn_left = 0;
 	map->key.turn_right = 0;
+	map->pause = 0;
 }
 
 static int	loop_hook(t_map *map)
 {
-	move(map);
-	rotate(map);
+	if (!map->pause)
+	{
+		move(map);
+		rotate(map);
+	}
 	return (0);
 }
 

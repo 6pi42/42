@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/27 11:25:59 by cboyer            #+#    #+#             */
-/*   Updated: 2016/01/27 11:47:10 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/09 15:57:22 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void		burning_ship(t_map *map)
 				if (c[1].r * c[1].r + c[1].i * c[1].i > 4)
 					break ;
 			}
-			pixel_put(map, i[0], i[1], get_color(i[2]));
+			pixel_put(map, i[0], i[1], !map->c ? get_c(i[2]) : get_c2(i[2]));
 		}
 	}
 }

@@ -6,16 +6,11 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/31 16:31:30 by cboyer            #+#    #+#             */
-/*   Updated: 2016/01/31 16:35:01 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/09 15:54:26 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-
-static	int		get_color_2(int i)
-{
-	return (256 * 256 * (175 - sin(i)) + 256 * (175 - sin(i)) + 175 - cos(i));
-}
 
 void	rabbit(t_map *map)
 {
@@ -39,9 +34,7 @@ void	rabbit(t_map *map)
 				if (c[0].r * c[0].r + c[0].i * c[0].i > 4)
 					break ;
 			}
-			//pixel_put(map, i[0], i[1], 256 * 256 * (256 - i[2] * 10)
-			//	+ 256 + (256 - i[2]) + (256 - i[2]));
-			pixel_put(map, i[0], i[1], get_color_2(i[2]));
+			pixel_put(map, i[0], i[1], !map->c ? get_c(i[2]) : get_c2(i[2]));
 		}
 	}
 }

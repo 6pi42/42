@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/24 15:05:59 by cboyer            #+#    #+#             */
-/*   Updated: 2016/01/31 16:35:00 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/09 15:59:59 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,8 @@ int	key_hook(int keycode, t_map *map)
 		mlx_destroy_window(map->e.mlx, map->e.win);
 		exit(0);
 	}
-	if (keycode == 24)
-		map->zoom *= pow(1.2, map->pow);
-	if (keycode == 27)
-		map->zoom /= pow(1.2, map->pow);
+	if (keycode == 35)
+		map->c = map->c ? 0 : 1;
 	if (keycode == 126)
 		map->mouse.y += 10;
 	if (keycode == 125)
@@ -33,7 +31,7 @@ int	key_hook(int keycode, t_map *map)
 	if (keycode == 124)
 		map->mouse.x -= 10;
 	if (keycode == 124 || keycode == 123 || keycode == 125 || keycode == 126
-			|| keycode == 27 || keycode == 24)
+			|| keycode == 35)
 		draw(map);
 	return (1);
 }
@@ -68,16 +66,15 @@ int	expose_hook(t_map *map)
 	return (1);
 }
 
-int	circulate_notify_down(t_map *map)
+int	buttonpress_hook(int button, int x, int y, t_map *map)
 {
-	map->zoom += 1;
-	draw(map);
-	return (1);
-}
-
-int	circulate_notify_up(t_map *map)
-{
-	map->zoom -= 1;
-	draw(map);
-	return (1);
+	if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
+	{
+		if (button == 5)
+			map->zoom *= 1.1;
+		if (button == 4)
+			map->zoom /= 1.1;
+		draw(map);
+	}
+	return (0);
 }

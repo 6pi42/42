@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/31 16:31:30 by cboyer            #+#    #+#             */
-/*   Updated: 2016/01/31 16:35:01 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/09 15:54:33 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	siegel(t_map *map)
 				if (c[0].r * c[0].r + c[0].i * c[0].i > 4)
 					break ;
 			}
-			pixel_put(map, i[0], i[1], get_color(i[2]));
+			pixel_put(map, i[0], i[1], !map->c ? get_c(i[2]) : get_c2(i[2]));
 		}
 	}
 }

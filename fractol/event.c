@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/24 15:05:59 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/09 15:59:59 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/10 10:07:57 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,17 +71,7 @@ int	buttonpress_hook(int button, int x, int y, t_map *map)
 	if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
 	{
 		if (button == 5 || button == 1)
-		{
-			if (x > WIDTH / 2)
-				map->mouse.x -= x;
-			else
-				map->mouse.x += x;
-			if (y > HEIGHT / 2)
-				map->mouse.y -= y;
-			else
-				map->mouse.y += y;
 			map->zoom *= 1.1;
-		}
 		if (button == 4 || button == 2)
 			map->zoom /= 1.1;
 		draw(map);

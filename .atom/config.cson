@@ -1,0 +1,30 @@
+"*":
+  "exception-reporting":
+    userId: "15f6b4c6-d71e-d49f-1180-bf7f07622ccb"
+  welcome:
+    showOnStartup: false
+  core:
+    themes: [
+      "atom-dark-ui"
+      "monokai"
+    ]
+    disabledPackages: [
+      "minimap-find-and-replace"
+      "minimap"
+    ]
+  editor:
+    invisibles: {}
+    fontSize: 11
+  "header-42": {}
+  minimap:
+    plugins:
+      "find-and-replace": true
+  term3:
+    colors:
+      background:
+        red: 40
+        green: 40
+        blue: 40
+        alpha: 1
+    fontFamily: "Arial Narrow"
+    fontSize: "13"

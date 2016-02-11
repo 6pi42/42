@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   fractol.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/09 11:50:07 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/09 16:30:07 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/11 15:31:52 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,14 @@ typedef struct		s_comp
 	double			i;
 }					t_comp;
 
+typedef struct		s_key
+{
+	int				right;
+	int				left;
+	int				forward;
+	int				backward;
+}					t_key;
+
 typedef struct		s_map
 {
 	t_env			e;
@@ -59,8 +67,8 @@ typedef struct		s_map
 	t_comp			julia;
 	t_point			mouse;
 	int				max_iter;
-	int				pow;
 	int				c;
+	t_key			key;
 }					t_map;
 
 void				ft_print_choices(void);
@@ -80,5 +88,6 @@ int					get_c(int i);
 int					get_c2(int i);
 int					buttonpress_hook(int button, int x, int y, t_map *map);
 char				*ft_itoa_base(int n, int base);
+int					key_press(int keycode, t_map *map);
 
 #endif

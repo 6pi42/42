@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/24 15:05:59 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/10 10:07:57 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/11 14:15:00 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,38 @@
 
 int	key_hook(int keycode, t_map *map)
 {
-	map->pow = 1;
 	if (keycode == KEY_ESC)
 	{
 		mlx_destroy_window(map->e.mlx, map->e.win);
 		exit(0);
 	}
 	if (keycode == 35)
+	{
 		map->c = map->c ? 0 : 1;
-	if (keycode == 126)
-		map->mouse.y += 10;
-	if (keycode == 125)
-		map->mouse.y -= 10;
-	if (keycode == 123)
-		map->mouse.x += 10;
-	if (keycode == 124)
-		map->mouse.x -= 10;
-	if (keycode == 124 || keycode == 123 || keycode == 125 || keycode == 126
-			|| keycode == 35)
 		draw(map);
+	}
+	if (keycode == 126)
+		map->key.backward = 0;
+	if (keycode == 125)
+		map->key.forward = 0;
+	if (keycode == 123)
+		map->key.right = 0;
+	if (keycode == 124)
+		map->key.left = 0;
 	return (1);
+}
+
+int	key_press(int keycode, t_map *map)
+{
+	if (keycode == 126)
+		map->key.backward = 1;
+	if (keycode == 125)
+		map->key.forward = 1;
+	if (keycode == 123)
+		map->key.right = 1;
+	if (keycode == 124)
+		map->key.left = 1;
+	return (0);
 }
 
 int	motion_notify(int x, int y, t_map *map)
@@ -71,9 +83,9 @@ int	buttonpress_hook(int button, int x, int y, t_map *map)
 	if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
 	{
 		if (button == 5 || button == 1)
-			map->zoom *= 1.1;
+			map->zoom *= 1.3;
 		if (button == 4 || button == 2)
-			map->zoom /= 1.1;
+			map->zoom /= 1.3;
 		draw(map);
 	}
 	return (0);

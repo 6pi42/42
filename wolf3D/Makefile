@@ -6,7 +6,7 @@
 #    By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/01/08 12:28:01 by cboyer            #+#    #+#              #
-#    Updated: 2016/01/30 15:55:54 by cboyer           ###   ########.fr        #
+#    Updated: 2016/02/10 14:51:59 by cboyer           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ SRC =	main.c			\
 		event.c			\
 		raycasting.c	\
 		move.c			\
+		ppmreader.c		\
 
 OBJ = $(SRC:.c=.o)
 NAME = wolf3d
@@ -26,7 +27,7 @@ CC = gcc
 RM = rm -f
 CFLAGS = -Wall -Werror -Wextra
 
-LIB_PATH = ./libft/ /usr/local/lib/ #/usr/X11/lib/ 
+LIB_PATH = ./libft/ /usr/local/lib/ #/usr/X11/lib/
 LIB_NAME = -lft -lmlx -framework OpenGL -framework AppKit
 LIB = $(addprefix -L,$(LIB_PATH))
 LFLAGS = $(LIB) $(LIB_NAME)

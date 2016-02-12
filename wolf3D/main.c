@@ -6,12 +6,11 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 16:07:16 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/09 16:32:17 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/12 15:30:46 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
-
 
 void		draw(t_map *map)
 {
@@ -43,6 +42,8 @@ static void	init_map(t_map *map)
 	map->key.turn_left = 0;
 	map->key.turn_right = 0;
 	map->pause = 0;
+	map->sky = get_texture("sky.cboyer", 640, 200);
+	map->flor = get_texture("grass.cboyer", 640, 200);
 }
 
 static int	loop_hook(t_map *map)

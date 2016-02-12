@@ -6,12 +6,13 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/09 09:13:42 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/09 09:23:15 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/10 15:37:54 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
 
-int		**get_tex(t_map *map)
+void draw_sky(t_map *map)
 {
+  
 }

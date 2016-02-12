@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/01/25 16:11:53 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/09 14:53:42 by cboyer           ###   ########.fr       */
+/*   Created: 2016/02/10 14:52:44 by cboyer            #+#    #+#             */
+/*   Updated: 2016/02/12 15:30:47 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,8 @@ typedef struct		s_map
 	t_vec			plane;
 	t_key			key;
 	int				pause;
+	int				**sky;
+	int				**flor;
 }					t_map;
 
 void				ft_error(void);
@@ -124,5 +126,6 @@ int					key_press(int keycode, t_map *map);
 void				move(t_map *map);
 void				rotate(t_map *map);
 int					collision(t_map *map, int a);
+int					**get_texture(char *file_name, int sizel, int sizeh);
 
 #endif

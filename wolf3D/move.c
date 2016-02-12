@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/07 11:55:58 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/09 09:24:09 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/12 14:30:36 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,29 +36,29 @@ void	rotate(t_map *map)
 	if (map->key.turn_right == 1)
 	{
 		tmp = map->player.dir;
-		map->player.dir.x = tmp.x * cos(-2 * M_PI / 180.0) -
-			tmp.y * sin(-2 * M_PI / 180.0);
-		map->player.dir.y = tmp.x * sin(-2 * M_PI / 180.0) +
-			tmp.y * cos(-2 * M_PI / 180.0);
+		map->player.dir.x = tmp.x * cos(-3 * M_PI / 180.0) -
+			tmp.y * sin(-3 * M_PI / 180.0);
+		map->player.dir.y = tmp.x * sin(-3 * M_PI / 180.0) +
+			tmp.y * cos(-3 * M_PI / 180.0);
 		tmp = map->plane;
-		map->plane.x = tmp.x * cos(-2 * M_PI / 180.0) -
-			tmp.y * sin(-2 * M_PI / 180.0);
-		map->plane.y = tmp.x * sin(-2 * M_PI / 180.0) +
-			tmp.y * cos(-2 * M_PI / 180.0);
+		map->plane.x = tmp.x * cos(-3 * M_PI / 180.0) -
+			tmp.y * sin(-3 * M_PI / 180.0);
+		map->plane.y = tmp.x * sin(-3 * M_PI / 180.0) +
+			tmp.y * cos(-3 * M_PI / 180.0);
 		draw(map);
 	}
 	if (map->key.turn_left == 1)
 	{
 		tmp = map->player.dir;
-		map->player.dir.x = tmp.x * cos(2 * M_PI / 180.0) -
-			tmp.y * sin(2 * M_PI / 180.0);
-		map->player.dir.y = tmp.x * sin(2 * M_PI / 180.0) +
-			tmp.y * cos(2 * M_PI / 180.0);
+		map->player.dir.x = tmp.x * cos(3 * M_PI / 180.0) -
+			tmp.y * sin(3 * M_PI / 180.0);
+		map->player.dir.y = tmp.x * sin(3 * M_PI / 180.0) +
+			tmp.y * cos(3 * M_PI / 180.0);
 		tmp = map->plane;
-		map->plane.x = tmp.x * cos(2 * M_PI / 180.0) -
-			tmp.y * sin(2 * M_PI / 180.0);
-		map->plane.y = tmp.x * sin(2 * M_PI / 180.0) +
-			tmp.y * cos(2 * M_PI / 180.0);
+		map->plane.x = tmp.x * cos(3 * M_PI / 180.0) -
+			tmp.y * sin(3 * M_PI / 180.0);
+		map->plane.y = tmp.x * sin(3 * M_PI / 180.0) +
+			tmp.y * cos(3 * M_PI / 180.0);
 		draw(map);
 	}
 }

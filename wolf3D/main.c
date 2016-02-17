@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 16:07:16 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/12 15:30:46 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/17 14:01:37 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	init_map(t_map *map)
 	map->key.turn_right = 0;
 	map->pause = 0;
 	map->sky = get_texture("Sprites/sky.cboyer", 640, 200);
-	map->eagle = get_texture("Sprites/bluestone.cboyer", 64, 64);
+	map->eagle = get_texture("Sprites/colorstone.cboyer", 64, 64);
 }
 
 static int	loop_hook(t_map *map)

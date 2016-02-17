@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/30 15:56:09 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/12 14:28:35 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/17 14:18:37 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ static void	draw_wall_slice(t_map *map, t_dda *dda, int i)
 		j++;
 	}
 }
-*/
+
 static void	draw_wall_slice(t_map *map, t_dda *dda, int i)
 {
 	double	height;
@@ -141,6 +141,31 @@ static void	draw_wall_slice(t_map *map, t_dda *dda, int i)
 		h += d;
 	}
 }
+*/
+#include <stdio.h>
+static void	draw_wall_slice(t_map *map, t_dda *dda, int i)
+{
+	double	height;
+	t_point	pt[2];
+	int		j;
+	double	d;
+	double	h;
+
+	j = 0;
+	h = 0;
+	height = fabs((double)HEIGHT / dda->walldist);
+	pt[0].x = i;
+	pt[0].y = HEIGHT / 2 - height / 2;
+	pt[1].y = HEIGHT / 2 + height / 2;
+	pt[1].x = pt[0].x;
+	d = (double)64 / (double)(pt[1].y - pt[0].y);
+	while (j < abs(pt[0].y - pt[1].y))
+	{
+		pixel_put(map, pt[0].x, pt[0].y + j, map->eagle[(int)h][dda->tex_x]);
+		j++;
+		h += d;
+	}
+}
 
 void		raycasting(t_map *map)
 {
@@ -157,12 +182,10 @@ void		raycasting(t_map *map)
 		dda.dir.x = map->player.dir.x + map->plane.x * camx;
 		dda.dir.y = map->player.dir.y + map->plane.y * camx;
 		ft_dda(&dda, map);
-		if (dda.sidehit == 1)
-			dda.wallhit = dda.x + ((dda.mapcoord.y - dda.y +
-				(1 - dda.step.y) / 2) / dda.dir.y) * dda.dir.x;
+		if (dda.sidehit == 0)
+			dda.wallhit = dda.y + dda.walldist * dda.dir.y;
 		else
-			dda.wallhit = dda.x + ((dda.mapcoord.x - dda.x +
-				(1 - dda.step.x) / 2) / dda.dir.x) * dda.dir.y;
+			dda.wallhit = dda.x + dda.walldist * dda.dir.x;
 		dda.wallhit -= floor(dda.wallhit);
 		dda.tex_x = (int)(dda.wallhit * (double)64);
 		if ((dda.sidehit == 0 && dda.dir.x > 0) || (dda.sidehit && dda.dir.y < 0))

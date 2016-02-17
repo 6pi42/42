@@ -36,7 +36,6 @@ void	init_img(t_map *map, int color)
 	int	j;
 
 	i = 0;
-	(void)color;
 	while (i < HEIGHT)
 	{
 		j = 0;
@@ -45,7 +44,7 @@ void	init_img(t_map *map, int color)
 			if (j < 640 && i < 200)
 				pixel_put(map, j, i,map->sky[i][j]);
 			else
-				pixel_put(map, j, i, map->flor[i - 200][j - 640]);
+				pixel_put(map, j, i, color);
 			j++;
 		}
 		i++;

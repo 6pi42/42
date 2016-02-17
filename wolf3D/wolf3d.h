@@ -27,7 +27,6 @@
 # define KEY_LEFT 123
 # define KEY_RIGHT 124
 # define KEY_P 35
-# define UNIT 64
 
 typedef struct		s_env
 {
@@ -78,6 +77,9 @@ typedef struct		s_dda
 	t_vec			delta;
 	int				sidehit;
 	double			walldist;
+	double			wallhit;
+	int				tex_x;
+	int				tex_y;
 }					t_dda;
 
 typedef struct		s_bres
@@ -109,7 +111,7 @@ typedef struct		s_map
 	t_key			key;
 	int				pause;
 	int				**sky;
-	int				**flor;
+	int				**eagle;
 }					t_map;
 
 void				ft_error(void);

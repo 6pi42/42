@@ -42,8 +42,8 @@ static void	init_map(t_map *map)
 	map->key.turn_left = 0;
 	map->key.turn_right = 0;
 	map->pause = 0;
-	map->sky = get_texture("sky.cboyer", 640, 200);
-	map->flor = get_texture("grass.cboyer", 640, 200);
+	map->sky = get_texture("Sprites/sky.cboyer", 640, 200);
+	map->eagle = get_texture("Sprites/bluestone.cboyer", 64, 64);
 }
 
 static int	loop_hook(t_map *map)
@@ -72,6 +72,7 @@ int			main(int argc, const char *argv[])
 		map = ft_parse((char*)argv[1]);
 		init_map(map);
 		map->e = e;
+		//system("afplay wolf.mp3&");
 		mlx_hook(e.win, 2, (1L << 0), key_press, map);
 		mlx_key_hook(map->e.win, key_hook, map);
 		mlx_expose_hook(map->e.win, expose_hook, map);

@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pixel_put.c                                        :+:      :+:    :+:   */
+/*   mini_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/01/14 12:16:27 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/17 17:34:57 by cboyer           ###   ########.fr       */
+/*   Created: 2016/02/17 17:03:27 by cboyer            #+#    #+#             */
+/*   Updated: 2016/02/17 17:34:46 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
 
-void	pixel_put(t_map *map, int x, int y, int color)
+static void	pixel_put_mmap(t_map *map, int x, int y, int color)
 {
 	unsigned char	red;
 	unsigned char	green;
@@ -25,23 +25,34 @@ void	pixel_put(t_map *map, int x, int y, int color)
 	red = (color_value & 0xFF0000) >> 16;
 	green = (color_value & 0xFF00) >> 8;
 	blue = (color_value & 0xFF);
-	map->img.data[y * map->img.size_line + (x * map->img.bpp) / 8] = blue;
-	map->img.data[y * map->img.size_line + (x * map->img.bpp) / 8 + 1] = green;
-	map->img.data[y * map->img.size_line + (x * map->img.bpp) / 8 + 2] = red;
+	map->mmap.data[y * map->img.size_line + (x * map->img.bpp) / 8] = blue;
+	map->mmap.data[y * map->img.size_line + (x * map->img.bpp) / 8 + 1] = green;
+	map->mmap.data[y * map->mmap.size_line + (x * map->img.bpp) / 8 + 2] = red;
 }
 
-void	init_img(t_map *map, int color)
+static void	draw_rect(int i, int j)
+{
+	int	y;
+	int	x;
+
+	y = i + 10;
+	x = j + 10;
+
+}
+
+void		mini_map(t_map *map)
 {
 	int	i;
 	int	j;
 
-	i = 0;
-	while (i < HEIGHT)
+	if (!(map->mmap.img = mlx_new_image(map->e.mlx, 100, 100)))
+		ft_error();
+	i = (int)map->player.pos.y - 5;
+	while (i < (int)map->player.pos.y + 5)
 	{
-		j = 0;
-		while (j < WIDTH)
+		j = (int)map->player.pos.x - 5;
+		while (j < (int)map->player.pos.x - 5)
 		{
-			pixel_put(map, j, i, i < HEIGHT / 2 ? color : 0x700000);
 			j++;
 		}
 		i++;

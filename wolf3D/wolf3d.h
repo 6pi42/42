@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/10 14:52:44 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/12 15:30:47 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/17 17:34:50 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 # include <math.h>
 #include <stdio.h>
 
-# define HEIGHT 400
-# define WIDTH 640
+# define HEIGHT 480
+# define WIDTH 720
 # define KEY_ESC 53
 # define KEY_W 13
 # define KEY_S 1
@@ -112,6 +112,7 @@ typedef struct		s_map
 	int				pause;
 	int				**sky;
 	int				**eagle;
+	t_img			mmap;
 }					t_map;
 
 void				ft_error(void);
@@ -129,5 +130,6 @@ void				move(t_map *map);
 void				rotate(t_map *map);
 int					collision(t_map *map, int a);
 int					**get_texture(char *file_name, int sizel, int sizeh);
+void				mini_map(t_map *map);
 
 #endif

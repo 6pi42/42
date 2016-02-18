@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 16:07:16 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/17 17:34:59 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/18 13:27:53 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ void		draw(t_map *map)
 			&(map->img.size_line), &(map->img.endian));
 	init_img(map, 0xA52A2A);
 	raycasting(map);
+	mini_map(map);
 	mlx_put_image_to_window(map->e.mlx, map->e.win, map->img.img, 0, 0);
+	mlx_put_image_to_window(map->e.mlx, map->e.win, map->mmap.img, WIDTH - 125,
+		HEIGHT - 125);
 	if (map->pause)
 		mlx_string_put(map->e.mlx, map->e.win, WIDTH / 2, HEIGHT / 2, 0x606060,
 				"Pause");

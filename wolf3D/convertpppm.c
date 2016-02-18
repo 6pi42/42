@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/10 14:07:09 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/12 15:30:48 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/18 12:46:19 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	get_color(int fd)
 	get_next_line(fd, &line);
 	blue = ft_atoi(line);
 	free(line);
-	return (256 * 256 * red + 256 * green + blue);
+	return (256 * 256 * blue + 256 * green + red);
 }
 
 static int	*get_line(int fd, int size)

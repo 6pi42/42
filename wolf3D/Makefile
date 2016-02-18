@@ -6,7 +6,7 @@
 #    By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/01/08 12:28:01 by cboyer            #+#    #+#              #
-#    Updated: 2016/02/12 15:30:49 by cboyer           ###   ########.fr        #
+#    Updated: 2016/02/18 13:06:13 by cboyer           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRC =	main.c			\
 		raycasting.c	\
 		move.c			\
 		ppmreader.c		\
+		mini_map.c		\
 
 OBJ = $(SRC:.c=.o)
 NAME = wolf3d

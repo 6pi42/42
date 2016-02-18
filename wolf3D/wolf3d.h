@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/10 14:52:44 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/17 17:34:50 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/18 11:40:12 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,5 +131,6 @@ void				rotate(t_map *map);
 int					collision(t_map *map, int a);
 int					**get_texture(char *file_name, int sizel, int sizeh);
 void				mini_map(t_map *map);
+int					get_hex_color(t_map *map, int x, int y);
 
 #endif

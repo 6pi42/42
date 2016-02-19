@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/10 14:52:44 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/18 11:40:12 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/19 13:55:57 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,10 +110,16 @@ typedef struct		s_map
 	t_vec			plane;
 	t_key			key;
 	int				pause;
-	int				**sky;
 	int				**eagle;
 	t_img			mmap;
 }					t_map;
+
+typedef struct		s_args
+{
+	t_map			*map;
+	t_point			min;
+	t_point			max;
+}					t_args;
 
 void				ft_error(void);
 void				pixel_put(t_map *map, int x, int y, int color);
@@ -132,5 +138,6 @@ int					collision(t_map *map, int a);
 int					**get_texture(char *file_name, int sizel, int sizeh);
 void				mini_map(t_map *map);
 int					get_hex_color(t_map *map, int x, int y);
+void				free_map(t_map *map);
 
 #endif

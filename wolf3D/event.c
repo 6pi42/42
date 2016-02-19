@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/27 11:54:41 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/17 17:34:48 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/19 13:29:36 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int		key_hook(int keycode, t_map *map)
 	{
 		mlx_destroy_window(map->e.mlx, map->e.win);
 		//system("killall afplay");
-		exit(0);
+		free_map(map);
 	}
 	if (keycode == KEY_P)
 	{

@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/17 17:03:27 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/18 17:50:56 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/19 14:19:13 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,23 +101,23 @@ void		mini_map(t_map *map)
 {
 	int	i;
 	int	j;
-	int	x;
-	int	y;
+	int	tmp[2];
 
 	if (!(map->mmap.img = mlx_new_image(map->e.mlx, 100, 100)))
 		ft_error();
 	map->mmap.data = mlx_get_data_addr(map->mmap.img, &(map->mmap.bpp),
 			&(map->mmap.size_line), &(map->mmap.endian));
 	init_mmap(map);
-	y = (int)map->player.pos.y - 5 > 0 ? 0 : abs((int)map->player.pos.y - 5);
-	x = (int)map->player.pos.x - 5 > 0 ? 0 : abs((int)map->player.pos.x - 5);
-	j = (int)map->player.pos.x - 5;
 	i = (int)map->player.pos.y - 5;
-	while (i < map->height && i - y < (int)map->player.pos.y + 5)
+	j = (int)map->player.pos.x - 5;
+	tmp[0] = i;
+	tmp[1] = j;
+	while (i < (int)map->player.pos.y + 5 && i < map->height)
 	{
-		while (j < map->width && j - x < (int)map->player.pos.x + 5)
+		while (j < (int)map->player.pos.x + 5 && j < map->width)
 		{
-			draw_rect(map, i - y, j - x);
+			if (j >= 0 && i >= 0 && map->map[i][j].z != 0)
+				draw_rect(map, i + tmp[0], j + tmp[1]);
 			j++;
 		}
 		i++;

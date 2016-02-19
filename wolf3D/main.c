@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 16:07:16 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/18 13:27:53 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/19 14:14:53 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void		draw(t_map *map)
 		mlx_string_put(map->e.mlx, map->e.win, WIDTH / 2, HEIGHT / 2, 0x606060,
 				"Pause");
 	mlx_destroy_image(map->e.mlx, map->img.img);
+	mlx_destroy_image(map->e.mlx, map->mmap.img);
 }
 
 static void	init_map(t_map *map)

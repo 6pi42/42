@@ -17,9 +17,9 @@
 # include <math.h>
 # include <pthread.h>
 #include <stdio.h>
-
-# define HEIGHT 900
-# define WIDTH 1800
+ 
+# define HEIGHT 768
+# define WIDTH 1024
 # define KEY_ESC 53
 # define KEY_W 13
 # define KEY_S 1

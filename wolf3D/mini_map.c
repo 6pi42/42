@@ -31,7 +31,7 @@ static void	pixel_put_mmap(t_map *map, int x, int y, int color)
 	map->mmap.data[y * map->mmap.size_line + (x * map->mmap.bpp) / 8 + 2] = red;
 }
 
-static void	draw_rect(t_map *map, int i, int j)
+/*static void	draw_rect(t_map *map, int i, int j)
 {
 	int	y;
 	int	x;
@@ -52,7 +52,7 @@ static void	draw_rect(t_map *map, int i, int j)
 		}
 		y++;
 	}
-}
+}*/
 
 static void	init_mmap(t_map *map)
 {
@@ -108,11 +108,11 @@ void		mini_map(t_map *map)
 	map->mmap.data = mlx_get_data_addr(map->mmap.img, &(map->mmap.bpp),
 			&(map->mmap.size_line), &(map->mmap.endian));
 	init_mmap(map);
-	i = (int)map->player.pos.y - 5;
-	j = (int)map->player.pos.x - 5;
+	i = (int)floor(map->player.pos.y - 5);
+	j = (int)floor(map->player.pos.x - 5);
 	tmp[0] = i;
 	tmp[1] = j;
-	while (i < (int)map->player.pos.y + 5 && i < map->height)
+/*	while (i < (int)map->player.pos.y + 5 && i < map->height)
 	{
 		while (j < (int)map->player.pos.x + 5 && j < map->width)
 		{
@@ -121,6 +121,6 @@ void		mini_map(t_map *map)
 			j++;
 		}
 		i++;
-	}
+	}*/
 	draw_player(map);
 }

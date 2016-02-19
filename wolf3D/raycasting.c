@@ -92,14 +92,18 @@ static void	draw_wall_slice(t_map *map, t_dda *dda, int i)
 	}
 }
 
-void		raycasting(t_map *map)
+void		raycasting(void *args)
 {
 	int		i;
 	double	camx;
 	t_dda	dda;
+	t_map	*map;
+	t_args	*arg;
 
-	i = 0;
-	while (i < WIDTH)
+	arg = (t_args*)args;
+	map = arg->map;
+	i = arg->min;
+	while (i < arg->max)
 	{
 		dda.y = map->player.pos.y;
 		dda.x = map->player.pos.x;

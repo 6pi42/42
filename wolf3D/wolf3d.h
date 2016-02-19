@@ -15,10 +15,11 @@
 # include "libft.h"
 # include "mlx.h"
 # include <math.h>
+# include <pthread.h>
 #include <stdio.h>
 
-# define HEIGHT 480
-# define WIDTH 720
+# define HEIGHT 900
+# define WIDTH 1800
 # define KEY_ESC 53
 # define KEY_W 13
 # define KEY_S 1
@@ -117,8 +118,8 @@ typedef struct		s_map
 typedef struct		s_args
 {
 	t_map			*map;
-	t_point			min;
-	t_point			max;
+	int				min;
+	int				max;
 }					t_args;
 
 void				ft_error(void);
@@ -130,7 +131,7 @@ void				draw_line(t_point pt1, t_point pt2, t_map *map);
 int					motion_notify(int x, int y, t_map *map);
 int					expose_hook(t_map *map);
 t_map				*ft_parse(char *file);
-void				raycasting(t_map *map);
+void				raycasting(void *map);
 int					key_press(int keycode, t_map *map);
 void				move(t_map *map);
 void				rotate(t_map *map);
@@ -139,5 +140,6 @@ int					**get_texture(char *file_name, int sizel, int sizeh);
 void				mini_map(t_map *map);
 int					get_hex_color(t_map *map, int x, int y);
 void				free_map(t_map *map);
+void				multi_threading(t_map *map, void *f);
 
 #endif

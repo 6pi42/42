@@ -62,4 +62,6 @@ debug: lib $(OBJ)
 maison: lib $(OBJ)
 	gcc -I./libft/includes/ -L./libft/ -L./minilibx_macos/ -lft -I./minilibx_macos/ -lmlx -framework OpenGL -framework AppKit $(SRC) -o wolf3d
 
+re_maison: fclean maison
+
 re: fclean all

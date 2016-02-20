@@ -94,13 +94,13 @@ static void	draw_wall_slice(t_map *map, t_dda *dda, int i)
 	pt[1].x = pt[0].x;
 	d = (double)64 / (double)(pt[1].y - pt[0].y);
 	h = 0;
-	draw_sky_floor(map, dda,pt[0], pt[1]);
 	while (j < abs(pt[0].y - pt[1].y))
 	{
 		pixel_put(map, pt[0].x, pt[0].y + j, map->eagle[(int)h][dda->tex_x]);
 		j++;
 		h += d;
 	}
+	floorcasting(map, dda, pt[1]);
 }
 
 void		raycasting(void *args)

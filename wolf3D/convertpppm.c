@@ -28,7 +28,7 @@ static int	get_color(int fd)
 	get_next_line(fd, &line);
 	blue = ft_atoi(line);
 	free(line);
-	return (256 * 256 * blue + 256 * green + red);
+	return (256 * 256 * red + 256 * green + blue);
 }
 
 static int	*get_line(int fd, int size)

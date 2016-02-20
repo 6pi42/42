@@ -18,8 +18,8 @@
 # include <pthread.h>
 #include <stdio.h>
 
-# define HEIGHT 1400
-# define WIDTH 2400
+# define HEIGHT 900
+# define WIDTH 1800
 # define KEY_ESC 53
 # define KEY_W 13
 # define KEY_S 1
@@ -121,6 +121,7 @@ typedef struct		s_map
 	int				pause;
 	int				**eagle;
 	int				**wood;
+	int				**sky;
 	t_vec			ground;
 	t_img			mmap;
 }					t_map;
@@ -134,8 +135,6 @@ typedef struct		s_args
 
 typedef struct		s_ground
 {
-	double			walldist;
-	double			playerdist;
 	double			currentdist;
 	double			weight;
 	t_vec			currentfloor;
@@ -162,6 +161,6 @@ int					get_hex_color(t_map *map, int x, int y);
 void				free_map(t_map *map);
 void				multi_threading(t_map *map, void *f);
 void				pixel_put_mmap(t_map *map, int x, int y, int color);
-void				draw_sky_floor(t_map *map, t_dda *dda, t_point p1, t_point p2);
+void				floorcasting(t_map *map, t_dda *dda, t_point p);
 
 #endif

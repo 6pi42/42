@@ -44,7 +44,8 @@ static void	init_map(t_map *map)
 	map->key.turn_right = 0;
 	map->pause = 0;
 	map->eagle = get_texture("Sprites/mossy.cboyer", 64, 64);
-	map->wood = get_texture("Sprites/wood.cboyer", 64, 64);
+	map->wood = get_texture("Sprites/colorstone.cboyer", 64, 64);
+	map->sky = get_texture("Sprites/greystone.cboyer", 64, 64);
 }
 
 static int	loop_hook(t_map *map)

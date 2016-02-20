@@ -61,10 +61,10 @@ debug: lib $(OBJ)
 	gcc -I ./libft/includes/ -I /usr/local/include -lmlx -framework OpenGL -framework AppKit -g -L./libft/ -lft $(SRC) -o $(NAME)
 
 mlibx:
-	make -C minilibx_macos re
+	make -C minilibx_macos
 
 maison: lib mlibx $(OBJ)
-	gcc -I./libft/includes/ -L./libft/ -L./minilibx_macos/ -lft -I./minilibx_macos/ -lmlx -framework OpenGL -framework AppKit $(SRC) -o wolf3d
+	gcc -I./libft/includes/ -L./libft/ -L./minilibx_macos/ -lft -I./minilibx_macos/ -lmlx -framework OpenGL -framework AppKit $(OBJ) -o wolf3d
 
 re_maison: fclean mlibx maison
 

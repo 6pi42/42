@@ -6,7 +6,7 @@
 #    By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/01/08 12:28:01 by cboyer            #+#    #+#              #
-#    Updated: 2016/02/19 13:38:33 by cboyer           ###   ########.fr        #
+#    Updated: 2016/02/20 16:47:09 by cboyer           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRC =	main.c			\
 		ppmreader.c		\
 		mini_map.c		\
 		free_map.c		\
+		raycasting2.c	\
 
 OBJ = $(SRC:.c=.o)
 NAME = wolf3d
@@ -59,9 +60,12 @@ fclean: clean
 debug: lib $(OBJ)
 	gcc -I ./libft/includes/ -I /usr/local/include -lmlx -framework OpenGL -framework AppKit -g -L./libft/ -lft $(SRC) -o $(NAME)
 
-maison: lib $(OBJ)
+mlibx:
+	make -C minilibx_macos re
+
+maison: lib mlibx $(OBJ)
 	gcc -I./libft/includes/ -L./libft/ -L./minilibx_macos/ -lft -I./minilibx_macos/ -lmlx -framework OpenGL -framework AppKit $(SRC) -o wolf3d
 
-re_maison: fclean maison
+re_maison: fclean mlibx maison
 
 re: fclean all

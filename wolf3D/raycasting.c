@@ -6,11 +6,22 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/30 15:56:09 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/17 17:35:00 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/20 17:01:59 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
+
+static void	init_dda_first(t_dda *dda, t_map *map, int i)
+{
+	double	camx;
+
+	dda->y = map->player.pos.y;
+	dda->x = map->player.pos.x;
+	camx = (double)(2.0 * i / WIDTH - 1);
+	dda->dir.x = map->player.dir.x + map->plane.x * camx;
+	dda->dir.y = map->player.dir.y + map->plane.y * camx;
+}
 
 static void	init_dda(t_dda *dda)
 {
@@ -70,20 +81,20 @@ static void	ft_dda(t_dda *dda, t_map *map)
 
 static void	draw_wall_slice(t_map *map, t_dda *dda, int i)
 {
-	double	height;
 	t_point	pt[2];
 	int		j;
 	double	d;
 	double	h;
 
 	j = 0;
-	h = 0;
-	height = fabs((double)HEIGHT / dda->walldist);
+	h = fabs((double)HEIGHT / dda->walldist);
 	pt[0].x = i;
-	pt[0].y = HEIGHT / 2 - height / 2;
-	pt[1].y = HEIGHT / 2 + height / 2;
+	pt[0].y = HEIGHT / 2 - h / 2;
+	pt[1].y = HEIGHT / 2 + h / 2;
 	pt[1].x = pt[0].x;
 	d = (double)64 / (double)(pt[1].y - pt[0].y);
+	h = 0;
+	draw_sky_floor(map, dda,pt[0], pt[1]);
 	while (j < abs(pt[0].y - pt[1].y))
 	{
 		pixel_put(map, pt[0].x, pt[0].y + j, map->eagle[(int)h][dda->tex_x]);
@@ -95,7 +106,6 @@ static void	draw_wall_slice(t_map *map, t_dda *dda, int i)
 void		raycasting(void *args)
 {
 	int		i;
-	double	camx;
 	t_dda	dda;
 	t_map	*map;
 	t_args	*arg;
@@ -105,11 +115,7 @@ void		raycasting(void *args)
 	i = arg->min;
 	while (i < arg->max)
 	{
-		dda.y = map->player.pos.y;
-		dda.x = map->player.pos.x;
-		camx = (double)(2.0 * i / WIDTH - 1);
-		dda.dir.x = map->player.dir.x + map->plane.x * camx;
-		dda.dir.y = map->player.dir.y + map->plane.y * camx;
+		init_dda_first(&dda, map, i);
 		ft_dda(&dda, map);
 		if (dda.sidehit == 0)
 			dda.wallhit = dda.y + dda.walldist * dda.dir.y;

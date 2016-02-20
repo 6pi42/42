@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 16:07:16 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/19 14:14:53 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/20 14:58:26 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,14 @@ void		draw(t_map *map)
 		ft_error();
 	map->img.data = mlx_get_data_addr(map->img.img, &(map->img.bpp),
 			&(map->img.size_line), &(map->img.endian));
-	init_img(map, 0xA52A2A);
+	//init_img(map, 0xA52A2A);
 	multi_threading(map, &raycasting);
-	mini_map(map);
 	mlx_put_image_to_window(map->e.mlx, map->e.win, map->img.img, 0, 0);
-	mlx_put_image_to_window(map->e.mlx, map->e.win, map->mmap.img, WIDTH - 125,
-		HEIGHT - 125);
+	mini_map(map);
 	if (map->pause)
 		mlx_string_put(map->e.mlx, map->e.win, WIDTH / 2, HEIGHT / 2, 0x606060,
 				"Pause");
 	mlx_destroy_image(map->e.mlx, map->img.img);
-	mlx_destroy_image(map->e.mlx, map->mmap.img);
 }
 
 static void	init_map(t_map *map)
@@ -47,6 +44,7 @@ static void	init_map(t_map *map)
 	map->key.turn_right = 0;
 	map->pause = 0;
 	map->eagle = get_texture("Sprites/mossy.cboyer", 64, 64);
+	map->wood = get_texture("Sprites/wood.cboyer", 64, 64);
 }
 
 static int	loop_hook(t_map *map)

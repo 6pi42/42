@@ -6,53 +6,43 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/17 17:03:27 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/19 14:19:13 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/20 17:02:03 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
 
-static void	pixel_put_mmap(t_map *map, int x, int y, int color)
+static void	init_pos(t_map *map, t_pos *start, t_pos *end)
 {
-	unsigned char	red;
-	unsigned char	green;
-	unsigned char	blue;
-	unsigned int	color_value;
+	int x;
+	int y;
 
-	if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
-		return ;
-	color_value = mlx_get_color_value(map->e.mlx, color);
-	red = (color_value & 0xFF0000) >> 16;
-	green = (color_value & 0xFF00) >> 8;
-	blue = (color_value & 0xFF);
-	map->mmap.data[y * map->mmap.size_line + (x * map->mmap.bpp) / 8] = blue;
-	map->mmap.data[y * map->mmap.size_line + (x * map->mmap.bpp) / 8 + 1] =
-			green;
-	map->mmap.data[y * map->mmap.size_line + (x * map->mmap.bpp) / 8 + 2] = red;
+	x = (int)floor(map->player.pos.x);
+	y = (int)floor(map->player.pos.y);
+	start->x = x - 5 > 0 ? x - 5 : 0;
+	end->x = x + 5 < map->width ? x + 5 : map->width;
+	start->y = y - 5 > 0 ? y - 5 : 0;
+	end->y = y + 5 < map->height ? y + 5 : map->height;
 }
 
-/*static void	draw_rect(t_map *map, int i, int j)
+static void	draw_square(t_map *map, int x, int y, int color)
 {
-	int	y;
-	int	x;
-	int	maxx;
-	int	maxy;
+	int i;
+	int j;
 
-	y = i * 10;
-	x = j * 10;
-	maxx = x + 10;
-	maxy = y + 10;
-	while (y < maxy)
+	i = y + 10;
+	j = x + 10;
+	while (y < i)
 	{
-		x = j * 10;
-		while (x < maxx)
+		x = j - 10;
+		while (x < j)
 		{
-			pixel_put_mmap(map, x, y, 0xFFFFFF);
+			pixel_put_mmap(map, x, y, color);
 			x++;
 		}
 		y++;
 	}
-}*/
+}
 
 static void	init_mmap(t_map *map)
 {
@@ -79,48 +69,49 @@ static void	init_mmap(t_map *map)
 	}
 }
 
-static void	draw_player(t_map *map)
+static void	print_map(t_map *map)
 {
-	int	i;
-	int	j;
+	int		tmp;
+	int		color;
+	int		i;
+	int		j;
+	t_pos	start;
+	t_pos	end;
 
-	i = 48;
-	while (i < 52)
+	init_pos(map, &start, &end);
+	j = 10 - (end.y - start.y);
+	j = end.y == map->width ? 0 : 10 - (end.y - start.y);
+	while (start.y < end.y)
 	{
-		j = 48;
-		while (j < 52)
+		tmp = start.x;
+		i = 10 - (end.x - tmp);
+		i = end.x == map->height ? 0 : 10 - (end.x - start.x);
+		while (tmp < end.x)
 		{
-			pixel_put_mmap(map, j, i, 0xEDFF0C);
-			j++;
+			color = map->map[tmp][start.y].z == 0 ? 0x010101 : 0xFF0000;
+			if (map->map[tmp][start.y].z != 0)
+				draw_square(map, (j * 10) - (fmod(map->player.pos.y, 1) * 10 ),
+					(i * 10) - (fmod(map->player.pos.x, 1) * 10), color);
+			tmp++;
+			i++;
 		}
-		i++;
+		start.y++;
+		j++;
 	}
 }
 
-void		mini_map(t_map *map)
+void	mini_map(t_map *map)
 {
-	int	i;
-	int	j;
-	int	tmp[2];
-
-	if (!(map->mmap.img = mlx_new_image(map->e.mlx, 100, 100)))
-		ft_error();
+	map->mmap.img = mlx_new_image(map->e.mlx, 100, 100);
 	map->mmap.data = mlx_get_data_addr(map->mmap.img, &(map->mmap.bpp),
 			&(map->mmap.size_line), &(map->mmap.endian));
 	init_mmap(map);
-	i = (int)floor(map->player.pos.y - 5);
-	j = (int)floor(map->player.pos.x - 5);
-	tmp[0] = i;
-	tmp[1] = j;
-/*	while (i < (int)map->player.pos.y + 5 && i < map->height)
-	{
-		while (j < (int)map->player.pos.x + 5 && j < map->width)
-		{
-			if (j >= 0 && i >= 0 && map->map[i][j].z != 0)
-				draw_rect(map, i + tmp[0], j + tmp[1]);
-			j++;
-		}
-		i++;
-	}*/
-	draw_player(map);
+	print_map(map);
+	pixel_put_mmap(map, 49, 50, 0x00FF00);
+	pixel_put_mmap(map, 51, 50, 0x00FF00);
+	pixel_put_mmap(map, 50, 49, 0x00FF00);
+	pixel_put_mmap(map, 50, 51, 0x00FF00);
+	mlx_put_image_to_window(map->e.mlx, map->e.win, map->mmap.img,
+			WIDTH - 125, HEIGHT - 125);
+	mlx_destroy_image(map->e.mlx, map->mmap.img);
 }

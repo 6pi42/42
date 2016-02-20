@@ -6,19 +6,26 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/27 11:54:41 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/19 13:29:36 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/20 12:04:09 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
 
-int		expose_hook(t_map *map)
+int				expose_hook(t_map *map)
 {
 	draw(map);
 	return (1);
 }
 
-int		key_hook(int keycode, t_map *map)
+static	void	escape(t_map *map)
+{
+	mlx_destroy_window(map->e.mlx, map->e.win);
+	//system("killall afplay");
+	free_map(map);
+}
+
+int				key_hook(int keycode, t_map *map)
 {
 	if (!map->pause)
 	{
@@ -36,11 +43,7 @@ int		key_hook(int keycode, t_map *map)
 			map->key.turn_right = 0;
 	}
 	if (keycode == KEY_ESC)
-	{
-		mlx_destroy_window(map->e.mlx, map->e.win);
-		//system("killall afplay");
-		free_map(map);
-	}
+		escape(map);
 	if (keycode == KEY_P)
 	{
 		map->pause = map->pause == 1 ? 0 : 1;
@@ -49,7 +52,7 @@ int		key_hook(int keycode, t_map *map)
 	return (1);
 }
 
-int		key_press(int keycode, t_map *map)
+int				key_press(int keycode, t_map *map)
 {
 	if (!map->pause)
 	{
@@ -69,7 +72,7 @@ int		key_press(int keycode, t_map *map)
 	return (1);
 }
 
-void	move(t_map *map)
+void			move(t_map *map)
 {
 	if (map->key.forward == 1 && !collision(map, 1))
 	{

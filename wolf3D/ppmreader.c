@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/10 14:07:09 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/12 15:30:49 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/20 12:01:19 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static int	*get_line(int fd, int size)
 {
-	int 	i;
-	char 	**line;
-	char 	*tmp;
+	int		i;
+	char	**line;
+	char	*tmp;
 	int		*line_int;
 
 	if (!(line = (char**)malloc(sizeof(char*) * (size))))

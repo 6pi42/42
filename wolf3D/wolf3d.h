@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/10 14:52:44 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/19 13:55:57 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/20 16:49:23 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 # include <math.h>
 # include <pthread.h>
 #include <stdio.h>
- 
-# define HEIGHT 768
-# define WIDTH 1024
+
+# define HEIGHT 1400
+# define WIDTH 2400
 # define KEY_ESC 53
 # define KEY_W 13
 # define KEY_S 1
@@ -28,6 +28,8 @@
 # define KEY_LEFT 123
 # define KEY_RIGHT 124
 # define KEY_P 35
+# define SKY 0x404040
+# define FLOOR 0xA0A0A0
 
 typedef struct		s_env
 {
@@ -100,6 +102,12 @@ typedef	struct		s_player
 	t_vec		pos;
 }					t_player;
 
+typedef struct		s_pos
+{
+	int				x;
+	int				y;
+}					t_pos;
+
 typedef struct		s_map
 {
 	t_env			e;
@@ -112,6 +120,8 @@ typedef struct		s_map
 	t_key			key;
 	int				pause;
 	int				**eagle;
+	int				**wood;
+	t_vec			ground;
 	t_img			mmap;
 }					t_map;
 
@@ -121,6 +131,16 @@ typedef struct		s_args
 	int				min;
 	int				max;
 }					t_args;
+
+typedef struct		s_ground
+{
+	double			walldist;
+	double			playerdist;
+	double			currentdist;
+	double			weight;
+	t_vec			currentfloor;
+	t_pos			tex;
+}					t_ground;
 
 void				ft_error(void);
 void				pixel_put(t_map *map, int x, int y, int color);
@@ -141,5 +161,7 @@ void				mini_map(t_map *map);
 int					get_hex_color(t_map *map, int x, int y);
 void				free_map(t_map *map);
 void				multi_threading(t_map *map, void *f);
+void				pixel_put_mmap(t_map *map, int x, int y, int color);
+void				draw_sky_floor(t_map *map, t_dda *dda, t_point p1, t_point p2);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/26 11:26:30 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/18 13:11:22 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/20 12:07:25 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static t_args	*init_arg(t_map *map, int min, int max)
 	return (arg);
 }
 
-void	  		multi_threading(t_map *map, void *f)
+void			multi_threading(t_map *map, void *f)
 {
 	pthread_t	thread[4];
 	t_args		*arg1;

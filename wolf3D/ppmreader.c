@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/10 14:07:09 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/20 12:01:19 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/21 15:40:52 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ static int	*get_line(int fd, int size)
 	char	*tmp;
 	int		*line_int;
 
-	if (!(line = (char**)malloc(sizeof(char*) * (size))))
-		return (0);
 	if (!(line_int = (int*)malloc(sizeof(int) * (size))))
 		return (0);
 	get_next_line(fd, &tmp);
@@ -30,8 +28,10 @@ static int	*get_line(int fd, int size)
 	while (i < size)
 	{
 		line_int[i] = ft_atoi(line[i]);
+		free(line[i]);
 		i++;
 	}
+	free(line);
 	return (line_int);
 }
 

@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/27 11:54:41 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/20 12:04:09 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/21 15:44:34 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int				expose_hook(t_map *map)
 static	void	escape(t_map *map)
 {
 	mlx_destroy_window(map->e.mlx, map->e.win);
-	//system("killall afplay");
+	system("killall afplay");
 	free_map(map);
 }
 

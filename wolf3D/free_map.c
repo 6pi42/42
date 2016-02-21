@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/19 13:30:03 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/19 13:34:22 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/21 13:36:05 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	free_map(t_map *map)
 {
 	int	i;
+	int	j;
 
 	i = 0;
 	while (i < map->height)
@@ -24,11 +25,16 @@ void	free_map(t_map *map)
 	}
 	free(map->map);
 	i = 0;
-	while (i < 64)
+	while (i < 4)
 	{
-		free(map->eagle[i]);
+		j = 0;
+		while (j < 64)
+		{
+			free(map->tex[i][j]);
+			j++;
+		}
+		free(map->tex[i]);
 		i++;
 	}
-	free(map->eagle);
 	exit(0);
 }

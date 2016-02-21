@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/30 15:56:09 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/20 17:01:59 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/21 13:38:10 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static void	ft_dda(t_dda *dda, t_map *map)
 					dda->y + (1 - dda->step.y) / 2) / dda->dir.y);
 }
 
-static void	draw_wall_slice(t_map *map, t_dda *dda, int i)
+static void	draw_wall_slice(t_map *map, t_dda *dda, int i, int tex)
 {
 	t_point	pt[2];
 	int		j;
@@ -96,7 +96,7 @@ static void	draw_wall_slice(t_map *map, t_dda *dda, int i)
 	h = 0;
 	while (j < abs(pt[0].y - pt[1].y))
 	{
-		pixel_put(map, pt[0].x, pt[0].y + j, map->eagle[(int)h][dda->tex_x]);
+		pixel_put(map, pt[0].x, pt[0].y + j, map->tex[tex][(int)h][dda->tex_x]);
 		j++;
 		h += d;
 	}
@@ -126,7 +126,8 @@ void		raycasting(void *args)
 		if ((dda.sidehit == 0 && dda.dir.x > 0) ||
 		(dda.sidehit && dda.dir.y < 0))
 			dda.tex_x = 64 - dda.tex_x - 1;
-		draw_wall_slice(map, &dda, i);
+		draw_wall_slice(map, &dda, i,
+			map->map[dda.mapcoord.x][dda.mapcoord.y].z);
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/10 14:52:44 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/20 16:49:23 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/21 15:56:17 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include "mlx.h"
 # include <math.h>
 # include <pthread.h>
-#include <stdio.h>
 
 # define HEIGHT 900
 # define WIDTH 1800
@@ -119,10 +118,7 @@ typedef struct		s_map
 	t_vec			plane;
 	t_key			key;
 	int				pause;
-	int				**eagle;
-	int				**wood;
-	int				**sky;
-	t_vec			ground;
+	int				***tex;
 	t_img			mmap;
 }					t_map;
 
@@ -138,6 +134,7 @@ typedef struct		s_ground
 	double			currentdist;
 	double			weight;
 	t_vec			currentfloor;
+	t_vec			pos;
 	t_pos			tex;
 }					t_ground;
 

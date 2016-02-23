@@ -7,4 +7,5 @@ Project | :pineapple: | Moulinette | Mark |
 **Get_next_line** | :pineapple: |  **110**| **107**/100|
 **Fdf** | :pineapple: | NONE | **118**/100|
 **Fractol** | :pineapple: | NONE | **108**/100|
-**Wolf3D** | | | |
+**Wolf3D** | :pineapple: | NONE | **125**/100|
+**RTV1** | | | |

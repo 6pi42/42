@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 16:39:57 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/22 18:28:40 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/23 16:28:30 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include "mlx.h"
 # include <math.h>
 # include <pthread.h>
+# include "type.h"
+#include <stdio.h>
 
 typedef struct		s_env
 {
@@ -32,43 +34,11 @@ typedef struct		s_img
 	void			*img;
 }					t_img;
 
-typedef struct		s_vec
-{
-	double			x;
-	double			y;
-}					t_vec;
-
-typedef struct		s_cam
-{
-	double			x;
-	double			y;
-	double			z;
-}
-
-typedef struct		s_pos
-{
-	int				x;
-	int				y;
-}					t_pos;
-
-typedef struct		s_rgb
-{
-	unsigned char	red;
-	unsigned char	green;
-	unsigned char	blue;
-}					t_rgb;
-
-typedef struct		s_sphere
-{
-
-}					t_sphere;
-
 typedef struct		s_map
 {
 	t_env			e;
 	t_img			img;
-	t_cam			cam;
-	t_pos			screen;
+	t_tab			*tab;
 }					t_map;
 
 typedef struct		s_args
@@ -81,9 +51,20 @@ typedef struct		s_args
 void				pixel_put(t_map *map, int x, int y, int color);
 int					get_hex_color(t_map *map, int x, int y);
 
-t_map				*parse(char *file);
+t_tab				*parse(char *file);
+int					ft_strchrstr(char *str, char *chr);
+double				atoi_double(char *line);
+
 void				multi_threading(t_map *map, void *f);
 void				raytracer(void *args);
+
+int					expose_hook(t_map *map);
+
+t_vec				get_vec_cam(char *line);
+t_pos				get_screen(char *line);
+t_vec				get_vec(char *line);
+int					get_plan(int fd);
+int					get_rgb(char *line);
 
 void				ft_error(void);
 void				ft_error_file(void);

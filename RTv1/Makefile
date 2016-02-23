@@ -6,7 +6,7 @@
 #    By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/01/08 12:28:01 by cboyer            #+#    #+#              #
-#    Updated: 2016/02/22 16:48:43 by cboyer           ###   ########.fr        #
+#    Updated: 2016/02/23 16:04:30 by cboyer           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,10 @@ SRC =	main.c			\
 		utilities.c		\
 		hook.c			\
 		raytracer.c		\
+		error.c			\
+		multithreading.c\
+		parse.c			\
+		get.c			\
 
 OBJ = $(SRC:.c=.o)
 NAME = rtv1

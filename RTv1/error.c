@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 18:21:02 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/22 18:32:24 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/23 13:27:30 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,6 @@ void	ft_error_mlx(void)
 
 void	ft_error_arg(void)
 {
-	ft_putendl("error: invalid argument. use: ./retv1 {scene_name}");
+	ft_putendl("error: invalid argument. use: ./retv1 <scene_name>");
 	exit(0);
 }

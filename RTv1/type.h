@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   type.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Client <Client@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:37:04 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/23 16:11:25 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/23 21:55:22 by Client           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct		s_sphere
 typedef struct		s_tab
 {
 	t_sphere		*sphere;
+	int				nb_sphere;
 	int				plan;
 	t_vec			cam;
 	t_pos			screen;

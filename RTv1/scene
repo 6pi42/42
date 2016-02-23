@@ -7,5 +7,5 @@ object:
 		rgb:	0x0000FF00
 	sphere:
 		pos:	0.0 100.0 30.0
-		rayon:	50.0
+		radius:	50.0
 		rgb:	0x00FF0000

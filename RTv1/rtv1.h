@@ -6,7 +6,7 @@
 /*   By: Client <Client@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 16:39:57 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/23 21:38:04 by Client           ###   ########.fr       */
+/*   Updated: 2016/02/23 21:52:57 by Client           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ t_pos				get_screen(char *line);
 t_vec				get_vec(char *line);
 int					get_plan(int fd);
 int					get_rgb(char *line);
-int					get_nb_sphere(int fd);
+int					get_nb_sphere(char *file);
 void				get_sphere(int fd, t_tab *tab);
 
 void				ft_error(void);

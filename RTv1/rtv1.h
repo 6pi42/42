@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Client <Client@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 16:39:57 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/23 16:28:30 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/23 21:38:04 by Client           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ t_pos				get_screen(char *line);
 t_vec				get_vec(char *line);
 int					get_plan(int fd);
 int					get_rgb(char *line);
+int					get_nb_sphere(int fd);
+void				get_sphere(int fd, t_tab *tab);
 
 void				ft_error(void);
 void				ft_error_file(void);

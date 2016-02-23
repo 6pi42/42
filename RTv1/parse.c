@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Client <Client@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 17:28:16 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/23 16:31:05 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/23 21:40:12 by Client           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ int		ft_strchrstr(char *str, char *chr)
 {
 	size_t	i;
 	int		j;
-	int		h;
 
+	int		h;
 	i = 0;
 	h = 0;
 	while (str[h] && chr[i])
@@ -56,27 +56,24 @@ t_tab	*parse(char *file)
 	char	*line;
 	int		ret;
 	int		fd;
-	int		i;
 	t_tab	*tab;
+	int		i;
 
 	tab = (t_tab*)malloc(sizeof(t_tab));
 	if ((fd = open(file, O_RDONLY)) == -1)
 		ft_error_file();
+	tab->sphere = (t_sphere*)malloc(sizeof(t_sphere) * get_nb_sphere(fd));
 	while ((ret = get_next_line(fd, &line)) > 0)
 	{
+		printf("%s\n", line);
 		if ((i = ft_strchrstr(line, "\tcamera:\t")) != -1)
-		{
-			line += i;
-			tab->cam = get_vec_cam(line);
-		}
+			tab->cam = get_vec_cam(line + i);
 		if ((i = ft_strchrstr(line, "\tscreen:\t")) != -1)
-		{
-			line += i;
-			tab->screen = get_screen(line);
-		}
-		if ((i = ft_strchrstr(line, "\tplan:")))
+			tab->screen = get_screen(line + i);
+		if ((i = ft_strchrstr(line, "\tplan:")) != -1)
 			tab->plan = get_plan(fd);
-		printf("OK\n");
+		if ((i = ft_strchrstr(line, "\tsphere:")) != -1)
+			get_sphere(fd, tab);
 		free(line);
 	}
 	if (ret == -1)

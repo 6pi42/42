@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+         #
+#    By: Client <Client@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/01/08 12:28:01 by cboyer            #+#    #+#              #
-#    Updated: 2016/02/23 16:04:30 by cboyer           ###   ########.fr        #
+#    Updated: 2016/02/23 21:36:54 by Client           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRC =	main.c			\
 		multithreading.c\
 		parse.c			\
 		get.c			\
+		get_object.c	\
 
 OBJ = $(SRC:.c=.o)
 NAME = rtv1

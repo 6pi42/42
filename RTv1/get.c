@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 16:03:17 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/23 16:29:57 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/24 13:48:27 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int		get_rgb(char *line)
 	line = ft_strchr(line, 'x') != NULL ? ft_strchr(line, 'x') + 1 : NULL;
 	if (!line)
 		ft_error_file();
-	return (ft_atoi(line));
+	return (atoi_hex(line));
 }
 
 int		get_plan(int fd)

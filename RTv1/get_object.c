@@ -3,37 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_object.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Client <Client@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 21:26:20 by Client            #+#    #+#             */
-/*   Updated: 2016/02/23 22:07:29 by Client           ###   ########.fr       */
+/*   Updated: 2016/02/24 14:53:18 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
-
-
-int				get_nb_sphere(char *file)
-{
-	int		i;
-	char	*line;
-	int		ret;
-	int		fd;
-
-	if ((fd = open(file, O_RDONLY)) == -1)
-		ft_error_file();
-	i = 0;
-	while ((ret = get_next_line(fd, &line)) > 0)
-	{
-		if (ft_strchrstr(line, "\tsphere:") != -1)
-			i++;
-		free(line);
-	}
-	if (ret == -1)
-		ft_error_arg();
-	close(fd);
-	return (i);
-}
 
 static double	get_radius(char *line)
 {
@@ -47,6 +24,14 @@ static double	get_radius(char *line)
 	return (ret);
 }
 
+void			get_error(int j, int ret)
+{
+	if (ret == -1)
+		ft_error_malloc();
+	if (j != 3)
+		ft_error_file();
+}
+
 void			get_sphere(int fd, t_tab *tab)
 {
 	static int	i = 0;
@@ -56,7 +41,7 @@ void			get_sphere(int fd, t_tab *tab)
 	char		*line;
 
 	j = 0;
-	while ((ret = get_next_line(fd, &line)) > 0 && j != 3)
+	while ((ret = get_next_line(fd, &line)) > 0 && j != 2)
 	{
 		if ((h = ft_strchrstr(line, "rgb:")) != -1)
 			tab->sphere[i].rgb = get_rgb(line + h);
@@ -71,6 +56,67 @@ void			get_sphere(int fd, t_tab *tab)
 	}
 	if (ret == -1)
 		ft_error_malloc();
-	if (j != 3)
+	if (j != 2)
 		ft_error_file();
+	i++;
+}
+
+void			get_cone(int fd, t_tab *tab)
+{
+	static int	i = 0;
+	int			j;
+	int			h;
+	int			ret;
+	char		*line;
+
+	j = 0;
+	if (i >= tab->nb_cone)
+		ft_error_file();
+	while ((ret = get_next_line(fd, &line)) > 0 && j != 3)
+	{
+		if ((h = ft_strchrstr(line, "rgb:")) != -1)
+			tab->cone[i].rgb = get_rgb(line + h);
+		else if ((h = ft_strchrstr(line, "pos:")) != -1)
+			tab->cone[i].pos = get_vec(line + h);
+		else if ((h = ft_strchrstr(line, "radius:")) != -1)
+			tab->cone[i].radius = get_radius(line + h);
+		else if ((h = ft_strchrstr(line, "height:")) != -1)
+			tab->cone[i].height = get_radius(line + h);
+		else
+			ft_error_file();
+		j++;
+		free(line);
+	}
+	get_error(j, ret);
+	i++;
+}
+
+void			get_cylinder(int fd, t_tab *tab)
+{
+	static int	i = 0;
+	int			j;
+	int			h;
+	int			ret;
+	char		*line;
+
+	j = 0;
+	if (i >= tab->nb_cylinder)
+		ft_error_file();
+	while ((ret = get_next_line(fd, &line)) > 0 && j != 3)
+	{
+		if ((h = ft_strchrstr(line, "rgb:")) != -1)
+			tab->cylinder[i].rgb = get_rgb(line + h);
+		else if ((h = ft_strchrstr(line, "pos:")) != -1)
+			tab->cylinder[i].pos = get_vec(line + h);
+		else if ((h = ft_strchrstr(line, "radius:")) != -1)
+			tab->cylinder[i].radius = get_radius(line + h);
+		else if ((h = ft_strchrstr(line, "height:")) != -1)
+			tab->cylinder[i].height = get_radius(line + h);
+		else
+			ft_error_file();
+		j++;
+		free(line);
+	}
+	get_error(j, ret);
+	i++;
 }

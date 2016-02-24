@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Client <Client@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 17:28:16 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/23 22:00:36 by Client           ###   ########.fr       */
+/*   Updated: 2016/02/24 14:51:34 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ double	atoi_double(char *line)
 	return (dec + ent);
 }
 
-void   print_sphere(t_tab *tab)
+void	print_sphere(t_tab *tab)
 {
 	int i;
 
@@ -55,11 +55,51 @@ void   print_sphere(t_tab *tab)
 	while (i < tab->nb_sphere)
 	{
 		printf("rayon: %f\n", tab->sphere[i].radius);
-		printf("pos: x %f y %f z %f\n", tab->sphere[i].pos.x,tab->sphere[i].pos.y,
-			tab->sphere[i].pos.z);
+		printf("pos: x %f y %f z %f\n", tab->sphere[i].pos.x,
+		tab->sphere[i].pos.y, tab->sphere[i].pos.z);
 		printf("rgb: %d\n", tab->sphere[i].rgb);
 		i++;
 	}
+}
+
+int		get_nb_struct(char *file, char *str)
+{
+	int		i;
+	char	*line;
+	int		ret;
+	int		fd;
+
+	if ((fd = open(file, O_RDONLY)) == -1)
+		ft_error_file();
+	i = 0;
+	while ((ret = get_next_line(fd, &line)) > 0)
+	{
+		if (ft_strchrstr(line, str) != -1)
+			i++;
+		free(line);
+	}
+	if (ret == -1)
+		ft_error_arg();
+	close(fd);
+	return (i);
+}
+
+t_tab	*init_tab(char *file)
+{
+	t_tab	*tab;
+
+	if (!(tab = (t_tab*)malloc(sizeof(t_tab))))
+		ft_error_malloc();
+	tab->nb_sphere = get_nb_struct(file, "\tsphere:");
+	tab->nb_cylinder = get_nb_struct(file, "\tcylinder:");
+	tab->nb_cone = get_nb_struct(file, "\tcone");
+	if (!(tab->sphere = (t_sphere*)malloc(sizeof(t_sphere) * tab->nb_sphere)))
+		ft_error_malloc();
+	if (!(tab->cylinder = (t_cone*)malloc(sizeof(t_cone) * tab->nb_cylinder)))
+		ft_error_malloc();
+	if (!(tab->cone = (t_cone*)malloc(sizeof(t_cone) * tab->nb_cone)))
+		ft_error_malloc();
+	return (tab);
 }
 
 t_tab	*parse(char *file)
@@ -70,23 +110,23 @@ t_tab	*parse(char *file)
 	t_tab	*tab;
 	int		i;
 
-	if (!(tab = (t_tab*)malloc(sizeof(t_tab))))
-		ft_error_malloc();
-	tab->nb_sphere = get_nb_sphere(file);
-	if (!(tab->sphere = (t_sphere*)malloc(sizeof(t_sphere) * tab->nb_sphere)))
-		ft_error_malloc();
+	tab = init_tab(file);
 	if ((fd = open(file, O_RDONLY)) == -1)
 		ft_error_file();
 	while ((ret = get_next_line(fd, &line)) > 0)
 	{
 		if ((i = ft_strchrstr(line, "camera:")) != -1)
 			tab->cam = get_vec_cam(line + i);
-		if ((i = ft_strchrstr(line, "screen:")) != -1)
+		else if ((i = ft_strchrstr(line, "screen:")) != -1)
 			tab->screen = get_screen(line + i);
-		if ((i = ft_strchrstr(line, "plan:")) != -1)
+		else if ((i = ft_strchrstr(line, "plan:")) != -1)
 			tab->plan = get_plan(fd);
-		if ((i = ft_strchrstr(line, "sphere:")) != -1)
+		else if ((i = ft_strchrstr(line, "sphere:")) != -1)
 			get_sphere(fd, tab);
+		else if ((i = ft_strchrstr(line, "cone:")) != -1)
+			get_cone(fd, tab);
+		else if ((i = ft_strchrstr(line, "cylinder:")) != -1)
+			get_cylinder(fd, tab);
 		free(line);
 	}
 	print_sphere(tab);

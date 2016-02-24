@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Client <Client@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 16:39:57 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/23 21:52:57 by Client           ###   ########.fr       */
+/*   Updated: 2016/02/24 14:32:46 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int					get_hex_color(t_map *map, int x, int y);
 t_tab				*parse(char *file);
 int					ft_strchrstr(char *str, char *chr);
 double				atoi_double(char *line);
+int					atoi_hex(char *line);
 
 void				multi_threading(t_map *map, void *f);
 void				raytracer(void *args);
@@ -65,8 +66,11 @@ t_pos				get_screen(char *line);
 t_vec				get_vec(char *line);
 int					get_plan(int fd);
 int					get_rgb(char *line);
-int					get_nb_sphere(char *file);
+
+int					get_nb_struct(char *file, char *str);
 void				get_sphere(int fd, t_tab *tab);
+void				get_cylinder(int fd, t_tab *tab);
+void				get_cone(int fd, t_tab *tab);
 
 void				ft_error(void);
 void				ft_error_file(void);

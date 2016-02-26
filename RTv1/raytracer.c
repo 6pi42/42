@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytracer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Client <Client@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 16:47:16 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/26 06:57:29 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/26 17:59:29 by Client           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_vec    init_ray(t_map *map, int x, int y)
 	return (ray);
 }
 
-void	init_inter(t_sphere s, int i, int j, t_map *map)
+double	init_inter(t_sphere s, int i, int j, t_map *map, int *valid)
 {
 	double		a;
 	double		b;
@@ -30,30 +30,80 @@ void	init_inter(t_sphere s, int i, int j, t_map *map)
 	double		d;
 	double		tmp;
 	t_vec		ray;
+	t_cam		cam;
 
+	cam = map->tab->cam;
 	ray = init_ray(map, j, i);
 	a = ray.x * ray.x + ray.y * ray.y + ray.z * ray.z;
-	b = 2 * ray.x * (map->tab->cam.pos.x - s.pos.x) + 2 * ray.y *
-		(map->tab->cam.pos.y - s.pos.y) + 2 * ray.z *
-			(map->tab->cam.pos.z - s.pos.z);
-
-	c = (s.pos.x * s.pos.x + s.pos.y * s.pos.y + s.pos.z * s.pos.z)
-	 	+ (ray.x * ray.x + ray.y * ray.y + ray.z * ray.z)
-		- 2 * (ray.x * s.pos.x + ray.y * s.pos.y + ray.z * s.pos.z)
+	b =  2 * (ray.x * (cam.pos.x - s.pos.x)
+			+ ray.y * (cam.pos.y - s.pos.y)
+			+ ray.z * (cam.pos.z - s.pos.z));
+	c = (cam.pos.x - s.pos.x) * (cam.pos.x - s.pos.x)
+	  + (cam.pos.y - s.pos.y) * (cam.pos.y - s.pos.y)
+	  + (cam.pos.z - s.pos.z) * (cam.pos.z - s.pos.z)
 		- s.radius * s.radius;
-	d = b * b + 4 * a * c;
-//	printf("%f\n", d);
+	d = (b * b) - (4 * a * c);
 	if (d == 0)
-		t = (-b - sqrt(d)) / (2 * a);
+	{
+		t = (-1 * b + sqrt(d)) / (2 * a);
+		*valid = 1;
+	}
 	else if (d > 0)
 	{
-		t = (-b - sqrt(d)) / (2 * a);
-		tmp = (-b + sqrt(d)) / (2 * a);
-		t = t > tmp ? t : tmp;
+		t = (-1 * b - sqrt(d)) / (2 * a);
+		tmp = (-1 * b + sqrt(d)) / (2 * a);
+		t = t < tmp ? t : tmp;
+		*valid = 1;
 	}
 	else
-		return ;
-	pixel_put(map, j, i, 0x00FF00);
+		return (0);
+	return (t);
+}
+
+int		get_smaller(double *t, int c, int *valid)
+{
+	int i;
+	int j;
+	double	tmp;
+
+	tmp = t[0];
+	j = -1;
+	i = 0;
+	while (i < c)
+	{
+		if (valid[i] && t[i] < tmp)
+		{
+			tmp = t[i];
+			j = i;
+		}
+		i++;
+	}
+	return (j);
+}
+
+void nearest(int y, int x, t_map *map)
+{
+	int		i;
+	double t[map->tab->nb_sphere];
+	int		small;
+	int		*valid;
+
+	valid = (int*)malloc(sizeof(int) * map->tab->nb_sphere);
+	i = 0;
+	while (i < map->tab->nb_sphere)
+	{
+		valid[i] = 0;
+		i++;
+	}
+	i = 0;
+	while (i < map->tab->nb_sphere)
+	{
+		t[i] = init_inter(map->tab->sphere[i], y, x, map, &valid[i]);
+		i++;
+	}
+	small = get_smaller(t, map->tab->nb_sphere, valid);
+	if (small != -1)
+		pixel_put(map, x, y, map->tab->sphere[small].rgb);
 }
 
 void	raytracer(t_map *map)
@@ -67,11 +117,9 @@ void	raytracer(t_map *map)
 		j = 0;
 		while (j < map->tab->screen.x)
 		{
-			init_inter(map->tab->sphere[0], i, j, map);
-//check_nearest(map->tab, i, j);
+			nearest(i, j, map);
 			j++;
 		}
 		i++;
 	}
-	printf("end\n");
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Client <Client@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 16:36:48 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/26 04:06:33 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/26 17:51:12 by Client           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ int	main(int argc, char **argv)
 		mlx_new_window(e.mlx, map->tab->screen.x, map->tab->screen.y, "Rtv1")))
 		ft_error_mlx();
 	map->e = e;
+	map->tab->sphere[0].rgb = 0xFF0000;
+	map->tab->sphere[1].rgb = 0x00FF00;
 	mlx_expose_hook(map->e.win, expose_hook, map);
 	mlx_key_hook(map->e.win, key_hook, map);
 	mlx_loop(e.mlx);

@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 16:03:17 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/24 13:48:27 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/26 02:51:13 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_pos	get_screen(char *line)
 	t_pos	screen;
 
 	i = 0;
-	while (*line == '\t')
+	while (*line == '\t' || *line == ' ')
 		line++;
 	tab = ft_strsplit(line, ' ');
 	while (tab[i])
@@ -57,35 +57,32 @@ t_pos	get_screen(char *line)
 		i++;
 	}
 	free(tab);
+	printf("%d %d\n", screen.x, screen.y);
 	return (screen);
 }
 
-t_vec	get_vec_cam(char *line)
+t_cam	get_cam(int fd)
 {
-	char	**tab;
-	t_vec	vec;
+	int		j;
+	t_cam	cam;
+	int		ret;
+	char	*line;
 	int		i;
 
-	i = 0;
-	while (*line == '\t')
-		line++;
-	tab = ft_strsplit(line, ' ');
-	while (tab[i])
-		i++;
-	if (i != 4)
-		ft_error_file();
-	vec.x = atoi_double(tab[0]);
-	vec.y = atoi_double(tab[1]);
-	vec.z = atoi_double(tab[2]);
-	vec.r = atoi_double(tab[3]);
-	i = 0;
-	while (tab[i])
+	j = 0;
+	while ((ret = get_next_line(fd, &line)) > 0 && j != 1)
 	{
-		free(tab[i]);
-		i++;
+		if ((i = ft_strchrstr(line, "pos:")) != -1)
+			cam.pos = get_vec(line + i);
+		else if ((i = ft_strchrstr(line, "rotate:")) != -1)
+			cam.rotate = get_vec(line + i);
+		else
+			ft_error_file();
+		j++;
 	}
-	free(tab);
-	return (vec);
+	if (ret == -1)
+		ft_error();
+	return (cam);
 }
 
 int		get_rgb(char *line)
@@ -96,20 +93,27 @@ int		get_rgb(char *line)
 	return (atoi_hex(line));
 }
 
-int		get_plan(int fd)
+t_plan	get_plan(int fd)
 {
 	char	*line;
 	int		ret;
-	int		rgb;
+	int		i;
+	int		j;
+	t_plan	plan;
 
-	rgb = 0;
-	ret = get_next_line(fd, &line);
+	j = 0;
+	while ((ret = get_next_line(fd, &line)) > 0 && j != 1)
+	{
+		if ((i = ft_strchrstr(line, "rgb:")))
+			plan.rgb = get_rgb(line + i);
+		else if (ft_strchrstr(line, "rotate:"))
+			plan.pos = get_vec(line + i);
+		else
+			ft_error_file();
+		free(line);
+		j++;
+	}
 	if (ret == -1)
 		ft_error();
-	if (ft_strchrstr(line, "rgb"))
-		rgb = get_rgb(line);
-	else
-		ft_error_file();
-	free(line);
-	return (rgb);
+	return (plan);
 }

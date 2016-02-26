@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 17:28:16 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/24 14:51:34 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/26 02:51:41 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		ft_strchrstr(char *str, char *chr)
 		else
 			i = 0;
 		if (i == ft_strlen(chr))
-			return (h);
+			return (h + 1);
 		h++;
 	}
 	return (-1);
@@ -45,21 +45,6 @@ double	atoi_double(char *line)
 	while (dec >= 1.0)
 		dec = dec / 10.0;
 	return (dec + ent);
-}
-
-void	print_sphere(t_tab *tab)
-{
-	int i;
-
-	i = 0;
-	while (i < tab->nb_sphere)
-	{
-		printf("rayon: %f\n", tab->sphere[i].radius);
-		printf("pos: x %f y %f z %f\n", tab->sphere[i].pos.x,
-		tab->sphere[i].pos.y, tab->sphere[i].pos.z);
-		printf("rgb: %d\n", tab->sphere[i].rgb);
-		i++;
-	}
 }
 
 int		get_nb_struct(char *file, char *str)
@@ -116,7 +101,7 @@ t_tab	*parse(char *file)
 	while ((ret = get_next_line(fd, &line)) > 0)
 	{
 		if ((i = ft_strchrstr(line, "camera:")) != -1)
-			tab->cam = get_vec_cam(line + i);
+			tab->cam = get_cam(fd);
 		else if ((i = ft_strchrstr(line, "screen:")) != -1)
 			tab->screen = get_screen(line + i);
 		else if ((i = ft_strchrstr(line, "plan:")) != -1)
@@ -129,9 +114,8 @@ t_tab	*parse(char *file)
 			get_cylinder(fd, tab);
 		free(line);
 	}
-	print_sphere(tab);
 	if (ret == -1)
 		ft_error_file();
 	close(fd);
-	return (0);
+	return (tab);
 }

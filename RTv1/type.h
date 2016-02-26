@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:37:04 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/24 14:34:34 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/25 23:35:06 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,18 @@ typedef struct		s_cone
 	t_vec				pos;
 }					t_cone;
 
+typedef struct		s_cam
+{
+	t_vec			pos;
+	t_vec			rotate;
+}					t_cam;
+
+typedef struct		s_plan
+{
+	int				rgb;
+	t_vec			pos;
+}					t_plan;
+
 typedef struct		s_tab
 {
 	t_sphere		*sphere;
@@ -50,8 +62,8 @@ typedef struct		s_tab
 	int				nb_sphere;
 	int				nb_cylinder;
 	int				nb_cone;
-	int				plan;
-	t_vec			cam;
+	t_plan			plan;
+	t_cam			cam;
 	t_pos			screen;
 }					t_tab;
 

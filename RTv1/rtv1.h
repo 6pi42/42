@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 16:39:57 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/24 14:32:46 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/26 04:06:22 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <pthread.h>
 # include "type.h"
 #include <stdio.h>
+# define KEY_ESC 53
 
 typedef struct		s_env
 {
@@ -57,20 +58,21 @@ double				atoi_double(char *line);
 int					atoi_hex(char *line);
 
 void				multi_threading(t_map *map, void *f);
-void				raytracer(void *args);
+void				raytracer(t_map *map);
 
 int					expose_hook(t_map *map);
+int					key_hook(int keycode, t_map *map);
 
-t_vec				get_vec_cam(char *line);
 t_pos				get_screen(char *line);
 t_vec				get_vec(char *line);
-int					get_plan(int fd);
+t_plan				get_plan(int fd);
 int					get_rgb(char *line);
 
 int					get_nb_struct(char *file, char *str);
 void				get_sphere(int fd, t_tab *tab);
 void				get_cylinder(int fd, t_tab *tab);
 void				get_cone(int fd, t_tab *tab);
+t_cam				get_cam(int fd);
 
 void				ft_error(void);
 void				ft_error_file(void);

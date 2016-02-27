@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+         #
+#    By: Client <Client@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/01/08 12:28:01 by cboyer            #+#    #+#              #
-#    Updated: 2016/02/26 02:54:56 by cboyer           ###   ########.fr        #
+#    Updated: 2016/02/27 19:44:52 by Client           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRC =	main.c			\
 		parse.c			\
 		get.c			\
 		get_object.c	\
+		sphere.c		\
 
 OBJ = $(SRC:.c=.o)
 NAME = rtv1

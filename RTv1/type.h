@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   type.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Client <Client@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:37:04 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/27 15:17:36 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/27 20:56:06 by Client           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct		s_cam
 
 typedef struct		s_plan
 {
+	double			t;
 	int				rgb;
 	t_vec			pos;
 }					t_plan;

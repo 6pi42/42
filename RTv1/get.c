@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 16:03:17 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/26 02:51:13 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/27 14:51:10 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ t_pos	get_screen(char *line)
 		i++;
 	}
 	free(tab);
-	printf("%d %d\n", screen.x, screen.y);
 	return (screen);
 }
 
@@ -87,7 +86,7 @@ t_cam	get_cam(int fd)
 
 int		get_rgb(char *line)
 {
-	line = ft_strchr(line, 'x') != NULL ? ft_strchr(line, 'x') + 1 : NULL;
+	line = ft_strchr(line, 'x') != NULL ? ft_strchr(line, 'x') + 1: NULL;
 	if (!line)
 		ft_error_file();
 	return (atoi_hex(line));
@@ -104,9 +103,9 @@ t_plan	get_plan(int fd)
 	j = 0;
 	while ((ret = get_next_line(fd, &line)) > 0 && j != 1)
 	{
-		if ((i = ft_strchrstr(line, "rgb:")))
+		if ((i = ft_strchrstr(line, "rgb:")) != -1)
 			plan.rgb = get_rgb(line + i);
-		else if (ft_strchrstr(line, "rotate:"))
+		else if ((i = ft_strchrstr(line, "rotate:")) != -1)
 			plan.pos = get_vec(line + i);
 		else
 			ft_error_file();

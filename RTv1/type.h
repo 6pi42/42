@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:37:04 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/25 23:35:06 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/27 15:17:36 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,19 @@ typedef struct		s_pos
 
 typedef struct		s_sphere
 {
+	double			t;
+	int				rgb;
 	double			radius;
 	t_vec			pos;
-	int				rgb;
 }					t_sphere;
 
 typedef struct		s_cone
 {
-	double				radius;
-	double				height;
-	int					rgb;
-	t_vec				pos;
+	double			t;
+	int				rgb;
+	double			radius;
+	double			height;
+	t_vec			pos;
 }					t_cone;
 
 typedef struct		s_cam

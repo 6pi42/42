@@ -1,18 +1,18 @@
 scene:
 	camera:
-		pos: 0.0 0.0 0.0
+		pos: 0.0 0.0 200.0
 		rotate: 0.0 0.0 0.0
 	screen: 1000 800
 
 object:
 	plan:
-		rgb: 0x0000FF00
+		rgb: 0x00FF00
 		rotate: 0.0 0.0 0.0
 	sphere:
-		pos: 0.0 0.0 50.0
-		radius: 10.0
-		rgb: 0x00FFFF00
-	sphere:
-		pos: 10.0 0.0 500.0
+		pos: 0.0 0.0 10.0
 		radius: 50.0
-		rgb: 0x00FFFF00
+		rgb: 0xFF0000
+	sphere:
+		pos: 0.0 30.0 0.0
+		radius: 75.0
+		rgb: 0x00FF00

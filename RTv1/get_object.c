@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 21:26:20 by Client            #+#    #+#             */
-/*   Updated: 2016/02/26 06:43:03 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/27 14:55:14 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,13 @@ void			get_sphere(int fd, t_tab *tab)
 	char		*line;
 
 	j = 0;
-	while ((ret = get_next_line(fd, &line)) > 0 && j != 2)
+	while (j != 3 && (ret = get_next_line(fd, &line)) > 0)
 	{
-		if ((h = ft_strchrstr(line, "rgb: ")) != -1)
+		if ((h = ft_strchrstr(line, "rgb:")) != -1)
 			tab->sphere[i].rgb = get_rgb(line + h);
-		else if ((h = ft_strchrstr(line, "pos: ")) != -1)
+		else if ((h = ft_strchrstr(line, "pos:")) != -1)
 			tab->sphere[i].pos = get_vec(line + h);
-		else if ((h = ft_strchrstr(line, "radius: ")) != -1)
+		else if ((h = ft_strchrstr(line, "radius:")) != -1)
 			tab->sphere[i].radius = get_radius(line + h);
 		else
 			ft_error_file();
@@ -70,7 +70,7 @@ void			get_cone(int fd, t_tab *tab)
 	j = 0;
 	if (i >= tab->nb_cone)
 		ft_error_file();
-	while ((ret = get_next_line(fd, &line)) > 0 && j != 3)
+	while (j != 3 && (ret = get_next_line(fd, &line)) > 0)
 	{
 		if ((h = ft_strchrstr(line, "rgb:")) != -1)
 			tab->cone[i].rgb = get_rgb(line + h);

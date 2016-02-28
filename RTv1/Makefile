@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: Client <Client@student.42.fr>              +#+  +:+       +#+         #
+#    By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/01/08 12:28:01 by cboyer            #+#    #+#              #
-#    Updated: 2016/02/27 19:44:52 by Client           ###   ########.fr        #
+#    Updated: 2016/02/28 10:26:41 by cboyer           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRC =	main.c			\
 		get.c			\
 		get_object.c	\
 		sphere.c		\
+		plan.c			\
 
 OBJ = $(SRC:.c=.o)
 NAME = rtv1
@@ -64,7 +65,7 @@ mlibx:
 	make -C minilibx_macos
 
 maison: lib mlibx $(OBJ)
-	gcc -I./libft/includes/ -L./libft/ -L./minilibx_macos/ -lft -I./minilibx_macos/ -lmlx -framework OpenGL -framework AppKit $(OBJ) -o $(NAME)
+	gcc -Wall -Werror -Wextra -I./libft/includes/ -L./libft/ -L./minilibx_macos/ -lft -I./minilibx_macos/ -lmlx -framework OpenGL -framework AppKit $(OBJ) -o $(NAME)
 
 re_maison: fclean mlibx maison
 

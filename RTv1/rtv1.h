@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Client <Client@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 16:39:57 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/27 20:01:27 by Client           ###   ########.fr       */
+/*   Updated: 2016/02/28 14:01:26 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include "type.h"
 #include <stdio.h>
 # define KEY_ESC 53
+# define NB_OBJ 2
 
 typedef struct		s_env
 {
@@ -63,9 +64,8 @@ t_vec				init_ray(t_map *map, int x, int y);
 
 void				get_inter_sphere(t_sphere *s, int i, int j, t_map *map);
 int					get_smaller_sphere(t_sphere *sphere, int c);
-void				*nearest_sphere(int y, int x, t_map *map,
-	t_sphere *sphere, int c);
-void				*plan(int y, int x, t_map *map);
+void				*nearest_sphere(int y, int x, t_map *map, t_sphere *sphere);
+void				*plan(t_map *map, int x, int y);
 
 int					expose_hook(t_map *map);
 int					key_hook(int keycode, t_map *map);

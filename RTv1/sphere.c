@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Client <Client@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/27 19:42:15 by Client            #+#    #+#             */
-/*   Updated: 2016/02/27 19:58:28 by Client           ###   ########.fr       */
+/*   Updated: 2016/02/28 12:55:32 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,35 +14,31 @@
 
 void	get_inter_sphere(t_sphere *s, int i, int j, t_map *map)
 {
-	double		a;
-	double		b;
-	double		c;
-	double		t;
-	double		d;
+	double		a[5];
 	double		tmp;
 	t_vec		ray;
 
-	t = -1;
+	a[3] = -1;
 	ray = init_ray(map, j, i);
-	a = ray.x * ray.x + ray.y * ray.y + ray.z * ray.z;
-	b =  2 * (ray.x * (map->tab->cam.pos.x - s->pos.x)
-			+ ray.y * (map->tab->cam.pos.y - s->pos.y)
-			+ ray.z * (map->tab->cam.pos.z - s->pos.z));
-	c = (map->tab->cam.pos.x - s->pos.x) * (map->tab->cam.pos.x - s->pos.x)
-	  + (map->tab->cam.pos.y - s->pos.y) * (map->tab->cam.pos.y - s->pos.y)
-	  + (map->tab->cam.pos.z - s->pos.z) * (map->tab->cam.pos.z - s->pos.z)
-		- s->radius * s->radius;
-	d = (b * b) - (4 * a * c);
-	if (d == 0)
-		t = (-b + sqrt(d)) / (2 * a);
-	else if (d > 0)
+	a[0] = ray.x * ray.x + ray.y * ray.y + ray.z * ray.z;
+	a[1] = 2 * (ray.x * (map->tab->cam.pos.x - s->pos.x)
+	+ ray.y * (map->tab->cam.pos.y - s->pos.y)
+	+ ray.z * (map->tab->cam.pos.z - s->pos.z));
+	a[2] = (map->tab->cam.pos.x - s->pos.x) * (map->tab->cam.pos.x - s->pos.x)
+	+ (map->tab->cam.pos.y - s->pos.y) * (map->tab->cam.pos.y - s->pos.y)
+	+ (map->tab->cam.pos.z - s->pos.z) * (map->tab->cam.pos.z - s->pos.z)
+	- s->radius * s->radius;
+	a[4] = (a[1] * a[1]) - (4 * a[0] * a[2]);
+	if (a[4] == 0)
+		a[3] = (-a[1] + sqrt(a[4])) / (2 * a[0]);
+	else if (a[4] > 0)
 	{
-		t = (-b - sqrt(d)) / (2 * a);
-		tmp = (-b + sqrt(d)) / (2 * a);
-		if (t > tmp && tmp > 0)
-			t = tmp;
+		a[3] = (-a[1] - sqrt(a[4])) / (2 * a[0]);
+		tmp = (-a[1] + sqrt(a[4])) / (2 * a[0]);
+		if (a[3] > tmp && tmp > 0)
+			a[3] = tmp;
 	}
-	s->t = t <= 0 ? -1 : t;
+	s->t = a[3] <= 0 ? -1 : a[3];
 }
 
 int		get_smaller_sphere(t_sphere *sphere, int c)
@@ -59,7 +55,7 @@ int		get_smaller_sphere(t_sphere *sphere, int c)
 	i = 0;
 	while (i < c)
 	{
-		if (tmp < 0 || (tmp > sphere[i].t && sphere[i].t > 0))
+		if (tmp <= 0 || (tmp > sphere[i].t && sphere[i].t > 0))
 		{
 			tmp = sphere[i].t;
 			j = i;
@@ -70,11 +66,11 @@ int		get_smaller_sphere(t_sphere *sphere, int c)
 	return (j);
 }
 
-void *nearest_sphere(int y, int x, t_map *map, t_sphere *sphere)
+void	*nearest_sphere(int y, int x, t_map *map, t_sphere *sphere)
 {
-	int		i;
-	int		small;
-	int		c;
+	int	i;
+	int	small;
+	int	c;
 
 	c = map->tab->nb_sphere;
 	i = 0;

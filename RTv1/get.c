@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 16:03:17 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/27 14:51:10 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/28 13:18:47 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,13 @@ t_vec	get_vec(char *line)
 	char	**tab;
 	t_vec	vec;
 	int		i;
+	int		j;
 
 	i = 0;
-	while (*line == '\t')
-		line++;
-	tab = ft_strsplit(line, ' ');
+	j = 0;
+	while (line[j] == '\t')
+		j++;
+	tab = ft_strsplit(line + j, ' ');
 	while (tab[i])
 		i++;
 	if (i != 3)
@@ -29,8 +31,11 @@ t_vec	get_vec(char *line)
 	vec.x = atoi_double(tab[0]);
 	vec.y = atoi_double(tab[1]);
 	vec.z = atoi_double(tab[2]);
-	while (tab[i])
+	while (i >= 0)
+	{
 		free(tab[i]);
+		i--;
+	}
 	free(tab);
 	return (vec);
 }
@@ -49,6 +54,7 @@ t_pos	get_screen(char *line)
 		i++;
 	if (i != 2)
 		ft_error_file();
+	i = 0;
 	screen.x = ft_atoi(tab[0]);
 	screen.y = ft_atoi(tab[1]);
 	while (tab[i])
@@ -77,6 +83,7 @@ t_cam	get_cam(int fd)
 			cam.rotate = get_vec(line + i);
 		else
 			ft_error_file();
+		free(line);
 		j++;
 	}
 	if (ret == -1)
@@ -86,7 +93,7 @@ t_cam	get_cam(int fd)
 
 int		get_rgb(char *line)
 {
-	line = ft_strchr(line, 'x') != NULL ? ft_strchr(line, 'x') + 1: NULL;
+	line = ft_strchr(line, 'x') != NULL ? ft_strchr(line, 'x') + 1 : NULL;
 	if (!line)
 		ft_error_file();
 	return (atoi_hex(line));

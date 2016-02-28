@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 16:45:29 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/26 04:05:14 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/28 12:41:10 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	expose_hook(t_map *map)
 	return (1);
 }
 
-int				key_hook(int keycode, t_map *map)
+int	key_hook(int keycode, t_map *map)
 {
 	if (keycode == KEY_ESC)
 	{

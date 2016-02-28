@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 21:26:20 by Client            #+#    #+#             */
-/*   Updated: 2016/02/27 14:55:14 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/02/28 13:07:30 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void			get_sphere(int fd, t_tab *tab)
 	char		*line;
 
 	j = 0;
-	while (j != 3 && (ret = get_next_line(fd, &line)) > 0)
+	while (j++ != 3 && (ret = get_next_line(fd, &line)) > 0)
 	{
 		if ((h = ft_strchrstr(line, "rgb:")) != -1)
 			tab->sphere[i].rgb = get_rgb(line + h);
@@ -51,7 +51,6 @@ void			get_sphere(int fd, t_tab *tab)
 			tab->sphere[i].radius = get_radius(line + h);
 		else
 			ft_error_file();
-		j++;
 		free(line);
 	}
 	if (ret == -1)
@@ -70,7 +69,7 @@ void			get_cone(int fd, t_tab *tab)
 	j = 0;
 	if (i >= tab->nb_cone)
 		ft_error_file();
-	while (j != 3 && (ret = get_next_line(fd, &line)) > 0)
+	while (j++ != 3 && (ret = get_next_line(fd, &line)) > 0)
 	{
 		if ((h = ft_strchrstr(line, "rgb:")) != -1)
 			tab->cone[i].rgb = get_rgb(line + h);
@@ -82,7 +81,6 @@ void			get_cone(int fd, t_tab *tab)
 			tab->cone[i].height = get_radius(line + h);
 		else
 			ft_error_file();
-		j++;
 		free(line);
 	}
 	get_error(j, ret);
@@ -100,7 +98,7 @@ void			get_cylinder(int fd, t_tab *tab)
 	j = 0;
 	if (i >= tab->nb_cylinder)
 		ft_error_file();
-	while ((ret = get_next_line(fd, &line)) > 0 && j != 3)
+	while (j++ != 3 && (ret = get_next_line(fd, &line)) > 0)
 	{
 		if ((h = ft_strchrstr(line, "rgb:")) != -1)
 			tab->cylinder[i].rgb = get_rgb(line + h);
@@ -112,7 +110,6 @@ void			get_cylinder(int fd, t_tab *tab)
 			tab->cylinder[i].height = get_radius(line + h);
 		else
 			ft_error_file();
-		j++;
 		free(line);
 	}
 	get_error(j, ret);

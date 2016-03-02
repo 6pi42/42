@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 16:36:48 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/28 14:03:35 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/02 15:13:17 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	print_object(t_tab *tab)
 	printf("plan pos: x %f y %f z %f\n", tab->plan.pos.x,
 		tab->plan.pos.y, tab->plan.pos.z);
 	printf("plan: rgb %#x\n\n", tab->plan.rgb);
+	printf("spot pos: x %f y %f z %f\n\n", tab->spot.x, tab->spot.y, tab->spot.z);
 	i = 0;
 	while (i < tab->nb_sphere)
 	{

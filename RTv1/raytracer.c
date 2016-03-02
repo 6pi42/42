@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 16:47:16 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/28 14:17:09 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/02 16:19:36 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,11 @@ t_vec	init_ray(t_map *map, int x, int y)
 	ray.x = (x - map->tab->screen.x / 2) * 1;
 	ray.y = (y - map->tab->screen.y / 2) * 1;
 	ray.z = -(map->tab->screen.x / (2 * tan((90 / 2) * M_PI / 180.0)));
+	normalize_vec(&ray);
 	return (ray);
 }
 
-int		smaller_void(void **st)
+void	*smaller_void(void **st)
 {
 	int		i;
 	double	tmp;
@@ -42,8 +43,8 @@ int		smaller_void(void **st)
 		i++;
 	}
 	if (j == -1)
-		return (-1);
-	return (*(int*)(st[j] + sizeof(double)));
+		return (NULL);
+	return (st[j]);
 }
 
 void	reset(void **st, int rgb)
@@ -65,6 +66,7 @@ void	raytracer(t_map *map)
 	int		x;
 	void	*st[NB_OBJ];
 	int		rgb;
+	void	*small;
 
 	y = 0;
 	while (y < map->tab->screen.y)
@@ -75,8 +77,11 @@ void	raytracer(t_map *map)
 			if (map->tab->nb_sphere > 0)
 				st[0] = nearest_sphere(y, x, map, map->tab->sphere);
 			st[1] = plan(map, x, y);
-			if ((rgb = smaller_void(st)) != -1)
+			if ((small = smaller_void(st)) != NULL)
+			{
+				rgb = lumos(small, map, x, y);
 				pixel_put(map, x, y, rgb);
+			}
 			reset(st, rgb);
 			x++;
 		}

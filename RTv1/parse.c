@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 17:28:16 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/28 13:12:56 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/02 14:21:21 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,8 @@ t_tab	*parse(char *file)
 			get_cone(fd, tab);
 		else if ((i = ft_strchrstr(line, "cylinder:")) != -1)
 			get_cylinder(fd, tab);
+		else if ((i = ft_strchrstr(line, "spot:")) != -1)
+			get_spot(fd, tab);
 		free(line);
 	}
 	if (ret == -1)

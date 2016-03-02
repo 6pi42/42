@@ -6,28 +6,24 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/27 19:42:15 by Client            #+#    #+#             */
-/*   Updated: 2016/02/28 12:55:32 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/02 15:40:11 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-void	get_inter_sphere(t_sphere *s, int i, int j, t_map *map)
+void	get_inter_sphere(t_sphere *s, t_vec ray, t_vec org)
 {
 	double		a[5];
 	double		tmp;
-	t_vec		ray;
 
 	a[3] = -1;
-	ray = init_ray(map, j, i);
 	a[0] = ray.x * ray.x + ray.y * ray.y + ray.z * ray.z;
-	a[1] = 2 * (ray.x * (map->tab->cam.pos.x - s->pos.x)
-	+ ray.y * (map->tab->cam.pos.y - s->pos.y)
-	+ ray.z * (map->tab->cam.pos.z - s->pos.z));
-	a[2] = (map->tab->cam.pos.x - s->pos.x) * (map->tab->cam.pos.x - s->pos.x)
-	+ (map->tab->cam.pos.y - s->pos.y) * (map->tab->cam.pos.y - s->pos.y)
-	+ (map->tab->cam.pos.z - s->pos.z) * (map->tab->cam.pos.z - s->pos.z)
-	- s->radius * s->radius;
+	a[1] = 2 * (ray.x * (org.x - s->pos.x) + ray.y * (org.y - s->pos.y)
+	+ ray.z * (org.z - s->pos.z));
+	a[2] = (org.x - s->pos.x) * (org.x - s->pos.x) + (org.y - s->pos.y) *
+	(org.y - s->pos.y) + (org.z - s->pos.z) * (org.z - s->pos.z) -
+	s->radius * s->radius;
 	a[4] = (a[1] * a[1]) - (4 * a[0] * a[2]);
 	if (a[4] == 0)
 		a[3] = (-a[1] + sqrt(a[4])) / (2 * a[0]);
@@ -68,15 +64,39 @@ int		get_smaller_sphere(t_sphere *sphere, int c)
 
 void	*nearest_sphere(int y, int x, t_map *map, t_sphere *sphere)
 {
-	int	i;
-	int	small;
-	int	c;
+	int		i;
+	int		small;
+	int		c;
+	t_vec	ray;
+
+	c = map->tab->nb_sphere;
+	i = 0;
+	ray = init_ray(map, x, y);
+	while (i < c)
+	{
+		get_inter_sphere(&map->tab->sphere[i], ray, map->tab->cam.pos);
+		i++;
+	}
+	small = get_smaller_sphere(map->tab->sphere, c);
+	if (small != -1)
+		return ((void*)(&sphere[small]));
+	else
+		return (NULL);
+}
+
+void	*nearest_sphere_spot(int y, int x, t_map *map, t_sphere *sphere)
+{
+	int		i;
+	int		small;
+	int		c;
+	t_vec	ray;
 
 	c = map->tab->nb_sphere;
 	i = 0;
 	while (i < c)
 	{
-		get_inter_sphere(&map->tab->sphere[i], y, x, map);
+		ray = init_ray_lumos(map, x, y, &(map->tab->sphere[i]));
+		get_inter_sphere(&map->tab->sphere[i], ray, map->tab->spot);
 		i++;
 	}
 	small = get_smaller_sphere(map->tab->sphere, c);

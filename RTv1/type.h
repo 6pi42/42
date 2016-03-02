@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   type.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Client <Client@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:37:04 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/27 20:56:06 by Client           ###   ########.fr       */
+/*   Updated: 2016/03/02 13:50:01 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct		s_sphere
 {
 	double			t;
 	int				rgb;
+	int				rgb_light;
 	double			radius;
 	t_vec			pos;
 }					t_sphere;
@@ -39,6 +40,7 @@ typedef struct		s_cone
 {
 	double			t;
 	int				rgb;
+	int				rgb_light;
 	double			radius;
 	double			height;
 	t_vec			pos;
@@ -54,6 +56,7 @@ typedef struct		s_plan
 {
 	double			t;
 	int				rgb;
+	int				rgb_light;
 	t_vec			pos;
 }					t_plan;
 
@@ -68,6 +71,7 @@ typedef struct		s_tab
 	t_plan			plan;
 	t_cam			cam;
 	t_pos			screen;
+	t_vec			spot;
 }					t_tab;
 
 #endif

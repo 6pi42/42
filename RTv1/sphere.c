@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/27 19:42:15 by Client            #+#    #+#             */
-/*   Updated: 2016/03/02 15:40:11 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/03 15:20:47 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,41 +62,17 @@ int		get_smaller_sphere(t_sphere *sphere, int c)
 	return (j);
 }
 
-void	*nearest_sphere(int y, int x, t_map *map, t_sphere *sphere)
+void	*nearest_sphere(t_vec ray, t_map *map, t_sphere *sphere, t_vec org)
 {
 	int		i;
 	int		small;
 	int		c;
-	t_vec	ray;
-
-	c = map->tab->nb_sphere;
-	i = 0;
-	ray = init_ray(map, x, y);
-	while (i < c)
-	{
-		get_inter_sphere(&map->tab->sphere[i], ray, map->tab->cam.pos);
-		i++;
-	}
-	small = get_smaller_sphere(map->tab->sphere, c);
-	if (small != -1)
-		return ((void*)(&sphere[small]));
-	else
-		return (NULL);
-}
-
-void	*nearest_sphere_spot(int y, int x, t_map *map, t_sphere *sphere)
-{
-	int		i;
-	int		small;
-	int		c;
-	t_vec	ray;
 
 	c = map->tab->nb_sphere;
 	i = 0;
 	while (i < c)
 	{
-		ray = init_ray_lumos(map, x, y, &(map->tab->sphere[i]));
-		get_inter_sphere(&map->tab->sphere[i], ray, map->tab->spot);
+		get_inter_sphere(&map->tab->sphere[i], ray, org);
 		i++;
 	}
 	small = get_smaller_sphere(map->tab->sphere, c);

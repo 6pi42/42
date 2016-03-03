@@ -1,29 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_object2.c                                      :+:      :+:    :+:   */
+/*   shadow.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/02 13:34:09 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/03 12:09:17 by cboyer           ###   ########.fr       */
+/*   Created: 2016/03/03 15:10:23 by cboyer            #+#    #+#             */
+/*   Updated: 2016/03/03 15:44:51 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-void	get_spot(int fd, t_tab *tab)
+int	shadow(t_map *map, void *obj, t_vec ray)
 {
-	char	*line;
-	int		ret;
+	t_vec	light;
+	void	*st[NB_OBJ];
 
-	ret = get_next_line(fd, &line);
-	if (ret == -1)
-		ft_error_malloc();
-	if ((ret = ft_strchrstr(line, "pos:")) != -1)
-		tab->spot = get_vec(line + ret);
+	light = get_light_ray(obj, ray, map);
+	if (map->tab->nb_sphere > 0)
+		st[0] = nearest_sphere(light, map, map->tab->sphere, map->tab->spot);
+	st[1] = plan(map, ray);
+	if (smaller_void(st) != obj)
+		return (0);
 	else
-		ft_error_file();
-	tab->spot_v = 1;
-	free(line);
+		return (1);
 }

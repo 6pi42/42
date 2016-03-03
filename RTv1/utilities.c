@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/26 11:26:30 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/02 16:18:57 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/03 13:32:04 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,4 @@ int	atoi_hex(char *line)
 		i++;
 	}
 	return (nbr);
-}
-
-void	normalize_vec(t_vec *vec)
-{
-	double tmp;
-
-	tmp = 1.0 / sqrt((vec->x * vec->x) + (vec->y * vec->y) + (vec->z * vec->z));
-	vec->x *= tmp;
-	vec->y *= tmp;
-	vec->z *= tmp;
 }

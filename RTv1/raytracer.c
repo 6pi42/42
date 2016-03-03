@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 16:47:16 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/02 16:19:36 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/03 15:51:52 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,18 @@ void	raytracer(t_map *map)
 		while (x < map->tab->screen.x)
 		{
 			if (map->tab->nb_sphere > 0)
-				st[0] = nearest_sphere(y, x, map, map->tab->sphere);
-			st[1] = plan(map, x, y);
+				st[0] = nearest_sphere(init_ray(map, x, y) ,map,
+					map->tab->sphere, map->tab->cam.pos);
+			st[1] = plan(map, init_ray(map, x, y));
 			if ((small = smaller_void(st)) != NULL)
 			{
-				rgb = lumos(small, map, x, y);
+				rgb = *(int*)(small + sizeof(double));
+				if (small == st[0])
+					rgb = sphere_lumos(map, small, init_ray(map, x, y));
+				if (small == st[1])
+					rgb = plan_lumos(map, small, init_ray(map, x, y));
+				//if (shadow(map, small, init_ray(map, x, y)) == 0)
+				//	rgb = 0x000000;
 				pixel_put(map, x, y, rgb);
 			}
 			reset(st, rgb);

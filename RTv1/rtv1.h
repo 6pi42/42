@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 16:39:57 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/02 16:19:14 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/03 15:57:59 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,18 @@ t_vec				init_ray_lumos(t_map *map, int x, int y, void *obj);
 
 void				get_inter_sphere(t_sphere *s, t_vec ray, t_vec org);
 int					get_smaller_sphere(t_sphere *sphere, int c);
-void				*nearest_sphere(int y, int x, t_map *map, t_sphere *sphere);
-void				*nearest_sphere_spot(int y, int x, t_map *map,
-	t_sphere *sphere);
-void				*plan(t_map *map, int x, int y);
-void				*plan_lumos(t_map *map, int x, int y);
+void				*nearest_sphere(t_vec ray, t_map *map, t_sphere *sphere,
+	t_vec org);
+void				*plan(t_map *map, t_vec ray);
+int					plan_lumos(t_map *map, t_plan *plan, t_vec ray);
 void				*smaller_void(void **st);
+int					sphere_lumos(t_map *map, t_sphere *sphere, t_vec ray);
+t_vec				get_light_ray(void *obj, t_vec ray, t_map *map);
+int					shadow(t_map *map, void *obj, t_vec ray);
 
 int					lumos(void *obj, t_map *map, int x, int y);
+int					light_rgb(int rgb, double angle);
+int					shadow_rgb(int rgb, double angle);
 
 int					expose_hook(t_map *map);
 int					key_hook(int keycode, t_map *map);
@@ -95,5 +99,10 @@ void				ft_error_file(void);
 void				ft_error_malloc(void);
 void				ft_error_mlx(void);
 void				ft_error_arg(void);
+
+double				length_vec(t_vec vec);
+void				normalize_vec(t_vec *vec);
+double				dot_vec(t_vec a, t_vec b);
+t_vec				cross_product_vec(t_vec a, t_vec b);
 
 #endif

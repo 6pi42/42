@@ -12,5 +12,14 @@ object:
 		pos: 0.0 0.0 0.0
 		radius: 50.0
 		rgb: 0xFF0000
+	sphere:
+		pos: -150.0 0.0 0.0
+		radius: 50.0
+		rgb: 0xFFFFFF
+	cylinder:
+		pos: 120.0 0.0 0.0
+		radius: 50.0
+		height: 100.0
+		rgb: 0x00FF00
 	spot:
 		pos: 600.0 -400.0 0.0

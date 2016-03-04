@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 16:47:16 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/03 15:51:52 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/04 13:39:56 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,9 @@ void	raytracer(t_map *map)
 				st[0] = nearest_sphere(init_ray(map, x, y) ,map,
 					map->tab->sphere, map->tab->cam.pos);
 			st[1] = plan(map, init_ray(map, x, y));
+			if (map->tab->nb_cylinder > 0)
+				st[2] = nearest_cyl(init_ray(map, x, y), map,
+					map->tab->cylinder, map->tab->cam.pos);
 			if ((small = smaller_void(st)) != NULL)
 			{
 				rgb = *(int*)(small + sizeof(double));

@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 16:39:57 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/03 15:57:59 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/04 15:14:32 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include "type.h"
 #include <stdio.h>
 # define KEY_ESC 53
-# define NB_OBJ 2
+# define NB_OBJ 3
 
 typedef struct		s_env
 {
@@ -74,6 +74,7 @@ void				*smaller_void(void **st);
 int					sphere_lumos(t_map *map, t_sphere *sphere, t_vec ray);
 t_vec				get_light_ray(void *obj, t_vec ray, t_map *map);
 int					shadow(t_map *map, void *obj, t_vec ray);
+void				*nearest_cyl(t_vec ray, t_map *map, t_cone *cyl, t_vec org);
 
 int					lumos(void *obj, t_map *map, int x, int y);
 int					light_rgb(int rgb, double angle);

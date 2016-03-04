@@ -6,7 +6,7 @@
 #    By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/01/08 12:28:01 by cboyer            #+#    #+#              #
-#    Updated: 2016/03/03 15:24:49 by cboyer           ###   ########.fr        #
+#    Updated: 2016/03/04 13:13:03 by cboyer           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ SRC =	main.c			\
 		vector.c		\
 		sphere_lumos.c	\
 		shadow.c		\
+		cylinder.c		\
 
 OBJ = $(SRC:.c=.o)
 NAME = rtv1
@@ -71,6 +72,9 @@ mlibx:
 
 maison: lib mlibx $(OBJ)
 	gcc -Wall -Werror -Wextra -I./libft/includes/ -L./libft/ -L./minilibx_macos/ -lft -I./minilibx_macos/ -lmlx -framework OpenGL -framework AppKit $(OBJ) -o $(NAME)
+
+seg: lib $(OBJ)
+	gcc -I ./libft/includes/ -I /usr/local/include -lmlx -framework OpenGL -framework AppKit -fsanitize=address -L./libft/ -lft $(SRC) -o $(NAME)
 
 re_maison: fclean mlibx maison
 

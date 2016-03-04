@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 21:26:20 by Client            #+#    #+#             */
-/*   Updated: 2016/02/28 13:07:30 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/04 12:02:07 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void			get_error(int j, int ret)
 {
 	if (ret == -1)
 		ft_error_malloc();
-	if (j != 3)
+	if (j != 4)
 		ft_error_file();
 }
 
@@ -69,7 +69,7 @@ void			get_cone(int fd, t_tab *tab)
 	j = 0;
 	if (i >= tab->nb_cone)
 		ft_error_file();
-	while (j++ != 3 && (ret = get_next_line(fd, &line)) > 0)
+	while (j++ != 4 && (ret = get_next_line(fd, &line)) > 0)
 	{
 		if ((h = ft_strchrstr(line, "rgb:")) != -1)
 			tab->cone[i].rgb = get_rgb(line + h);
@@ -83,7 +83,8 @@ void			get_cone(int fd, t_tab *tab)
 			ft_error_file();
 		free(line);
 	}
-	get_error(j, ret);
+	if (ret == -1)
+		ft_error_malloc();
 	i++;
 }
 
@@ -98,7 +99,7 @@ void			get_cylinder(int fd, t_tab *tab)
 	j = 0;
 	if (i >= tab->nb_cylinder)
 		ft_error_file();
-	while (j++ != 3 && (ret = get_next_line(fd, &line)) > 0)
+	while (j++ != 4 && (ret = get_next_line(fd, &line)) > 0)
 	{
 		if ((h = ft_strchrstr(line, "rgb:")) != -1)
 			tab->cylinder[i].rgb = get_rgb(line + h);
@@ -112,6 +113,7 @@ void			get_cylinder(int fd, t_tab *tab)
 			ft_error_file();
 		free(line);
 	}
-	get_error(j, ret);
+	if (ret == -1)
+		ft_error_malloc();
 	i++;
 }

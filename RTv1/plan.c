@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/27 19:55:28 by Client            #+#    #+#             */
-/*   Updated: 2016/03/03 16:30:52 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/04 11:23:52 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	*plan(t_map *map, t_vec ray)
 	nor.z = 0.0;
 	t = -(((nor.x * (map->tab->cam.pos.x - 0.0)) +
 			(nor.y * (map->tab->cam.pos.y - 0.0)) +
-			 (nor.z * (map->tab->cam.pos.z - 0.0)))
+			(nor.z * (map->tab->cam.pos.z - 0.0)))
 			/ ((nor.x * ray.x) + (nor.y * ray.y) + (nor.z * ray.z)));
 	if (t < 0.0)
 		return (NULL);
@@ -56,9 +56,6 @@ int		plan_lumos(t_map *map, t_plan *plan, t_vec ray)
 	if (angle <= 0)
 		rgb = 0x000000;
 	else
-	{
-		angle = fmod(angle, M_PI);
-		rgb = light_rgb(plan->rgb, angle);
-	}
+		rgb = light_rgb(plan->rgb, angle * 0.6);
 	return (rgb);
 }

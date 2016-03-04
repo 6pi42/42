@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/03 13:31:54 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/03 16:10:44 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/04 11:23:13 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_vec	get_light_ray(void *obj, t_vec ray, t_map *map)
 	return (light);
 }
 
-int sphere_lumos(t_map *map, t_sphere *sphere, t_vec ray)
+int		sphere_lumos(t_map *map, t_sphere *sphere, t_vec ray)
 {
 	int		rgb;
 	t_vec	light;
@@ -49,6 +49,6 @@ int sphere_lumos(t_map *map, t_sphere *sphere, t_vec ray)
 	if (angle <= 0)
 		rgb = 0x000000;
 	else
-		rgb = light_rgb(sphere->rgb, angle);
+		rgb = light_rgb(sphere->rgb, angle * 0.6);
 	return (rgb);
 }

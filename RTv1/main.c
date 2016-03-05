@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 16:36:48 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/02 15:13:17 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/05 11:40:28 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	print_object(t_tab *tab)
 	printf("plan: rgb %#x\n\n", tab->plan.rgb);
 	printf("spot pos: x %f y %f z %f\n\n", tab->spot.x, tab->spot.y, tab->spot.z);
 	i = 0;
+	printf("nb: %d\n\n", tab->nb_sphere);
 	while (i < tab->nb_sphere)
 	{
 		printf("sphere[%d]\n\n", i);
@@ -36,6 +37,7 @@ void	print_object(t_tab *tab)
 		i++;
 	}
 	i = 0;
+	printf("nb: %d\n\n", tab->nb_cone);
 	while (i < tab->nb_cone)
 	{
 		printf("cone[%d]\n\n", i);
@@ -47,6 +49,7 @@ void	print_object(t_tab *tab)
 		i++;
 	}
 	i = 0;
+	printf("nb: %d\n\n", tab->nb_cylinder);
 	while (i < tab->nb_cylinder)
 	{
 		printf("cylinder[%d]\n\n", i);

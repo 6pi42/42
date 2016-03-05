@@ -6,7 +6,7 @@
 #    By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/01/08 12:28:01 by cboyer            #+#    #+#              #
-#    Updated: 2016/03/04 13:13:03 by cboyer           ###   ########.fr        #
+#    Updated: 2016/03/05 13:53:49 by cboyer           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,11 +25,11 @@ SRC =	main.c			\
 		sphere.c		\
 		plan.c			\
 		get_object2.c	\
-		lumos.c			\
 		vector.c		\
 		sphere_lumos.c	\
 		shadow.c		\
 		cylinder.c		\
+		cone.c			\
 
 OBJ = $(SRC:.c=.o)
 NAME = rtv1

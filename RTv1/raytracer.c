@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 16:47:16 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/04 13:39:56 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/05 14:26:55 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,22 +74,25 @@ void	raytracer(t_map *map)
 		x = 0;
 		while (x < map->tab->screen.x)
 		{
-			if (map->tab->nb_sphere > 0)
-				st[0] = nearest_sphere(init_ray(map, x, y) ,map,
+			st[0] = nearest_sphere(init_ray(map, x, y) ,map,
 					map->tab->sphere, map->tab->cam.pos);
-			st[1] = plan(map, init_ray(map, x, y));
-			if (map->tab->nb_cylinder > 0)
-				st[2] = nearest_cyl(init_ray(map, x, y), map,
+			st[1] = plan(map->tab->cam.pos, init_ray(map, x, y), map);
+			st[2] = nearest_cyl(init_ray(map, x, y), map,
 					map->tab->cylinder, map->tab->cam.pos);
+			st[3] = nearest_cone(init_ray(map, x, y), map,
+					map->tab->cone, map->tab->cam.pos);
 			if ((small = smaller_void(st)) != NULL)
 			{
 				rgb = *(int*)(small + sizeof(double));
-				if (small == st[0])
-					rgb = sphere_lumos(map, small, init_ray(map, x, y));
-				if (small == st[1])
-					rgb = plan_lumos(map, small, init_ray(map, x, y));
-				//if (shadow(map, small, init_ray(map, x, y)) == 0)
-				//	rgb = 0x000000;
+				if (map->tab->spot_v)
+				{
+					if (small == st[0])
+						rgb = sphere_lumos(map, small, init_ray(map, x, y));
+					if (small == st[1])
+						rgb = plan_lumos(map, small, init_ray(map, x, y));
+				if (shadow(map, small, init_ray(map, x, y)) == 0)
+					rgb = 0x000000;
+				}
 				pixel_put(map, x, y, rgb);
 			}
 			reset(st, rgb);

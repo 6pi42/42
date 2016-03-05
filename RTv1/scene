@@ -22,4 +22,9 @@ object:
 		height: 100.0
 		rgb: 0x00FF00
 	spot:
-		pos: 600.0 -400.0 0.0
+		pos: -600.0 -400.0 0.0
+	cone:
+		pos: 0.0 0.0 0.0
+		radius: 50.0
+		height: 100.0
+		rgb: 0x00FF00

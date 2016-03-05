@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/03 13:31:54 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/04 11:23:13 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/05 12:21:55 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,7 @@ t_vec	get_normal_sphere(t_sphere *sphere, t_vec ray, t_map *map)
 	return (norm);
 }
 
-t_vec	get_light_ray(void *obj, t_vec ray, t_map *map)
-{
-	t_vec	light;
-	double	t;
 
-	t = *(double*)obj;
-	light.x = (map->tab->cam.pos.x + ray.x * t) - map->tab->spot.x;
-	light.y = (map->tab->cam.pos.y + ray.y * t) - map->tab->spot.y;
-	light.z = (map->tab->cam.pos.z + ray.z * t) - map->tab->spot.z;
-	normalize_vec(&light);
-	return (light);
-}
 
 int		sphere_lumos(t_map *map, t_sphere *sphere, t_vec ray)
 {

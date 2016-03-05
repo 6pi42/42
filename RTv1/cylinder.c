@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/04 11:27:19 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/04 15:27:28 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/05 13:53:22 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,13 @@ void	get_inter_cyl(t_cone *cyl, t_vec ray, t_vec org)
 	double	b;
 	double	c;
 	double	d;
-	double	t;
+	double	t1;
+	double	t2;
 	double	tmp;
-	double	p;
+	double	y1;
+	double	y2;
 
-	t = -1;
-	p = (org.y - cyl->pos.y);
+	t1 = -1;
 	a = ray.x * ray.x + ray.z * ray.z;
 	b = 2 * (ray.x * (org.x - cyl->pos.x) + ray.z * (org.z - cyl->pos.z));
 	c = (((org.x - cyl->pos.x) * (org.x - cyl->pos.x)) +
@@ -31,21 +32,27 @@ void	get_inter_cyl(t_cone *cyl, t_vec ray, t_vec org)
 		cyl->radius * cyl->radius;
 	d = (b * b) - (4 * a * c);
 	if (d == 0)
-		t = (-b + sqrt(d)) / (2 * a);
+	{
+		t1 = (-b + sqrt(d)) / (2 * a);
+		t2 = t1;
+	}
 	else if (d > 0)
 	{
-		t = (-b + sqrt(d)) / (2 * a);
-		tmp = (-b - sqrt(d)) / (2 * a);
-		if (t > tmp && tmp > 0)
-			t = tmp;
+		t1 = (-b + sqrt(d)) / (2 * a);
+		t2 = (-b - sqrt(d)) / (2 * a);
+		if (t1 > t2 && t2 > 0)
+		{
+			tmp = t1;
+			t1 = t2;
+			t2 = tmp;
+		}
 	}
-	if (t != -1)
+	if (t1 != -1)
 	{
-		p = ray.y * t + p;
-		if (p < cyl->pos.y || p > cyl->pos.y + cyl->height)
-			t = -1;
+		y1 = (org.y - cyl->pos.y) + t1 * ray.y;
+		y2 = (org.y - cyl->pos.y) + t2 * ray.y;
 	}
-	cyl->t = t <= 0 ? -1 : t;
+	cyl->t = t1 <= 0 ? -1 : t1;
 }
 
 int		get_smaller_cyl(t_cone *cyl, int c)
@@ -79,7 +86,7 @@ void	*nearest_cyl(t_vec ray, t_map *map, t_cone *cyl, t_vec org)
 	int	small;
 	int	c;
 
-	c = map->tab->nb_sphere;
+	c = map->tab->nb_cylinder;
 	i = 0;
 	while (i < c)
 	{

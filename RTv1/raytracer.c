@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 16:47:16 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/05 14:26:55 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/07 14:40:03 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	raytracer(t_map *map)
 		{
 			st[0] = nearest_sphere(init_ray(map, x, y) ,map,
 					map->tab->sphere, map->tab->cam.pos);
-			st[1] = plan(map->tab->cam.pos, init_ray(map, x, y), map);
+			st[1] = nearest_plan(map->tab->cam.pos, init_ray(map, x, y), map);
 			st[2] = nearest_cyl(init_ray(map, x, y), map,
 					map->tab->cylinder, map->tab->cam.pos);
 			st[3] = nearest_cone(init_ray(map, x, y), map,
@@ -87,7 +87,10 @@ void	raytracer(t_map *map)
 				if (map->tab->spot_v)
 				{
 					if (small == st[0])
+					{
 						rgb = sphere_lumos(map, small, init_ray(map, x, y));
+						//rgb = sphere_reflexion(map, small, init_ray(map, x, y), rgb);
+					}
 					if (small == st[1])
 						rgb = plan_lumos(map, small, init_ray(map, x, y));
 				if (shadow(map, small, init_ray(map, x, y)) == 0)

@@ -6,7 +6,7 @@
 #    By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/01/08 12:28:01 by cboyer            #+#    #+#              #
-#    Updated: 2016/03/05 13:53:49 by cboyer           ###   ########.fr        #
+#    Updated: 2016/03/07 14:33:48 by cboyer           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SRC =	main.c			\
 		shadow.c		\
 		cylinder.c		\
 		cone.c			\
+		reflection.c	\
 
 OBJ = $(SRC:.c=.o)
 NAME = rtv1

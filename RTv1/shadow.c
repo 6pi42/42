@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/03 15:10:23 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/05 14:27:06 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/07 13:10:29 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,10 @@ int	shadow(t_map *map, void *obj, t_vec ray)
 
 	light = get_light_ray(obj, ray, map);
 	st[0] = nearest_sphere(light, map, map->tab->sphere, map->tab->spot);
-	st[1] = plan(map->tab->spot, light, map);
+	st[1] = nearest_plan(map->tab->spot, light, map);
 	st[2] = nearest_cyl(light, map, map->tab->cylinder, map->tab->spot);
-	st[3] = nearest_cone(light, map, map->tab->cone, map->tab->spot);
+	//st[3] = nearest_cone(light, map, map->tab->cone, map->tab->spot);
+	st[3] = NULL;
 	small = smaller_void(st);
 	if (small != obj)
 		return (0);

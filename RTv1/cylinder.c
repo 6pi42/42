@@ -6,13 +6,13 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/04 11:27:19 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/05 13:53:22 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/07 12:32:49 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-void	get_inter_cyl(t_cone *cyl, t_vec ray, t_vec org)
+void	get_inter_cyl(t_cone *cyl, t_vec ray, t_vec org, t_map *map)
 {
 	double	a;
 	double	b;
@@ -23,6 +23,8 @@ void	get_inter_cyl(t_cone *cyl, t_vec ray, t_vec org)
 	double	tmp;
 	double	y1;
 	double	y2;
+	double	min;
+	double	max;
 
 	t1 = -1;
 	a = ray.x * ray.x + ray.z * ray.z;
@@ -47,11 +49,16 @@ void	get_inter_cyl(t_cone *cyl, t_vec ray, t_vec org)
 			t2 = tmp;
 		}
 	}
+	max = init_ray(map, cyl->pos.x, cyl->pos.y + cyl->height / 2).y;
+	min = init_ray(map, cyl->pos.x, cyl->pos.y - cyl->height / 2).y;
 	if (t1 != -1)
 	{
 		y1 = (org.y - cyl->pos.y) + t1 * ray.y;
 		y2 = (org.y - cyl->pos.y) + t2 * ray.y;
-	}
+/*		if ((y1 < min || y1 > max))
+			t1 = -1;
+		printf("min | %f | max | %f | y1 | %f | y2 | %f |\n", min, max, y1, y2);
+*/	}
 	cyl->t = t1 <= 0 ? -1 : t1;
 }
 
@@ -90,7 +97,7 @@ void	*nearest_cyl(t_vec ray, t_map *map, t_cone *cyl, t_vec org)
 	i = 0;
 	while (i < c)
 	{
-		get_inter_cyl(&map->tab->cylinder[i], ray, org);
+		get_inter_cyl(&map->tab->cylinder[i], ray, org, map);
 		i++;
 	}
 	small = get_smaller_cyl(map->tab->cylinder, c);

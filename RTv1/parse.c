@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 17:28:16 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/03 12:09:48 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/07 13:53:12 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,11 @@ t_tab	*init_tab(char *file)
 	tab->nb_sphere = get_nb_struct(file, "\tsphere:");
 	tab->nb_cylinder = get_nb_struct(file, "\tcylinder:");
 	tab->nb_cone = get_nb_struct(file, "\tcone");
+	tab->nb_plan = get_nb_struct(file, "\tplan");
 	tab->spot_v = 0;
 	if (!(tab->sphere = (t_sphere*)malloc(sizeof(t_sphere) * tab->nb_sphere)))
+		ft_error_malloc();
+	if (!(tab->plan = (t_plan*)malloc(sizeof(t_plan) * tab->nb_plan)))
 		ft_error_malloc();
 	if (!(tab->cylinder = (t_cone*)malloc(sizeof(t_cone) * tab->nb_cylinder)))
 		ft_error_malloc();
@@ -106,7 +109,7 @@ t_tab	*parse(char *file)
 		else if ((i = ft_strchrstr(line, "screen:")) != -1)
 			tab->screen = get_screen(line + i);
 		else if ((i = ft_strchrstr(line, "plan:")) != -1)
-			tab->plan = get_plan(fd);
+			get_plan(fd, tab);
 		else if ((i = ft_strchrstr(line, "sphere:")) != -1)
 			get_sphere(fd, tab);
 		else if ((i = ft_strchrstr(line, "cone:")) != -1)
@@ -115,6 +118,8 @@ t_tab	*parse(char *file)
 			get_cylinder(fd, tab);
 		else if ((i = ft_strchrstr(line, "spot:")) != -1)
 			get_spot(fd, tab);
+		else if (!(correct_line(line)))
+			ft_error_file();
 		free(line);
 	}
 	if (ret == -1)

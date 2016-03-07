@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 16:03:17 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/28 13:18:47 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/07 13:12:37 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,21 +99,21 @@ int		get_rgb(char *line)
 	return (atoi_hex(line));
 }
 
-t_plan	get_plan(int fd)
+void	get_plan(int fd, t_tab *tab)
 {
-	char	*line;
-	int		ret;
-	int		i;
-	int		j;
-	t_plan	plan;
+	char		*line;
+	int			ret;
+	int			i;
+	int			j;
+	static int	n = 0;
 
 	j = 0;
 	while ((ret = get_next_line(fd, &line)) > 0 && j != 1)
 	{
 		if ((i = ft_strchrstr(line, "rgb:")) != -1)
-			plan.rgb = get_rgb(line + i);
+			tab->plan[n].rgb = get_rgb(line + i);
 		else if ((i = ft_strchrstr(line, "rotate:")) != -1)
-			plan.pos = get_vec(line + i);
+			tab->plan[n].pos = get_vec(line + i);
 		else
 			ft_error_file();
 		free(line);
@@ -121,5 +121,4 @@ t_plan	get_plan(int fd)
 	}
 	if (ret == -1)
 		ft_error();
-	return (plan);
 }

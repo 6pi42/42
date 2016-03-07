@@ -9,7 +9,7 @@ object:
 		rgb: 0x0000FF
 		rotate: 0.0 0.0 0.0
 	sphere:
-		pos: 0.0 0.0 0.0
+		pos: 0.0 -25.0 0.0
 		radius: 50.0
 		rgb: 0xFF0000
 	sphere:
@@ -23,8 +23,3 @@ object:
 		rgb: 0x00FF00
 	spot:
 		pos: -600.0 -400.0 0.0
-	cone:
-		pos: 0.0 0.0 0.0
-		radius: 50.0
-		height: 100.0
-		rgb: 0x00FF00

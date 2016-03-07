@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:37:04 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/05 11:43:57 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/07 12:54:20 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ typedef struct		s_tab
 	int				nb_sphere;
 	int				nb_cylinder;
 	int				nb_cone;
-	t_plan			plan;
+	int				nb_plan;
+	t_plan			*plan;
 	t_cam			cam;
 	t_pos			screen;
 	t_vec			spot;

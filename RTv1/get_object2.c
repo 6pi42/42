@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 13:34:09 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/03 12:09:17 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/07 13:51:46 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,17 @@ void	get_spot(int fd, t_tab *tab)
 		ft_error_file();
 	tab->spot_v = 1;
 	free(line);
+}
+
+int		correct_line(char *line)
+{
+	if (ft_strchrstr(line, "scene:") != -1)
+		return (1);
+	if (ft_strchrstr(line, "object:") != -1)
+		return (1);
+	if (ft_strlen(line) == 1 && line[0] == '\n')
+		return (1);
+	if (ft_strlen(line) == 0)
+		return (1);
+	return (0);
 }

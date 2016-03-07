@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 16:36:48 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/05 11:40:28 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/07 13:30:24 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,6 @@ void	print_object(t_tab *tab)
 		tab->cam.pos.y, tab->cam.pos.z);
 	printf("cam rotate: x %f y %f z %f\n\n", tab->cam.rotate.x,
 		tab->cam.rotate.y, tab->cam.rotate.z);
-	printf("plan pos: x %f y %f z %f\n", tab->plan.pos.x,
-		tab->plan.pos.y, tab->plan.pos.z);
-	printf("plan: rgb %#x\n\n", tab->plan.rgb);
 	printf("spot pos: x %f y %f z %f\n\n", tab->spot.x, tab->spot.y, tab->spot.z);
 	i = 0;
 	printf("nb: %d\n\n", tab->nb_sphere);
@@ -34,6 +31,16 @@ void	print_object(t_tab *tab)
 		printf("pos: x %f y %f z %f\n", tab->sphere[i].pos.x,
 		tab->sphere[i].pos.y, tab->sphere[i].pos.z);
 		printf("rgb: %#x\n\n", tab->sphere[i].rgb);
+		i++;
+	}
+	i = 0;
+	printf("nb: %d\n\n", tab->nb_plan);
+	while (i < tab->nb_plan)
+	{
+		printf("plan[%d]\n\n", i);
+		printf("plan: rgb %#x\n\n", tab->plan[i].rgb);
+		printf("plan pos: x %f y %f z %f\n", tab->plan[i].pos.x,
+		tab->plan[i].pos.y, tab->plan[i].pos.z);
 		i++;
 	}
 	i = 0;
@@ -56,7 +63,7 @@ void	print_object(t_tab *tab)
 		printf("rayon: %f\n", tab->cylinder[i].radius);
 		printf("pos: x %f y %f z %f\n", tab->cylinder[i].pos.x,
 		tab->cylinder[i].pos.y, tab->cylinder[i].pos.z);
-		printf("rgb: %d\n", tab->cylinder[i].rgb);
+		printf("rgb: %#x\n", tab->cylinder[i].rgb);
 		printf("height: %f\n\n", tab->cylinder[i].height);
 		i++;
 	}

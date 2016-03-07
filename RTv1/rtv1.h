@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 16:39:57 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/07 14:37:23 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/07 16:04:07 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void				*nearest_cyl(t_vec ray, t_map *map, t_cone *cyl, t_vec org);
 void				*nearest_cone(t_vec ray, t_map *map, t_cone *cone,
 	t_vec org);
 int					light_rgb(int rgb, double angle);
+int					add_rgb(int rgb, double coef);
 t_vec				get_normal_sphere(t_sphere *sphere, t_vec ray, t_map *map);
 int					sphere_reflexion(t_map *map, t_sphere *sphere, t_vec ray, int rgb);
 

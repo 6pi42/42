@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/03 15:10:23 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/07 13:10:29 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/07 16:03:53 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,25 @@ int	light_rgb(int rgb, double angle)
 	red *= angle;
 	blue *= angle;
 	green *= angle;
+	red = red > 255 ? 255 : red;
+	blue = blue > 255 ? 255 : blue;
+	green = green > 255 ? 255 : green;
+	rgb = red << 16 | green << 8 | blue;
+	return (rgb);
+}
+
+int	add_rgb(int rgb, double coef)
+{
+	int	red;
+	int	green;
+	int	blue;
+
+	red = (rgb & 0xFF0000) >> 16;
+	green = (rgb & 0xFF00) >> 8;
+	blue = rgb & 0xFF;
+	red += coef;
+	blue += coef;
+	green += coef;
 	red = red > 255 ? 255 : red;
 	blue = blue > 255 ? 255 : blue;
 	green = green > 255 ? 255 : green;

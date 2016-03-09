@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 16:03:17 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/07 13:12:37 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/09 13:09:00 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,8 @@ void	get_plan(int fd, t_tab *tab)
 	static int	n = 0;
 
 	j = 0;
+	if (n >= tab->nb_plan)
+		ft_error_file();
 	while ((ret = get_next_line(fd, &line)) > 0 && j != 1)
 	{
 		if ((i = ft_strchrstr(line, "rgb:")) != -1)

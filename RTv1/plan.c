@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/27 19:55:28 by Client            #+#    #+#             */
-/*   Updated: 2016/03/07 13:36:15 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/09 13:04:53 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int		plan_lumos(t_map *map, t_plan *plan, t_vec ray)
 	double	angle;
 	t_vec	norm;
 
-	light = get_light_ray((void*)plan, ray, map);
+	light = get_light_ray((void*)plan, ray, map, map->tab->spot);
 	norm = get_norm_plan(plan, ray, map);
 	angle = acos(dot_vec(light, norm));
 	if (angle <= 0)

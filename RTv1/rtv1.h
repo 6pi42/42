@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 16:39:57 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/07 16:04:07 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/09 17:40:54 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,14 @@ void				*nearest_plan(t_vec org, t_vec ray, t_map *map);
 int					plan_lumos(t_map *map, t_plan *plan, t_vec ray);
 void				*smaller_void(void **st);
 int					sphere_lumos(t_map *map, t_sphere *sphere, t_vec ray);
-t_vec				get_light_ray(void *obj, t_vec ray, t_map *map);
-int					shadow(t_map *map, void *obj, t_vec ray);
+t_vec				get_light_ray(void *obj, t_vec ray, t_map *map, t_vec spot);
+int					shadow(t_map *map, void *obj, t_vec ray, t_vec spot);
+int					get_shadow(t_map *map, void *shape, t_vec ray,
+	t_vec lightpos);
 void				*nearest_cyl(t_vec ray, t_map *map, t_cone *cyl, t_vec org);
 void				*nearest_cone(t_vec ray, t_map *map, t_cone *cone,
 	t_vec org);
+void				nearest_obj(t_map *map, t_vec ray, t_vec org, void **st);
 int					light_rgb(int rgb, double angle);
 int					add_rgb(int rgb, double coef);
 t_vec				get_normal_sphere(t_sphere *sphere, t_vec ray, t_map *map);
@@ -83,6 +86,7 @@ int					sphere_reflexion(t_map *map, t_sphere *sphere, t_vec ray, int rgb);
 
 int					expose_hook(t_map *map);
 int					key_hook(int keycode, t_map *map);
+t_vec				intersection(void *obj, t_vec ray, t_vec org);
 
 t_pos				get_screen(char *line);
 t_vec				get_vec(char *line);
@@ -108,5 +112,6 @@ double				dot_vec(t_vec a, t_vec b);
 t_vec				cross_product_vec(t_vec a, t_vec b);
 t_vec				mult_int_vec(t_vec a, double i);
 t_vec				sous_vec(t_vec a, t_vec b);
+t_vec				add_vec(t_vec a, t_vec b);
 
 #endif

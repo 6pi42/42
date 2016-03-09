@@ -6,7 +6,7 @@
 #    By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/01/08 12:28:01 by cboyer            #+#    #+#              #
-#    Updated: 2016/03/07 14:33:48 by cboyer           ###   ########.fr        #
+#    Updated: 2016/03/09 17:29:59 by cboyer           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,12 +31,13 @@ SRC =	main.c			\
 		cylinder.c		\
 		cone.c			\
 		reflection.c	\
+		soft_shadow.c	\
 
 OBJ = $(SRC:.c=.o)
 NAME = rtv1
 CC = gcc
 RM = rm -f
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -Ofast
 
 LIB_PATH = ./libft/ /usr/local/lib/ #/usr/X11/lib/
 LIB_NAME = -lft -lmlx -framework OpenGL -framework AppKit

@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 12:39:41 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/09 18:31:42 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/10 12:54:17 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int		get_shadow(t_map *map, void *obj, t_vec inter, t_vec lightpos)
 	int			count;
 	t_vec		offset;
 	t_vec		light;
+	t_vec		tmp;
 
 	pos.y = -1;
 	count = 0;
@@ -74,6 +75,7 @@ int		get_shadow(t_map *map, void *obj, t_vec inter, t_vec lightpos)
 			offset.x = (pos.x * 2.5) + rand_double();
 			offset.y = (pos.y * 2.5) + rand_double();
 			light = get_lightpos(lightpos, offset.x, offset.y);
+			tmp = sous_vec(light, inter);
 			if (shadow(map, obj, sous_vec(light, inter), light))
 				count++;
 		}

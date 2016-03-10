@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 16:47:16 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/09 18:20:44 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/10 13:03:59 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,14 @@
 t_vec	intersection(void *obj, t_vec ray, t_vec org)
 {
 	t_vec	inter;
-	int		t;
+	double	t;
 
-	t = *(double*)obj;
+	t = *(double*)(obj);
+//	printf("%f\n", t);
 	inter.x = org.x + ray.x * t;
 	inter.y = org.y + ray.y * t;
 	inter.z = org.z + ray.z * t;
+//	printf("%f %f %f\n", inter.x, inter.y, inter.z);
 	return (inter);
 }
 
@@ -28,8 +30,8 @@ t_vec	init_ray(t_map *map, int x, int y)
 {
 	t_vec	ray;
 
-	ray.x = (x - map->tab->screen.x / 2);
-	ray.y = (y - map->tab->screen.y / 2);
+	ray.x = x - (map->tab->screen.x / 2);
+	ray.y = y - (map->tab->screen.y / 2);
 	ray.z = -(map->tab->screen.x / (2 * tan((45 / 2) * M_PI / 180.0)));
 	normalize_vec(&ray);
 	return (ray);

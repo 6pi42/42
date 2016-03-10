@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/27 19:42:15 by Client            #+#    #+#             */
-/*   Updated: 2016/03/03 15:20:47 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/10 12:58:11 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,16 @@ void	get_inter_sphere(t_sphere *s, t_vec ray, t_vec org)
 	(org.y - s->pos.y) + (org.z - s->pos.z) * (org.z - s->pos.z) -
 	s->radius * s->radius;
 	a[4] = (a[1] * a[1]) - (4 * a[0] * a[2]);
-	if (a[4] == 0)
+	if (a[4] == 0 && a[0] != 0)
 		a[3] = (-a[1] + sqrt(a[4])) / (2 * a[0]);
-	else if (a[4] > 0)
+	else if (a[4] > 0 && a[0] != 0)
 	{
 		a[3] = (-a[1] - sqrt(a[4])) / (2 * a[0]);
 		tmp = (-a[1] + sqrt(a[4])) / (2 * a[0]);
 		if (a[3] > tmp && tmp > 0)
 			a[3] = tmp;
 	}
+	printf("t %f\n", a[3]);
 	s->t = a[3] <= 0 ? -1 : a[3];
 }
 

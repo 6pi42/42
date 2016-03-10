@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 16:47:16 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/10 13:03:59 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/10 13:55:08 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,9 @@ t_vec	intersection(void *obj, t_vec ray, t_vec org)
 	double	t;
 
 	t = *(double*)(obj);
-//	printf("%f\n", t);
 	inter.x = org.x + ray.x * t;
 	inter.y = org.y + ray.y * t;
 	inter.z = org.z + ray.z * t;
-//	printf("%f %f %f\n", inter.x, inter.y, inter.z);
 	return (inter);
 }
 
@@ -30,8 +28,8 @@ t_vec	init_ray(t_map *map, int x, int y)
 {
 	t_vec	ray;
 
-	ray.x = x - (map->tab->screen.x / 2);
-	ray.y = y - (map->tab->screen.y / 2);
+	ray.x = (double)x - ((double)map->tab->screen.x / 2);
+	ray.y = (double)y - ((double)map->tab->screen.y / 2);
 	ray.z = -(map->tab->screen.x / (2 * tan((45 / 2) * M_PI / 180.0)));
 	normalize_vec(&ray);
 	return (ray);
@@ -77,6 +75,7 @@ void	raytracer(t_map *map)
 	int		rgb;
 	void	*small;
 	t_vec	ray;
+	t_vec	inter;
 
 	y = 0;
 	while (y < map->tab->screen.y)
@@ -95,10 +94,9 @@ void	raytracer(t_map *map)
 						rgb = sphere_lumos(map, small, ray);
 					//if (small == st[1])
 					//	rgb = plan_lumos(map, small, ray);
-					if (!(shadow(map, small, get_light_ray(small, ray, map,
-							map->tab->spot), map->tab->spot)))
-						rgb = get_shadow(map, small, intersection(small,
-							ray, map->tab->cam.pos), map->tab->spot);
+					inter = intersection(small, ray, map->tab->cam.pos);
+					if (!(shadow(map, small, sous_vec(map->tab->spot, inter), map->tab->spot)))
+						rgb = get_shadow(map, small, inter, map->tab->spot);
 				}
 				pixel_put(map, x, y, rgb);
 			}

@@ -6,36 +6,38 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/27 19:42:15 by Client            #+#    #+#             */
-/*   Updated: 2016/03/10 12:58:11 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/10 13:56:20 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-void	get_inter_sphere(t_sphere *s, t_vec ray, t_vec org)
+void	get_inter_sphere(t_sphere *s, t_vec ray, t_vec opos)
 {
-	double		a[5];
-	double		tmp;
+    double a;
+    double b;
+    double c;
+    double d;
+    double t;
 
-	a[3] = -1;
-	a[0] = ray.x * ray.x + ray.y * ray.y + ray.z * ray.z;
-	a[1] = 2 * (ray.x * (org.x - s->pos.x) + ray.y * (org.y - s->pos.y)
-	+ ray.z * (org.z - s->pos.z));
-	a[2] = (org.x - s->pos.x) * (org.x - s->pos.x) + (org.y - s->pos.y) *
-	(org.y - s->pos.y) + (org.z - s->pos.z) * (org.z - s->pos.z) -
-	s->radius * s->radius;
-	a[4] = (a[1] * a[1]) - (4 * a[0] * a[2]);
-	if (a[4] == 0 && a[0] != 0)
-		a[3] = (-a[1] + sqrt(a[4])) / (2 * a[0]);
-	else if (a[4] > 0 && a[0] != 0)
-	{
-		a[3] = (-a[1] - sqrt(a[4])) / (2 * a[0]);
-		tmp = (-a[1] + sqrt(a[4])) / (2 * a[0]);
-		if (a[3] > tmp && tmp > 0)
-			a[3] = tmp;
-	}
-	printf("t %f\n", a[3]);
-	s->t = a[3] <= 0 ? -1 : a[3];
+    a = ray.x * ray.x + ray.y * ray.y + ray.z * ray.z;
+    b = 2.0 * (ray.x * (opos.x - s->pos.x)
+        + ray.y * (opos.y - s->pos.y)
+        + ray.z * (opos.z - s->pos.z));
+    c = (opos.x - s->pos.x) * (opos.x - s->pos.x)
+        + (opos.y - s->pos.y) * (opos.y - s->pos.y)
+        + (opos.z - s->pos.z) * (opos.z - s->pos.z)
+        - s->radius * s->radius;
+    d = (b * b) - (4 * a * c);
+    if (d >= 0.0)
+    {
+        t = (-b + sqrt(d)) / (2 * a);
+        if ((-b - sqrt(d)) / (2 * a) < t)
+            t = (-b - sqrt(d)) / (2 * a);
+		s->t = t > 0 ? t : -1;
+    }
+    else
+		s->t = -1;
 }
 
 int		get_smaller_sphere(t_sphere *sphere, int c)

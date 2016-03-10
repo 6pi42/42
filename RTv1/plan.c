@@ -6,36 +6,35 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/27 19:55:28 by Client            #+#    #+#             */
-/*   Updated: 2016/03/09 13:04:53 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/10 13:56:23 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-t_vec	get_norm_plan(t_plan *plan, t_vec ray, t_map *map)
+t_vec	get_norm_plan(t_plan *plan, t_vec ray)
 {
 	t_vec norm;
 
 	(void)plan;
 	(void)ray;
-	(void)map;
 	norm.x = 0.0;
 	norm.y = 1.0;
 	norm.z = 0.0;
 	return (norm);
 }
 
-void	get_inter_plan(t_plan *plan, t_vec ray, t_map *map, t_vec org)
+void	get_inter_plan(t_plan *plan, t_vec ray, t_vec org)
 {
 	double	t;
 	t_vec	nor;
 
-	nor = get_norm_plan(plan, ray, map);
+	nor = get_norm_plan(plan, ray);
 	t = -(((nor.x * (org.x - 0.0)) +
 			(nor.y * (org.y - 0.0)) +
 			(nor.z * (org.z - 0.0)))
 			/ ((nor.x * ray.x) + (nor.y * ray.y) + (nor.z * ray.z)));
-	plan->t = t <= 0 ? -1 : t;
+	plan->t = t < 0.0 ? -1 : t;
 
 }
 
@@ -71,19 +70,17 @@ void	*nearest_plan(t_vec org, t_vec ray, t_map *map)
 {
 	int	i;
 	int	small;
-	t_plan	*plan;
 
-	plan = map->tab->plan;
 	i = 0;
 	while (i < map->tab->nb_plan)
 	{
-		get_inter_plan(&plan[i], ray, map, org);
+		get_inter_plan(&map->tab->plan[i], ray, org);
 		i++;
 	}
-	small = get_smaller_plan(plan, map->tab->nb_plan);
+	small = get_smaller_plan(map->tab->plan, map->tab->nb_plan);
 	if (small == -1)
 		return (NULL);
-	return ((void*)&plan[small]);
+	return ((void*)&map->tab->plan[small]);
 }
 
 int		plan_lumos(t_map *map, t_plan *plan, t_vec ray)
@@ -94,7 +91,7 @@ int		plan_lumos(t_map *map, t_plan *plan, t_vec ray)
 	t_vec	norm;
 
 	light = get_light_ray((void*)plan, ray, map, map->tab->spot);
-	norm = get_norm_plan(plan, ray, map);
+	norm = get_norm_plan(plan, ray);
 	angle = acos(dot_vec(light, norm));
 	if (angle <= 0)
 		rgb = 0x000000;

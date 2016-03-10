@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 16:47:16 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/10 13:55:08 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/10 14:01:20 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_vec	init_ray(t_map *map, int x, int y)
 
 	ray.x = (double)x - ((double)map->tab->screen.x / 2);
 	ray.y = (double)y - ((double)map->tab->screen.y / 2);
-	ray.z = -(map->tab->screen.x / (2 * tan((45 / 2) * M_PI / 180.0)));
+	ray.z = -(map->tab->screen.x / (2 * tan((90 / 2) * M_PI / 180.0)));
 	normalize_vec(&ray);
 	return (ray);
 }

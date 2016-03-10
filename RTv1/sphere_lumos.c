@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/03 13:31:54 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/09 13:04:15 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/10 14:16:53 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,26 @@ int		sphere_lumos_diff(t_map *map, t_sphere *sphere, t_vec ray)
 	return (rgb);
 }
 
+int		sphere_lumos_spec(t_map *map, t_sphere *sphere, t_vec ray)
+{
+	t_vec	norm;
+	t_vec	light;
+	t_vec	half;
+	double	tmp;
+	double	intensity;
+
+	light = get_light_ray((void*)sphere, ray, map, map->tab->spot);
+	norm = get_normal_sphere(sphere, ray, map);
+	if ((dot_vec(norm, light)) > 0.0)
+	{
+		half = add_vec(ray, light);
+		tmp = fmax(dot_vec(norm, half), 0.0);
+		intensity = pow(tmp, 0.5);
+		return (light_rgb(sphere->rgb, intensity));
+	}
+	return (sphere->rgb);
+}
+/*
 int		sphere_lumos_spec(t_map *map, t_sphere *sphere, t_vec ray, int diffuse)
 {
 	t_vec	norm;
@@ -70,7 +90,7 @@ int		sphere_lumos_spec(t_map *map, t_sphere *sphere, t_vec ray, int diffuse)
 	rgb =  add_rgb(rgb, spec);
 	return (rgb);
 
-}
+}*/
 
 int	sphere_lumos(t_map *map, t_sphere *sphere, t_vec ray)
 {
@@ -78,7 +98,6 @@ int	sphere_lumos(t_map *map, t_sphere *sphere, t_vec ray)
 	int	spec;
 
 	diffuse = sphere_lumos_diff(map, sphere, ray);
-	//spec = sphere_lumos_spec(map, sphere, ray, diffuse);
-	spec = diffuse;
+	spec = sphere_lumos_spec(map, sphere, ray);
 	return (spec);
 }

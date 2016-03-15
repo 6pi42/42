@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytracer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Client <Client@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 16:47:16 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/15 14:11:33 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/15 15:05:08 by Client           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	raytracer(t_map *map)
 				if (map->tab->spot_v)
 				{
 					if (small == st[0])
-						rgb = sphere_lumos(map, small, ray, map->tab->spot);
+						rgb = sphere_lumos(map, small, ray);
 					if (small == st[2])
 						rgb = cyl_lumos(map, small, ray, map->tab->spot);
 					//if (small == st[1])

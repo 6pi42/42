@@ -16,5 +16,10 @@ object:
 		pos: -150.0 0.0 0.0
 		radius: 50.0
 		rgb: 0xFFFFFF
+	cylinder:
+		pos: 150.0 0.0 0.0
+		radius: 25.0
+		rgb: 0x00FF00
+		rotate: 0.0 1.0 0.0
 	spot:
 		pos: -100.0 -50.0 0.0

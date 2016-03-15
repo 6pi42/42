@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 16:36:48 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/07 13:30:24 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/15 14:12:48 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void	print_object(t_tab *tab)
 		printf("pos: x %f y %f z %f\n", tab->cone[i].pos.x,
 		tab->cone[i].pos.y, tab->cone[i].pos.z);
 		printf("rgb: %d\n", tab->cone[i].rgb);
-		printf("height: %f\n\n", tab->cone[i].height);
 		i++;
 	}
 	i = 0;
@@ -64,7 +63,6 @@ void	print_object(t_tab *tab)
 		printf("pos: x %f y %f z %f\n", tab->cylinder[i].pos.x,
 		tab->cylinder[i].pos.y, tab->cylinder[i].pos.z);
 		printf("rgb: %#x\n", tab->cylinder[i].rgb);
-		printf("height: %f\n\n", tab->cylinder[i].height);
 		i++;
 	}
 }

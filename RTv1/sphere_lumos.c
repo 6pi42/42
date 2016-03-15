@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/03 13:31:54 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/10 14:16:53 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/15 13:42:57 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ t_vec	get_normal_sphere(t_sphere *sphere, t_vec ray, t_map *map)
 
 
 
-int		sphere_lumos_diff(t_map *map, t_sphere *sphere, t_vec ray)
+int		sphere_lumos_diff(t_map *map, t_sphere *sphere, t_vec ray, t_vec org)
 {
 	int		rgb;
 	t_vec	light;
 	double	angle;
 	t_vec	norm;
 
-	light = get_light_ray((void*)sphere, ray, map, map->tab->spot);
+	light = get_light_ray((void*)sphere, ray, map, org);
 	norm = get_normal_sphere(sphere, ray, map);
 	angle = acos(dot_vec(light, norm));
 	if (angle <= 0)
@@ -42,7 +42,7 @@ int		sphere_lumos_diff(t_map *map, t_sphere *sphere, t_vec ray)
 	return (rgb);
 }
 
-int		sphere_lumos_spec(t_map *map, t_sphere *sphere, t_vec ray)
+int		sphere_lumos_spec(t_map *map, t_sphere *sphere, t_vec ray, t_vec org)
 {
 	t_vec	norm;
 	t_vec	light;
@@ -50,7 +50,7 @@ int		sphere_lumos_spec(t_map *map, t_sphere *sphere, t_vec ray)
 	double	tmp;
 	double	intensity;
 
-	light = get_light_ray((void*)sphere, ray, map, map->tab->spot);
+	light = get_light_ray((void*)sphere, ray, map, org);
 	norm = get_normal_sphere(sphere, ray, map);
 	if ((dot_vec(norm, light)) > 0.0)
 	{
@@ -61,43 +61,13 @@ int		sphere_lumos_spec(t_map *map, t_sphere *sphere, t_vec ray)
 	}
 	return (sphere->rgb);
 }
-/*
-int		sphere_lumos_spec(t_map *map, t_sphere *sphere, t_vec ray, int diffuse)
-{
-	t_vec	norm;
-	double	refl;
-	double	coef;
-	int		rgb;
-	t_vec	light;
-	double	costheta;
-	t_vec	vector;
-	t_vec	tmp;
-	t_vec	reflectvec;
-	int		spec;
 
-	light = get_light_ray((void*)sphere, ray, map, map->tab->spot);
-	norm = get_normal_sphere(sphere, norm, map);
-	costheta = dot_vec(light, norm);
-	costheta = costheta < 0.0 ? 0.0 : costheta;
-	rgb = light_rgb(diffuse, costheta);
-	vector = sous_vec(norm, light);
-	refl = 2.0 * -(dot_vec(norm, light));
-	tmp = mult_int_vec(norm, refl);
-	reflectvec = add_vec(tmp, norm);
-	coef = fmax(-dot_vec(reflectvec, norm), 0);
-	coef = powf(coef, 5);
-	spec = light_rgb(sphere->rgb ,coef);
-	rgb =  add_rgb(rgb, spec);
-	return (rgb);
-
-}*/
-
-int	sphere_lumos(t_map *map, t_sphere *sphere, t_vec ray)
+int	sphere_lumos(t_map *map, t_sphere *sphere, t_vec ray, t_vec org)
 {
 	int	diffuse;
 	int	spec;
 
-	diffuse = sphere_lumos_diff(map, sphere, ray);
-	spec = sphere_lumos_spec(map, sphere, ray);
-	return (spec);
+	diffuse = sphere_lumos_diff(map, sphere, ray, org);
+	spec = sphere_lumos_spec(map, sphere, ray, org);
+	return (diffuse);
 }

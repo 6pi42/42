@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 21:26:20 by Client            #+#    #+#             */
-/*   Updated: 2016/03/04 12:02:07 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/15 11:11:21 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,8 @@ void			get_cone(int fd, t_tab *tab)
 			tab->cone[i].pos = get_vec(line + h);
 		else if ((h = ft_strchrstr(line, "radius:")) != -1)
 			tab->cone[i].radius = get_radius(line + h);
-		else if ((h = ft_strchrstr(line, "height:")) != -1)
-			tab->cone[i].height = get_radius(line + h);
+		else if ((h = ft_strchrstr(line, "rotate:")) != -1)
+			tab->cone[i].rot = get_vec(line + h);
 		else
 			ft_error_file();
 		free(line);
@@ -107,8 +107,8 @@ void			get_cylinder(int fd, t_tab *tab)
 			tab->cylinder[i].pos = get_vec(line + h);
 		else if ((h = ft_strchrstr(line, "radius:")) != -1)
 			tab->cylinder[i].radius = get_radius(line + h);
-		else if ((h = ft_strchrstr(line, "height:")) != -1)
-			tab->cylinder[i].height = get_radius(line + h);
+		else if ((h = ft_strchrstr(line, "rotate:")) != -1)
+			tab->cylinder[i].rot = get_vec(line + h);
 		else
 			ft_error_file();
 		free(line);

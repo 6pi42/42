@@ -6,13 +6,27 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/04 11:27:19 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/07 12:32:49 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/15 14:19:25 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-void	get_inter_cyl(t_cone *cyl, t_vec ray, t_vec org, t_map *map)
+t_vec   get_normal_cyl(t_cone *cyl, t_vec ray, t_vec org)
+{
+	t_vec	norm;
+	double	m;
+
+	m = dot_vec(ray, cyl->rot) * cyl->t +
+		dot_vec(sous_vec_n(cyl->pos, org), cyl->rot);
+	norm.x = ray.x * cyl->t + cyl->pos.x - cyl->rot.x * m;
+	norm.y = ray.y * cyl->t + cyl->pos.y - cyl->rot.y * m;
+	norm.z = ray.z * cyl->t + cyl->pos.z - cyl->rot.z * m;
+	normalize_vec(&norm);
+	return (norm);
+}
+
+void	get_inter_cyl(t_cone *cyl, t_vec ray, t_vec org)
 {
 	double	a;
 	double	b;
@@ -21,16 +35,14 @@ void	get_inter_cyl(t_cone *cyl, t_vec ray, t_vec org, t_map *map)
 	double	t1;
 	double	t2;
 	double	tmp;
-	double	y1;
-	double	y2;
-	double	min;
-	double	max;
 
 	t1 = -1;
-	a = ray.x * ray.x + ray.z * ray.z;
-	b = 2 * (ray.x * (org.x - cyl->pos.x) + ray.z * (org.z - cyl->pos.z));
-	c = (((org.x - cyl->pos.x) * (org.x - cyl->pos.x)) +
-		((org.z - cyl->pos.z) * (org.z - cyl->pos.z))) -
+	a = dot_vec(ray, ray) - (dot_vec(ray, cyl->rot) * dot_vec(ray, cyl->rot));
+	b = 2 * (dot_vec(ray, sous_vec_n(cyl->pos, org)) - (dot_vec(ray, cyl->rot) *
+		dot_vec(sous_vec_n(cyl->pos, org), cyl->rot)));
+	c = dot_vec(sous_vec_n(cyl->pos, org), sous_vec_n(cyl->pos, org)) -
+		(dot_vec(sous_vec_n(cyl->pos, org), cyl->rot) *
+		dot_vec(sous_vec_n(cyl->pos, org), cyl->rot)) -
 		cyl->radius * cyl->radius;
 	d = (b * b) - (4 * a * c);
 	if (d == 0)
@@ -49,17 +61,9 @@ void	get_inter_cyl(t_cone *cyl, t_vec ray, t_vec org, t_map *map)
 			t2 = tmp;
 		}
 	}
-	max = init_ray(map, cyl->pos.x, cyl->pos.y + cyl->height / 2).y;
-	min = init_ray(map, cyl->pos.x, cyl->pos.y - cyl->height / 2).y;
-	if (t1 != -1)
-	{
-		y1 = (org.y - cyl->pos.y) + t1 * ray.y;
-		y2 = (org.y - cyl->pos.y) + t2 * ray.y;
-/*		if ((y1 < min || y1 > max))
-			t1 = -1;
-		printf("min | %f | max | %f | y1 | %f | y2 | %f |\n", min, max, y1, y2);
-*/	}
 	cyl->t = t1 <= 0 ? -1 : t1;
+	if (t1 > 0)
+		cyl->norm = get_normal_cyl(cyl, ray, org);
 }
 
 int		get_smaller_cyl(t_cone *cyl, int c)
@@ -97,7 +101,7 @@ void	*nearest_cyl(t_vec ray, t_map *map, t_cone *cyl, t_vec org)
 	i = 0;
 	while (i < c)
 	{
-		get_inter_cyl(&map->tab->cylinder[i], ray, org, map);
+		get_inter_cyl(&map->tab->cylinder[i], ray, org);
 		i++;
 	}
 	small = get_smaller_cyl(map->tab->cylinder, c);

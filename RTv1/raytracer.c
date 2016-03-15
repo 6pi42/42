@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 16:47:16 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/10 14:01:20 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/15 14:11:33 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,9 @@ void	raytracer(t_map *map)
 				if (map->tab->spot_v)
 				{
 					if (small == st[0])
-						rgb = sphere_lumos(map, small, ray);
+						rgb = sphere_lumos(map, small, ray, map->tab->spot);
+					if (small == st[2])
+						rgb = cyl_lumos(map, small, ray, map->tab->spot);
 					//if (small == st[1])
 					//	rgb = plan_lumos(map, small, ray);
 					inter = intersection(small, ray, map->tab->cam.pos);

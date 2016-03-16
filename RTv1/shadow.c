@@ -6,24 +6,11 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/03 15:10:23 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/09 18:32:32 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/16 11:37:01 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
-
-t_vec	get_light_ray(void *obj, t_vec ray, t_map *map, t_vec spot)
-{
-	t_vec	light;
-	double	t;
-
-	t = *(double*)obj;
-	light.x = (map->tab->cam.pos.x + ray.x * t) - spot.x;
-	light.y = (map->tab->cam.pos.y + ray.y * t) - spot.y;
-	light.z = (map->tab->cam.pos.z + ray.z * t) - spot.z;
-	normalize_vec(&light);
-	return (light);
-}
 
 int	shadow(t_map *map, void *obj, t_vec light, t_vec spot)
 {

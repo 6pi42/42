@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere_lumos.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Client <Client@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/03 13:31:54 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/15 15:05:52 by Client           ###   ########.fr       */
+/*   Updated: 2016/03/16 11:48:39 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int        reflection(int rgb, double dot)
 	green = (rgb & 0xFF00) >> 8;
 	blue = rgb & 0xFF;
 	dot = 1.0 - dot;
-	//printf("dot: %d\n", dot);
 	red *= dot;
 	blue *= dot;
 	green *= dot;
@@ -53,7 +52,6 @@ int		sphere_lumos_diff(t_map *map, t_sphere *sphere, t_vec ray, int rgb)
 
 	inter = intersection(sphere, ray, map->tab->cam.pos);
 	light = sous_vec(map->tab->spot, inter);
-	//light = get_light_ray((void*)sphere, ray, map, map->tab->spot);
 	norm = get_normal_sphere(sphere, ray, map);
 	angle = acos(dot_vec(light, norm));
 	if (angle <= 0)
@@ -81,10 +79,10 @@ int		sphere_lumos_spec(t_map *map, t_sphere *sphere, t_vec ray, int rgb)
 	{
 		half = add_vec(ray, light);
 		tmp = fmax(dot_vec(norm, half), 0.0);
-		intensity = pow(tmp, 0.5);
+		intensity = pow(tmp, 0.4);
 		return (reflection(rgb, intensity));
 	}
-		return (rgb);
+	return (rgb);
 }
 
 

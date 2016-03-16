@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytracer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Client <Client@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 16:47:16 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/15 15:05:08 by Client           ###   ########.fr       */
+/*   Updated: 2016/03/16 14:55:52 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_vec	init_ray(t_map *map, int x, int y)
 
 	ray.x = (double)x - ((double)map->tab->screen.x / 2);
 	ray.y = (double)y - ((double)map->tab->screen.y / 2);
-	ray.z = -(map->tab->screen.x / (2 * tan((90 / 2) * M_PI / 180.0)));
+	ray.z = -(map->tab->screen.x / (2 * tan((FOV / 2) * M_PI / 180.0)));
 	normalize_vec(&ray);
 	return (ray);
 }
@@ -88,15 +88,17 @@ void	raytracer(t_map *map)
 			if ((small = smaller_void(st)) != NULL)
 			{
 				rgb = *(int*)(small + sizeof(double));
-				if (map->tab->spot_v)
+				if (map->tab->nb_spot)
 				{
 					if (small == st[0])
 						rgb = sphere_lumos(map, small, ray);
-					if (small == st[2])
+					else if (small == st[2])
 						rgb = cyl_lumos(map, small, ray, map->tab->spot);
-					//if (small == st[1])
-					//	rgb = plan_lumos(map, small, ray);
-					inter = intersection(small, ray, map->tab->cam.pos);
+					else if (small == st[3])
+						rgb = cone_lumos(map, small, ray, map->tab->spot);
+					/*else if (small == st[1])
+						rgb = plan_lumos(map, small, ray);
+					*/inter = intersection(small, ray, map->tab->cam.pos);
 					if (!(shadow(map, small, sous_vec(map->tab->spot, inter), map->tab->spot)))
 						rgb = get_shadow(map, small, inter, map->tab->spot);
 				}

@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 16:03:17 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/09 13:09:00 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/16 14:30:11 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,17 +110,19 @@ void	get_plan(int fd, t_tab *tab)
 	j = 0;
 	if (n >= tab->nb_plan)
 		ft_error_file();
-	while ((ret = get_next_line(fd, &line)) > 0 && j != 1)
+	while (j++ != 3 && (ret = get_next_line(fd, &line)) > 0)
 	{
-		if ((i = ft_strchrstr(line, "rgb:")) != -1)
+		if ((i = ft_strchrstr(line, "rgb: ")) != -1)
 			tab->plan[n].rgb = get_rgb(line + i);
-		else if ((i = ft_strchrstr(line, "rotate:")) != -1)
+		else if ((i = ft_strchrstr(line, "normal: ")) != -1)
+			tab->plan[n].norm = get_vec(line + i);
+		else if ((i = ft_strchrstr(line, "pos: ")) != -1)
 			tab->plan[n].pos = get_vec(line + i);
 		else
 			ft_error_file();
 		free(line);
-		j++;
 	}
 	if (ret == -1)
 		ft_error();
+	n++;
 }

@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:37:04 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/15 13:51:30 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/16 14:53:01 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct		s_plan
 	double			t;
 	int				rgb;
 	t_vec			pos;
+	t_vec			norm;
 }					t_plan;
 
 typedef struct		s_tab
@@ -68,11 +69,11 @@ typedef struct		s_tab
 	int				nb_cylinder;
 	int				nb_cone;
 	int				nb_plan;
+	int				nb_spot;
 	t_plan			*plan;
 	t_cam			cam;
 	t_pos			screen;
-	t_vec			spot;
-	int				spot_v;
+	t_vec			*spot;
 }					t_tab;
 
 #endif

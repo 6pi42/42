@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 21:26:20 by Client            #+#    #+#             */
-/*   Updated: 2016/03/15 11:11:21 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/16 14:29:31 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ void			get_sphere(int fd, t_tab *tab)
 	char		*line;
 
 	j = 0;
+	if (i >= tab->nb_sphere)
+		ft_error_file();
 	while (j++ != 3 && (ret = get_next_line(fd, &line)) > 0)
 	{
 		if ((h = ft_strchrstr(line, "rgb:")) != -1)
@@ -75,7 +77,7 @@ void			get_cone(int fd, t_tab *tab)
 			tab->cone[i].rgb = get_rgb(line + h);
 		else if ((h = ft_strchrstr(line, "pos:")) != -1)
 			tab->cone[i].pos = get_vec(line + h);
-		else if ((h = ft_strchrstr(line, "radius:")) != -1)
+		else if ((h = ft_strchrstr(line, "tan:")) != -1)
 			tab->cone[i].radius = get_radius(line + h);
 		else if ((h = ft_strchrstr(line, "rotate:")) != -1)
 			tab->cone[i].rot = get_vec(line + h);

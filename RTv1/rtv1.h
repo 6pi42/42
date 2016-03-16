@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Client <Client@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 16:39:57 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/15 15:05:38 by Client           ###   ########.fr       */
+/*   Updated: 2016/03/16 13:17:28 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 #include <stdio.h>
 # define KEY_ESC 53
 # define NB_OBJ 4
+# define FOV 45
 
 typedef struct		s_env
 {
@@ -72,13 +73,13 @@ int					plan_lumos(t_map *map, t_plan *plan, t_vec ray);
 int					cyl_lumos(t_map *map, t_cone *cyl, t_vec ray, t_vec org);
 void				*smaller_void(void **st);
 int					sphere_lumos(t_map *map, t_sphere *sphere, t_vec ray);
-t_vec				get_light_ray(void *obj, t_vec ray, t_map *map, t_vec spot);
 int					shadow(t_map *map, void *obj, t_vec ray, t_vec spot);
 int					get_shadow(t_map *map, void *shape, t_vec ray,
 	t_vec lightpos);
 void				*nearest_cyl(t_vec ray, t_map *map, t_cone *cyl, t_vec org);
 void				*nearest_cone(t_vec ray, t_map *map, t_cone *cone,
 	t_vec org);
+int					cone_lumos(t_map *map, t_cone *cone, t_vec ray, t_vec org);
 void				nearest_obj(t_map *map, t_vec ray, t_vec org, void **st);
 int					light_rgb(int rgb, double angle);
 int					add_rgb(int rgb, double coef);

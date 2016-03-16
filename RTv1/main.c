@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 16:36:48 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/15 14:12:48 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/16 13:18:29 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ void	print_object(t_tab *tab)
 		printf("plan: rgb %#x\n\n", tab->plan[i].rgb);
 		printf("plan pos: x %f y %f z %f\n", tab->plan[i].pos.x,
 		tab->plan[i].pos.y, tab->plan[i].pos.z);
+		printf("plan normal: x %f y %f z %f\n", tab->plan[i].norm.x,
+		tab->plan[i].norm.y, tab->plan[i].norm.z);
 		i++;
 	}
 	i = 0;

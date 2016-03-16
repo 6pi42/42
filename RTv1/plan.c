@@ -6,33 +6,23 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/27 19:55:28 by Client            #+#    #+#             */
-/*   Updated: 2016/03/10 13:56:23 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/16 12:52:19 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-t_vec	get_norm_plan(t_plan *plan, t_vec ray)
-{
-	t_vec norm;
-
-	(void)plan;
-	(void)ray;
-	norm.x = 0.0;
-	norm.y = 1.0;
-	norm.z = 0.0;
-	return (norm);
-}
-
 void	get_inter_plan(t_plan *plan, t_vec ray, t_vec org)
 {
 	double	t;
 	t_vec	nor;
+	t_vec	pt;
 
-	nor = get_norm_plan(plan, ray);
-	t = -(((nor.x * (org.x - 0.0)) +
-			(nor.y * (org.y - 0.0)) +
-			(nor.z * (org.z - 0.0)))
+	nor = plan->norm;
+	pt = plan->pos;
+	t = -(((nor.x * (org.x - pt.x)) +
+			(nor.y * (org.y - pt.y)) +
+			(nor.z * (org.z - pt.z)))
 			/ ((nor.x * ray.x) + (nor.y * ray.y) + (nor.z * ray.z)));
 	plan->t = t < 0.0 ? -1 : t;
 
@@ -89,9 +79,11 @@ int		plan_lumos(t_map *map, t_plan *plan, t_vec ray)
 	t_vec	light;
 	double	angle;
 	t_vec	norm;
+	t_vec	inter;
 
-	light = get_light_ray((void*)plan, ray, map, map->tab->spot);
-	norm = get_norm_plan(plan, ray);
+	inter = intersection(plan, ray, map->tab->cam.pos);
+	light = sous_vec(map->tab->spot, inter);
+	norm = plan->pos;
 	angle = acos(dot_vec(light, norm));
 	if (angle <= 0)
 		rgb = 0x000000;

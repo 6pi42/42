@@ -6,11 +6,41 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/05 13:50:14 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/05 14:29:23 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/16 14:38:32 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
+/*
+t_vec	get_normal_cone(t_cone *c, t_vec ray, t_vec org, double a)
+{
+	t_vec	norm;
+	double	m;
+
+	m = a / (c->radius * c->radius);
+	norm.x = (ray.x * c->t) + (org.x - c->pos.x) -
+		(1 + c->radius * c->radius) * (c->rot.x) * m;
+	norm.y = (ray.y * c->t) + (org.y - c->pos.y) -
+		(1 + c->radius * c->radius) * (c->rot.y) * m;
+	norm.x = (ray.z * c->t) + (org.z - c->pos.z) -
+		(1 + c->radius * c->radius) * (c->rot.z) * m;
+	normalize_vec(&norm);
+	return (norm);
+}
+*/
+t_vec   get_normal_cone(t_cone *cyl, t_vec ray, t_vec org)
+{
+	t_vec	norm;
+	double	m;
+
+	m = (dot_vec(ray, cyl->rot) * cyl->t) +
+		(dot_vec(sous_vec_n(cyl->pos, org), cyl->rot));
+	norm.x = (ray.x * cyl->t) + (org.x - cyl->pos.x) - (cyl->rot.x * m);
+	norm.y = (ray.y * cyl->t) + (org.y - cyl->pos.y) - (cyl->rot.y * m);
+	norm.z = (ray.z * cyl->t) + (org.z - cyl->pos.z) - (cyl->rot.z * m);
+	normalize_vec(&norm);
+	return (norm);
+}
 
 void	get_inter_cone(t_cone *cone, t_vec ray, t_vec org)
 {
@@ -18,27 +48,30 @@ void	get_inter_cone(t_cone *cone, t_vec ray, t_vec org)
 	double	b;
 	double	c;
 	double	d;
-	double	t;
-	double	tmp;
+	double	t1;
+	double	t2;
+	double	k;
 
-	t = -1;
-	a = ray.x * ray.x + ray.y * ray.y + ray.z * ray.z;
-	b = 2 * ((org.x - cone->pos.x) * ray.z + (org.z - cone->pos.z) * ray.z -
-		(org.y - cone->pos.y) * ray.y);
-	c = (org.x - cone->pos.x) * (org.x - cone->pos.x) +
-		(org.z - cone->pos.z) * (org.z - cone->pos.z) -
-		(org.y - cone->pos.y) * (org.y - cone->pos.y);
+	k = cone->radius;
+	t1 = -1;
+	a = dot_vec(ray, ray) - (1 + k * k) *
+		(dot_vec(ray, cone->rot) * dot_vec(ray, cone->rot));
+	b = 2 * (dot_vec(ray, sous_vec_n(cone->pos, org)) - (1 + k * k) *
+		(dot_vec(ray, cone->rot) * dot_vec(sous_vec_n(cone->pos, org), cone->rot)));
+	c = dot_vec(sous_vec_n(cone->pos, org), sous_vec_n(cone->pos, org)) -
+		(1 + k * k) * (dot_vec(sous_vec_n(cone->pos, org), cone->rot) *
+		dot_vec(sous_vec_n(cone->pos, org), cone->rot));
 	d = (b * b) - (4 * a * c);
-	if (d == 0)
-		t = (-b + sqrt(d)) / (2 * a);
-	else if (d > 0)
+	if (d >= 0)
 	{
-		t = (-b - sqrt(d)) / (2 * a);
-		tmp = (-b + sqrt(d)) / (2 * a);
-		if (t > tmp && tmp > 0)
-			t = tmp;
+		t1 = (-b + sqrt(d)) / (2 * a);
+		t2 = (-b - sqrt(d)) / (2 * a);
+		if (t1 > t2 && t2 > 0)
+			t1 = t2;
 	}
-	cone->t = t > 0 ? t : -1;
+	cone->t = t1 > 0 ? t1 : -1;
+	if (t1 > 0)
+		cone->norm = get_normal_cone(cone, ray, org);
 }
 
 int		get_smaller_cone(t_cone *cone, int c)

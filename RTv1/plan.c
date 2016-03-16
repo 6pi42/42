@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/27 19:55:28 by Client            #+#    #+#             */
-/*   Updated: 2016/03/16 12:52:19 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/16 15:52:16 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,7 @@ void	get_inter_plan(t_plan *plan, t_vec ray, t_vec org)
 			(nor.z * (org.z - pt.z)))
 			/ ((nor.x * ray.x) + (nor.y * ray.y) + (nor.z * ray.z)));
 	plan->t = t < 0.0 ? -1 : t;
-
 }
-
 
 int		get_smaller_plan(t_plan *plan, int c)
 {
@@ -54,8 +52,6 @@ int		get_smaller_plan(t_plan *plan, int c)
 	return (j);
 }
 
-
-
 void	*nearest_plan(t_vec org, t_vec ray, t_map *map)
 {
 	int	i;
@@ -73,18 +69,16 @@ void	*nearest_plan(t_vec org, t_vec ray, t_map *map)
 	return ((void*)&map->tab->plan[small]);
 }
 
-int		plan_lumos(t_map *map, t_plan *plan, t_vec ray)
+int		plan_lumos(t_map *map, t_plan *plan, t_vec ray, t_vec org)
 {
 	int		rgb;
 	t_vec	light;
 	double	angle;
-	t_vec	norm;
 	t_vec	inter;
 
 	inter = intersection(plan, ray, map->tab->cam.pos);
-	light = sous_vec(map->tab->spot, inter);
-	norm = plan->pos;
-	angle = acos(dot_vec(light, norm));
+	light = sous_vec(org, inter);
+	angle = acos(dot_vec(light, plan->norm));
 	if (angle <= 0)
 		rgb = 0x000000;
 	else

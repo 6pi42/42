@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 17:28:16 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/16 14:54:26 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/16 15:24:46 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ t_tab	*init_tab(char *file)
 	tab->nb_cone = get_nb_struct(file, "\tcone:");
 	tab->nb_plan = get_nb_struct(file, "\tplan:");
 	tab->nb_spot = get_nb_struct(file, "\tspot:");
-	tab->spot_v = 0;
 	if (!(tab->sphere = (t_sphere*)malloc(sizeof(t_sphere) * tab->nb_sphere)))
 		ft_error_malloc();
 	if (!(tab->plan = (t_plan*)malloc(sizeof(t_plan) * tab->nb_plan)))

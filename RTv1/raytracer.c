@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 16:47:16 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/16 14:55:52 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/16 15:24:02 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ void	raytracer(t_map *map)
 	int		rgb;
 	void	*small;
 	t_vec	ray;
-	t_vec	inter;
 
 	y = 0;
 	while (y < map->tab->screen.y)
@@ -89,19 +88,7 @@ void	raytracer(t_map *map)
 			{
 				rgb = *(int*)(small + sizeof(double));
 				if (map->tab->nb_spot)
-				{
-					if (small == st[0])
-						rgb = sphere_lumos(map, small, ray);
-					else if (small == st[2])
-						rgb = cyl_lumos(map, small, ray, map->tab->spot);
-					else if (small == st[3])
-						rgb = cone_lumos(map, small, ray, map->tab->spot);
-					/*else if (small == st[1])
-						rgb = plan_lumos(map, small, ray);
-					*/inter = intersection(small, ray, map->tab->cam.pos);
-					if (!(shadow(map, small, sous_vec(map->tab->spot, inter), map->tab->spot)))
-						rgb = get_shadow(map, small, inter, map->tab->spot);
-				}
+					rgb = multi_spot(st, small, ray, map);
 				pixel_put(map, x, y, rgb);
 			}
 			x++;

@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 13:34:09 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/16 14:55:23 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/16 15:32:52 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,15 @@ void	get_spot(int fd, t_tab *tab)
 	char		*line;
 	int			ret;
 	static int	i = 0;
+	int			h;
 
+	if (i > tab->nb_spot)
+		ft_error_file();
 	ret = get_next_line(fd, &line);
 	if (ret == -1)
 		ft_error_malloc();
-	if ((ret = ft_strchrstr(line, "pos:")) != -1)
-		tab->spot[i] = get_vec(line + ret);
+	if ((h = ft_strchrstr(line, "pos:")) != -1)
+		tab->spot[i] = get_vec(line + h);
 	else
 		ft_error_file();
 	free(line);

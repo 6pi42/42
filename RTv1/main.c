@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 16:36:48 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/16 13:18:29 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/16 15:37:24 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	print_object(t_tab *tab)
 		tab->cam.pos.y, tab->cam.pos.z);
 	printf("cam rotate: x %f y %f z %f\n\n", tab->cam.rotate.x,
 		tab->cam.rotate.y, tab->cam.rotate.z);
-	printf("spot pos: x %f y %f z %f\n\n", tab->spot.x, tab->spot.y, tab->spot.z);
 	i = 0;
 	printf("nb: %d\n\n", tab->nb_sphere);
 	while (i < tab->nb_sphere)
@@ -65,6 +64,13 @@ void	print_object(t_tab *tab)
 		printf("pos: x %f y %f z %f\n", tab->cylinder[i].pos.x,
 		tab->cylinder[i].pos.y, tab->cylinder[i].pos.z);
 		printf("rgb: %#x\n", tab->cylinder[i].rgb);
+		i++;
+	}
+	i = 0;
+	printf("nb: %d\n\n", tab->nb_cylinder);
+	while (i < tab->nb_spot)
+	{
+		printf("spot[%d] pos: x %f y %f z %f\n\n", i, tab->spot[i].x, tab->spot[i].y, tab->spot[i].z);
 		i++;
 	}
 }

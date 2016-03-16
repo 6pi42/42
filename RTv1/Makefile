@@ -6,7 +6,7 @@
 #    By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/01/08 12:28:01 by cboyer            #+#    #+#              #
-#    Updated: 2016/03/16 12:46:10 by cboyer           ###   ########.fr        #
+#    Updated: 2016/03/16 15:24:20 by cboyer           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SRC =	main.c			\
 		reflection.c	\
 		soft_shadow.c	\
 		shadow.c		\
+		lumos.c			\
 
 OBJ = $(SRC:.c=.o)
 NAME = rtv1

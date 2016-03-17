@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 16:36:48 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/16 15:37:24 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/17 16:57:55 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ void	print_object(t_tab *tab)
 	printf("nb: %d\n\n", tab->nb_cylinder);
 	while (i < tab->nb_spot)
 	{
-		printf("spot[%d] pos: x %f y %f z %f\n\n", i, tab->spot[i].x, tab->spot[i].y, tab->spot[i].z);
+		printf("spot[%d] pos: x %f y %f z %f\n\n", i, tab->spot[i].x,
+		tab->spot[i].y, tab->spot[i].z);
 		i++;
 	}
 }

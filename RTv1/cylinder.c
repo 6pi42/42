@@ -6,13 +6,13 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/04 11:27:19 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/16 12:27:17 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/17 17:29:34 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-t_vec   get_normal_cyl(t_cone *cyl, t_vec ray, t_vec org)
+t_vec	get_normal_cyl(t_cone *cyl, t_vec ray, t_vec org)
 {
 	t_vec	norm;
 	double	m;
@@ -28,26 +28,23 @@ t_vec   get_normal_cyl(t_cone *cyl, t_vec ray, t_vec org)
 
 void	get_inter_cyl(t_cone *cyl, t_vec ray, t_vec org)
 {
-	double	a;
-	double	b;
-	double	c;
-	double	d;
+	double	a[4];
 	double	t1;
 	double	t2;
 
 	t1 = -1;
-	a = dot_vec(ray, ray) - (dot_vec(ray, cyl->rot) * dot_vec(ray, cyl->rot));
-	b = 2 * (dot_vec(ray, sous_vec_n(cyl->pos, org)) - (dot_vec(ray, cyl->rot) *
+	a[0] = dot_vec(ray, ray) - (dot_vec(ray, cyl->rot) * dot_vec(ray, cyl->rot));
+	a[1] = 2 * (dot_vec(ray, sous_vec_n(cyl->pos, org)) - (dot_vec(ray, cyl->rot) *
 		dot_vec(sous_vec_n(cyl->pos, org), cyl->rot)));
-	c = dot_vec(sous_vec_n(cyl->pos, org), sous_vec_n(cyl->pos, org)) -
+	a[2] = dot_vec(sous_vec_n(cyl->pos, org), sous_vec_n(cyl->pos, org)) -
 		(dot_vec(sous_vec_n(cyl->pos, org), cyl->rot) *
 		dot_vec(sous_vec_n(cyl->pos, org), cyl->rot)) -
 		cyl->radius * cyl->radius;
-	d = (b * b) - (4 * a * c);
-	if (d >= 0)
+	a[3] = (a[1] * a[1]) - (4 * a[0] * a[2]);
+	if (a[3] >= 0)
 	{
-		t1 = (-b + sqrt(d)) / (2 * a);
-		t2 = (-b - sqrt(d)) / (2 * a);
+		t1 = (-a[1] + sqrt(a[3])) / (2 * a[0]);
+		t2 = (-a[1] - sqrt(a[3])) / (2 * a[0]);
 		if (t1 > t2 && t2 > 0)
 			t1 = t2;
 	}

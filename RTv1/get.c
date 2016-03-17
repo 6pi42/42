@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 16:03:17 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/16 14:30:11 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/17 16:43:14 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ t_cam	get_cam(int fd)
 	int		i;
 
 	j = 0;
-	while ((ret = get_next_line(fd, &line)) > 0 && j != 1)
+	while (j != 2 && (ret = get_next_line(fd, &line)) > 0)
 	{
 		if ((i = ft_strchrstr(line, "pos:")) != -1)
 			cam.pos = get_vec(line + i);
@@ -124,5 +124,6 @@ void	get_plan(int fd, t_tab *tab)
 	}
 	if (ret == -1)
 		ft_error();
+	normalize_vec(&tab->plan->norm);
 	n++;
 }

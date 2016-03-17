@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 16:39:57 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/17 14:54:39 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/17 16:58:27 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #include <stdio.h>
 # define KEY_ESC 53
 # define NB_OBJ 4
-# define FOV 45
+# define FOV 60
 
 typedef struct		s_env
 {
@@ -75,16 +75,20 @@ void				get_spot(int fd, t_tab *tab);
 
 void				raytracer(t_map *map);
 t_vec				init_ray(t_map *map, int x, int y);
-t_vec   			get_light_ray(void *obj, t_vec ray, t_vec inter, t_map *map);
+t_vec   			get_light_ray(void *obj, t_vec ray, t_vec inter,
+	t_map *map);
 
 int					shadow(t_map *map, void *obj, t_vec ray, t_vec spot);
 int					get_shadow(t_map *map, void *obj, t_vec inter, int rgb);
 
-void				*nearest_cyl(t_vec ray, t_map *map, t_cone *cyl, t_vec org);
-void				*nearest_cone(t_vec ray, t_map *map, t_cone *cone, t_vec org);
+void				*nearest_cyl(t_vec ray, t_map *map, t_cone *cyl,
+	t_vec org);
+void				*nearest_cone(t_vec ray, t_map *map, t_cone *cone,
+	t_vec org);
 void				*nearest_plan(t_vec org, t_vec ray, t_map *map);
 void				nearest_obj(t_map *map, t_vec ray, t_vec org, void **st);
-void				*nearest_sphere(t_vec ray, t_map *map, t_sphere *sphere, t_vec org);
+void				*nearest_sphere(t_vec ray, t_map *map, t_sphere *sphere,
+	t_vec org);
 void				*smaller_void(void **st);
 
 int					light_rgb(int rgb, double angle);
@@ -92,14 +96,15 @@ int					add_rgb(int rgb, double coef);
 int					reflection(int rgb, double dot);
 
 t_vec				get_normal_sphere(t_sphere *sphere, t_vec ray, t_map *map);
-int					sphere_reflexion(t_map *map, t_sphere *sphere, t_vec ray, int rgb);
+int					sphere_reflexion(t_map *map, t_sphere *sphere, t_vec ray,
+	int rgb);
 t_vec				intersection(void *obj, t_vec ray, t_vec org);
 int					multi_spot(void **st, void *small, t_vec ray, t_map *map);
 
 int					plan_lumos(t_map *map, t_plan *plan, t_vec ray, int rgb);
 int					cyl_lumos(t_map *map, t_cone *cyl, t_vec ray, int rgb);
-int					cone_lumos(t_map *map, t_cone *cone, t_vec ray, int rgb);
-int					sphere_lumos(t_map *map, t_sphere *sphere, t_vec ray, int rgb);
+int					sphere_lumos(t_map *map, t_sphere *sphere, t_vec ray,
+	int rgb);
 
 int					expose_hook(t_map *map);
 int					key_hook(int keycode, t_map *map);

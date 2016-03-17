@@ -6,11 +6,12 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/05 13:50:14 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/17 13:40:35 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/17 16:49:45 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
+
 /*
 t_vec	get_normal_cone(t_cone *c, t_vec ray, t_vec org, double a)
 {
@@ -28,7 +29,8 @@ t_vec	get_normal_cone(t_cone *c, t_vec ray, t_vec org, double a)
 	return (norm);
 }
 */
-t_vec   get_normal_cone(t_cone *cyl, t_vec ray, t_vec org)
+
+t_vec	get_normal_cone(t_cone *cyl, t_vec ray, t_vec org)
 {
 	t_vec	norm;
 	double	m;
@@ -44,33 +46,29 @@ t_vec   get_normal_cone(t_cone *cyl, t_vec ray, t_vec org)
 
 void	get_inter_cone(t_cone *cone, t_vec ray, t_vec org)
 {
-	double	a;
-	double	b;
-	double	c;
-	double	d;
-	double	t1;
-	double	t2;
+	double	a[6];
 	double	k;
 
 	k = cone->radius;
-	t1 = -1;
-	a = dot_vec(ray, ray) - (1 + k * k) *
+	a[0] = -1;
+	a[0] = dot_vec(ray, ray) - (1 + k * k) *
 		(dot_vec(ray, cone->rot) * dot_vec(ray, cone->rot));
-	b = 2 * (dot_vec(ray, sous_vec_n(cone->pos, org)) - (1 + k * k) *
-		(dot_vec(ray, cone->rot) * dot_vec(sous_vec_n(cone->pos, org), cone->rot)));
-	c = dot_vec(sous_vec_n(cone->pos, org), sous_vec_n(cone->pos, org)) -
+	a[1] = 2 * (dot_vec(ray, sous_vec_n(cone->pos, org)) -
+		(1 + k * k) * (dot_vec(ray, cone->rot) *
+		dot_vec(sous_vec_n(cone->pos, org), cone->rot)));
+	a[2] = dot_vec(sous_vec_n(cone->pos, org), sous_vec_n(cone->pos, org)) -
 		(1 + k * k) * (dot_vec(sous_vec_n(cone->pos, org), cone->rot) *
 		dot_vec(sous_vec_n(cone->pos, org), cone->rot));
-	d = (b * b) - (4 * a * c);
-	if (d >= 0)
+	a[3] = (a[1] * a[1]) - (4 * a[0] * a[2]);
+	if (a[3] >= 0)
 	{
-		t1 = (-b + sqrt(d)) / (2 * a);
-		t2 = (-b - sqrt(d)) / (2 * a);
-		if (t1 > t2 && t2 > 0)
-			t1 = t2;
+		a[4] = (-a[1] + sqrt(a[3])) / (2 * a[0]);
+		a[5] = (-a[1] - sqrt(a[3])) / (2 * a[0]);
+		if (a[4] > a[5] && a[5] > 0)
+			a[4] = a[5];
 	}
-	cone->t = t1 > 0 ? t1 : -1;
-	if (t1 > 0)
+	cone->t = a[4] > 0 ? a[4] : -1;
+	if (a[4] > 0)
 		cone->norm = get_normal_cone(cone, ray, org);
 }
 

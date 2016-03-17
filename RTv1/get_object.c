@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 21:26:20 by Client            #+#    #+#             */
-/*   Updated: 2016/03/16 14:29:31 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/17 17:02:32 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,59 +63,57 @@ void			get_sphere(int fd, t_tab *tab)
 void			get_cone(int fd, t_tab *tab)
 {
 	static int	i = 0;
-	int			j;
-	int			h;
-	int			ret;
+	int			j[3];
 	char		*line;
 
-	j = 0;
+	j[0] = 0;
 	if (i >= tab->nb_cone)
 		ft_error_file();
-	while (j++ != 4 && (ret = get_next_line(fd, &line)) > 0)
+	while (j[0]++ != 4 && (j[1] = get_next_line(fd, &line)) > 0)
 	{
-		if ((h = ft_strchrstr(line, "rgb:")) != -1)
-			tab->cone[i].rgb = get_rgb(line + h);
-		else if ((h = ft_strchrstr(line, "pos:")) != -1)
-			tab->cone[i].pos = get_vec(line + h);
-		else if ((h = ft_strchrstr(line, "tan:")) != -1)
-			tab->cone[i].radius = get_radius(line + h);
-		else if ((h = ft_strchrstr(line, "rotate:")) != -1)
-			tab->cone[i].rot = get_vec(line + h);
+		if ((j[2] = ft_strchrstr(line, "rgb:")) != -1)
+			tab->cone[i].rgb = get_rgb(line + j[2]);
+		else if ((j[2] = ft_strchrstr(line, "pos:")) != -1)
+			tab->cone[i].pos = get_vec(line + j[2]);
+		else if ((j[2] = ft_strchrstr(line, "tan:")) != -1)
+			tab->cone[i].radius = get_radius(line + j[2]);
+		else if ((j[2] = ft_strchrstr(line, "rotate:")) != -1)
+			tab->cone[i].rot = get_vec(line + j[2]);
 		else
 			ft_error_file();
 		free(line);
 	}
-	if (ret == -1)
+	if (j[1] == -1)
 		ft_error_malloc();
+	normalize_vec(&tab->cone->rot);
 	i++;
 }
 
 void			get_cylinder(int fd, t_tab *tab)
 {
 	static int	i = 0;
-	int			j;
-	int			h;
-	int			ret;
+	int			j[3];
 	char		*line;
 
-	j = 0;
+	j[0] = 0;
 	if (i >= tab->nb_cylinder)
 		ft_error_file();
-	while (j++ != 4 && (ret = get_next_line(fd, &line)) > 0)
+	while (j[0]++ != 4 && (j[1] = get_next_line(fd, &line)) > 0)
 	{
-		if ((h = ft_strchrstr(line, "rgb:")) != -1)
-			tab->cylinder[i].rgb = get_rgb(line + h);
-		else if ((h = ft_strchrstr(line, "pos:")) != -1)
-			tab->cylinder[i].pos = get_vec(line + h);
-		else if ((h = ft_strchrstr(line, "radius:")) != -1)
-			tab->cylinder[i].radius = get_radius(line + h);
-		else if ((h = ft_strchrstr(line, "rotate:")) != -1)
-			tab->cylinder[i].rot = get_vec(line + h);
+		if ((j[2] = ft_strchrstr(line, "rgb:")) != -1)
+			tab->cylinder[i].rgb = get_rgb(line + j[2]);
+		else if ((j[2] = ft_strchrstr(line, "pos:")) != -1)
+			tab->cylinder[i].pos = get_vec(line + j[2]);
+		else if ((j[2] = ft_strchrstr(line, "radius:")) != -1)
+			tab->cylinder[i].radius = get_radius(line + j[2]);
+		else if ((j[2] = ft_strchrstr(line, "rotate:")) != -1)
+			tab->cylinder[i].rot = get_vec(line + j[2]);
 		else
 			ft_error_file();
 		free(line);
 	}
-	if (ret == -1)
+	if (j[1] == -1)
 		ft_error_malloc();
+	normalize_vec(&tab->cylinder->rot);
 	i++;
 }

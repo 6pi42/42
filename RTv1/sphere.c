@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/27 19:42:15 by Client            #+#    #+#             */
-/*   Updated: 2016/03/10 13:56:20 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/17 16:51:41 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,29 @@
 
 void	get_inter_sphere(t_sphere *s, t_vec ray, t_vec opos)
 {
-    double a;
-    double b;
-    double c;
-    double d;
-    double t;
+	double a;
+	double b;
+	double c;
+	double d;
+	double t;
 
-    a = ray.x * ray.x + ray.y * ray.y + ray.z * ray.z;
-    b = 2.0 * (ray.x * (opos.x - s->pos.x)
-        + ray.y * (opos.y - s->pos.y)
-        + ray.z * (opos.z - s->pos.z));
-    c = (opos.x - s->pos.x) * (opos.x - s->pos.x)
-        + (opos.y - s->pos.y) * (opos.y - s->pos.y)
-        + (opos.z - s->pos.z) * (opos.z - s->pos.z)
-        - s->radius * s->radius;
-    d = (b * b) - (4 * a * c);
-    if (d >= 0.0)
-    {
-        t = (-b + sqrt(d)) / (2 * a);
-        if ((-b - sqrt(d)) / (2 * a) < t)
-            t = (-b - sqrt(d)) / (2 * a);
+	a = ray.x * ray.x + ray.y * ray.y + ray.z * ray.z;
+	b = 2.0 * (ray.x * (opos.x - s->pos.x)
+		+ ray.y * (opos.y - s->pos.y)
+		+ ray.z * (opos.z - s->pos.z));
+	c = (opos.x - s->pos.x) * (opos.x - s->pos.x)
+		+ (opos.y - s->pos.y) * (opos.y - s->pos.y)
+		+ (opos.z - s->pos.z) * (opos.z - s->pos.z)
+		- s->radius * s->radius;
+	d = (b * b) - (4 * a * c);
+	if (d >= 0.0)
+	{
+		t = (-b + sqrt(d)) / (2 * a);
+		if ((-b - sqrt(d)) / (2 * a) < t)
+			t = (-b - sqrt(d)) / (2 * a);
 		s->t = t > 0 ? t : -1;
-    }
-    else
+	}
+	else
 		s->t = -1;
 }
 

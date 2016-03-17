@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 16:47:16 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/17 14:54:21 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/17 16:50:33 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	*smaller_void(void **st)
 
 void	nearest_obj(t_map *map, t_vec ray, t_vec org, void **st)
 {
-	st[0] = nearest_sphere(ray , map, map->tab->sphere, org);
+	st[0] = nearest_sphere(ray, map, map->tab->sphere, org);
 	st[1] = nearest_plan(org, ray, map);
 	st[2] = nearest_cyl(ray, map, map->tab->cylinder, org);
 	st[3] = nearest_cone(ray, map, map->tab->cone, org);
@@ -69,28 +69,26 @@ void	nearest_obj(t_map *map, t_vec ray, t_vec org, void **st)
 
 void	raytracer(t_map *map)
 {
-	int		y;
-	int		x;
+	int		x[2];
 	void	*st[NB_OBJ];
 	int		rgb;
 	void	*small;
 	t_vec	ray;
 
-	y = 0;
-	while (y < map->tab->screen.y)
+	x[0] = 0;
+	while (x[0] < map->tab->screen.y)
 	{
-		x = 0;
-		while (x < map->tab->screen.x)
+		x[1] = 0;
+		while (x[1] < map->tab->screen.x)
 		{
-			ray = init_ray(map, x, y);
+			rgb = 0x000000;
+			ray = init_ray(map, x[1], x[0]);
 			nearest_obj(map, ray, map->tab->cam.pos, st);
 			if ((small = smaller_void(st)) != NULL)
-			{
 				rgb = multi_spot(st, small, ray, map);
-				pixel_put(map, x, y, rgb);
-			}
-			x++;
+			pixel_put(map, x[1], x[0], rgb);
+			x[1]++;
 		}
-		y++;
+		x[0]++;
 	}
 }

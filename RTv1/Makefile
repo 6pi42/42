@@ -6,7 +6,7 @@
 #    By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/01/08 12:28:01 by cboyer            #+#    #+#              #
-#    Updated: 2016/03/16 15:24:20 by cboyer           ###   ########.fr        #
+#    Updated: 2016/03/17 16:25:59 by cboyer           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,6 @@ SRC =	main.c			\
 		cylinder.c		\
 		cylinder_lumos.c\
 		cone.c			\
-		cone_lumos.c	\
 		reflection.c	\
 		soft_shadow.c	\
 		shadow.c		\

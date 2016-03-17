@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 16:39:57 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/16 15:35:11 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/17 14:54:39 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,45 +53,13 @@ typedef struct		s_args
 
 void				pixel_put(t_map *map, int x, int y, int color);
 int					get_hex_color(t_map *map, int x, int y);
-void				normalize_vec(t_vec *vec);
+void				multi_threading(t_map *map, void *f);
 
 t_tab				*parse(char *file);
 int					ft_strchrstr(char *str, char *chr);
 double				atoi_double(char *line);
 int					atoi_hex(char *line);
 int					correct_line(char *line);
-
-void				multi_threading(t_map *map, void *f);
-void				raytracer(t_map *map);
-t_vec				init_ray(t_map *map, int x, int y);
-t_vec				init_ray_lumos(t_map *map, int x, int y, void *obj);
-
-void				*nearest_sphere(t_vec ray, t_map *map, t_sphere *sphere,
-	t_vec org);
-void				*nearest_plan(t_vec org, t_vec ray, t_map *map);
-int					plan_lumos(t_map *map, t_plan *plan, t_vec ray, t_vec org);
-int					cyl_lumos(t_map *map, t_cone *cyl, t_vec ray, t_vec org);
-void				*smaller_void(void **st);
-int					sphere_lumos(t_map *map, t_sphere *sphere, t_vec ray, t_vec org);
-int					shadow(t_map *map, void *obj, t_vec ray, t_vec spot);
-int					get_shadow(t_map *map, void *shape, t_vec ray,
-	t_vec lightpos);
-void				*nearest_cyl(t_vec ray, t_map *map, t_cone *cyl, t_vec org);
-void				*nearest_cone(t_vec ray, t_map *map, t_cone *cone,
-	t_vec org);
-int					cone_lumos(t_map *map, t_cone *cone, t_vec ray, t_vec org);
-void				nearest_obj(t_map *map, t_vec ray, t_vec org, void **st);
-int					light_rgb(int rgb, double angle);
-int					add_rgb(int rgb, double coef);
-t_vec				get_normal_sphere(t_sphere *sphere, t_vec ray, t_map *map);
-int					sphere_reflexion(t_map *map, t_sphere *sphere, t_vec ray, int rgb);
-t_vec				sous_vec_n(t_vec b, t_vec a);
-t_vec				intersection(void *obj, t_vec ray, t_vec org);
-int					multi_spot(void **st, void *small, t_vec ray, t_map *map);
-
-int					expose_hook(t_map *map);
-int					key_hook(int keycode, t_map *map);
-t_vec				intersection(void *obj, t_vec ray, t_vec org);
 
 t_pos				get_screen(char *line);
 t_vec				get_vec(char *line);
@@ -104,6 +72,38 @@ void				get_cylinder(int fd, t_tab *tab);
 void				get_cone(int fd, t_tab *tab);
 t_cam				get_cam(int fd);
 void				get_spot(int fd, t_tab *tab);
+
+void				raytracer(t_map *map);
+t_vec				init_ray(t_map *map, int x, int y);
+t_vec   			get_light_ray(void *obj, t_vec ray, t_vec inter, t_map *map);
+
+int					shadow(t_map *map, void *obj, t_vec ray, t_vec spot);
+int					get_shadow(t_map *map, void *obj, t_vec inter, int rgb);
+
+void				*nearest_cyl(t_vec ray, t_map *map, t_cone *cyl, t_vec org);
+void				*nearest_cone(t_vec ray, t_map *map, t_cone *cone, t_vec org);
+void				*nearest_plan(t_vec org, t_vec ray, t_map *map);
+void				nearest_obj(t_map *map, t_vec ray, t_vec org, void **st);
+void				*nearest_sphere(t_vec ray, t_map *map, t_sphere *sphere, t_vec org);
+void				*smaller_void(void **st);
+
+int					light_rgb(int rgb, double angle);
+int					add_rgb(int rgb, double coef);
+int					reflection(int rgb, double dot);
+
+t_vec				get_normal_sphere(t_sphere *sphere, t_vec ray, t_map *map);
+int					sphere_reflexion(t_map *map, t_sphere *sphere, t_vec ray, int rgb);
+t_vec				intersection(void *obj, t_vec ray, t_vec org);
+int					multi_spot(void **st, void *small, t_vec ray, t_map *map);
+
+int					plan_lumos(t_map *map, t_plan *plan, t_vec ray, int rgb);
+int					cyl_lumos(t_map *map, t_cone *cyl, t_vec ray, int rgb);
+int					cone_lumos(t_map *map, t_cone *cone, t_vec ray, int rgb);
+int					sphere_lumos(t_map *map, t_sphere *sphere, t_vec ray, int rgb);
+
+int					expose_hook(t_map *map);
+int					key_hook(int keycode, t_map *map);
+t_vec				intersection(void *obj, t_vec ray, t_vec org);
 
 void				ft_error(void);
 void				ft_error_file(void);
@@ -118,5 +118,7 @@ t_vec				cross_product_vec(t_vec a, t_vec b);
 t_vec				mult_int_vec(t_vec a, double i);
 t_vec				sous_vec(t_vec a, t_vec b);
 t_vec				add_vec(t_vec a, t_vec b);
+t_vec				sous_vec_n(t_vec b, t_vec a);
+void				normalize_vec(t_vec *vec);
 
 #endif

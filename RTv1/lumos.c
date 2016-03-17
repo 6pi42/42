@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 14:56:20 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/16 15:59:25 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/17 13:51:31 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,28 +55,38 @@ int	moy_rgb(int *rgb, int len)
 	return (i);
 }
 
+t_vec   get_light_ray(void *obj, t_vec ray, t_vec spot, t_map *map)
+{
+    t_vec light;
+
+    light = sous_vec(spot, intersection(obj, ray, map->tab->cam.pos));
+    return (light);
+}
+
+
 int     multi_spot(void **st, void *small, t_vec ray, t_map *map)
 {
-    int rgb[map->tab->nb_spot];
-    int i;
-    int tmp;
+    int     i;
+    int     tmp;
     t_vec   inter;
+    int     rgb[map->tab->nb_spot];
 
     i = 0;
+    inter = intersection(small, ray, map->tab->cam.pos);
     while (i < map->tab->nb_spot)
     {
+        rgb[i] = *(int*)(small + sizeof(double));
+        map->tab->spot_a = &(map->tab->spot[i]);
         if (small == st[0])
-            tmp = sphere_lumos(map, small, ray, map->tab->spot[i]);
+            rgb[i] = sphere_lumos(map, small, ray, rgb[i]);
         else if (small == st[2])
-            tmp = cyl_lumos(map, small, ray, map->tab->spot[i]);
+            rgb[i] = cyl_lumos(map, small, ray, rgb[i]);
         else if (small == st[3])
-            tmp = cone_lumos(map, small, ray, map->tab->spot[i]);
+            rgb[i] = cone_lumos(map, small, ray, rgb[i]);
         //else if (small == st[1])
-        //    tmp = plan_lumos(map, small, ray, map->tab->spot[i]);
-        inter = intersection(small, ray, map->tab->cam.pos);
-        if (!(shadow(map, small, sous_vec(map->tab->spot[i], inter), map->tab->spot[i])))
-            tmp = get_shadow(map, small, inter, map->tab->spot[i]);
-        rgb[i] = tmp;
+        //    tmp = plan_lumos(map, small, ray, tmp);
+        if (!(shadow(map, small, sous_vec_n(*map->tab->spot_a, inter), *map->tab->spot_a)))
+            rgb[i] = get_shadow(map, small, inter, rgb[i]);
         i++;
     }
     tmp = moy_rgb(rgb, map->tab->nb_spot);

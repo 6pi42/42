@@ -1,6 +1,6 @@
 scene:
 	camera:
-		pos: 0.0 -20.0 300.0
+		pos: 0.0 20.0 300.0
 		rotate: 0.0 0.0 0.0
 	screen: 1000 800
 
@@ -14,11 +14,11 @@ object:
 		normal: 0.0 0.0 1.0
 		rgb: 0xFFFFFF
 	sphere:
-		pos: 75.0 -40.0 50.0
+		pos: 75.0 40.0 50.0
 		radius: 25.0
 		rgb: 0x00FF00
 	sphere:
-		pos: 125.0 -30.0 -50.0
+		pos: 125.0 30.0 -50.0
 		radius: 25.0
 		rgb: 0x00FFFF
 	cylinder:
@@ -27,9 +27,9 @@ object:
 		rotate: 0.0 1.0 0.0
 		radius: 25.0
 	cone:
-		pos: 0.0 -30.0 0.0
+		pos: 0.0 30.0 0.0
 		rgb: 0xFFFF00
 		tan: 0.5
 		rotate: 0.0 1.0 0.0
 	spot:
-		pos: -100.0 -200.0 0.0
+		pos: -100.0 200.0 0.0

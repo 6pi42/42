@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:37:04 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/16 14:53:01 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/17 10:41:00 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ typedef struct		s_tab
 	t_cam			cam;
 	t_pos			screen;
 	t_vec			*spot;
+	t_vec			*spot_a;
 }					t_tab;
 
 #endif

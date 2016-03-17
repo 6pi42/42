@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 12:39:41 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/10 12:54:17 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/17 13:52:59 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,16 @@ double	rand_double(void)
 	return (rand() / (RAND_MAX / (2.5)));
 }
 
-int		get_shadow(t_map *map, void *obj, t_vec inter, t_vec lightpos)
+int		get_shadow(t_map *map, void *obj, t_vec inter, int rgb)
 {
 	t_pos		pos;
 	int			count;
 	t_vec		offset;
 	t_vec		light;
-	t_vec		tmp;
 
 	pos.y = -1;
 	count = 0;
+	return (get_shadow_color(rgb, 0));
 	while (++pos.y < 16)
 	{
 		pos.x = -1;
@@ -74,11 +74,10 @@ int		get_shadow(t_map *map, void *obj, t_vec inter, t_vec lightpos)
 		{
 			offset.x = (pos.x * 2.5) + rand_double();
 			offset.y = (pos.y * 2.5) + rand_double();
-			light = get_lightpos(lightpos, offset.x, offset.y);
-			tmp = sous_vec(light, inter);
+			light = get_lightpos(*map->tab->spot_a, offset.x, offset.y);
 			if (shadow(map, obj, sous_vec(light, inter), light))
 				count++;
 		}
 	}
-	return (get_shadow_color((*(int*)(obj + sizeof(double))), count));
+	return (get_shadow_color(rgb, count));
 }

@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 16:47:16 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/16 15:24:02 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/17 14:54:21 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_vec	init_ray(t_map *map, int x, int y)
 	t_vec	ray;
 
 	ray.x = (double)x - ((double)map->tab->screen.x / 2);
-	ray.y = (double)y - ((double)map->tab->screen.y / 2);
+	ray.y = ((double)map->tab->screen.y / 2) - (double)y;
 	ray.z = -(map->tab->screen.x / (2 * tan((FOV / 2) * M_PI / 180.0)));
 	normalize_vec(&ray);
 	return (ray);
@@ -86,9 +86,7 @@ void	raytracer(t_map *map)
 			nearest_obj(map, ray, map->tab->cam.pos, st);
 			if ((small = smaller_void(st)) != NULL)
 			{
-				rgb = *(int*)(small + sizeof(double));
-				if (map->tab->nb_spot)
-					rgb = multi_spot(st, small, ray, map);
+				rgb = multi_spot(st, small, ray, map);
 				pixel_put(map, x, y, rgb);
 			}
 			x++;

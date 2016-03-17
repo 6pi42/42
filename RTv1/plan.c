@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/27 19:55:28 by Client            #+#    #+#             */
-/*   Updated: 2016/03/16 15:52:16 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/17 11:42:05 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,19 +69,20 @@ void	*nearest_plan(t_vec org, t_vec ray, t_map *map)
 	return ((void*)&map->tab->plan[small]);
 }
 
-int		plan_lumos(t_map *map, t_plan *plan, t_vec ray, t_vec org)
+int		plan_lumos(t_map *map, t_plan *plan, t_vec ray, int rgb)
 {
-	int		rgb;
 	t_vec	light;
 	double	angle;
 	t_vec	inter;
+	t_vec	org;
 
+	org = *map->tab->spot_a;
 	inter = intersection(plan, ray, map->tab->cam.pos);
 	light = sous_vec(org, inter);
 	angle = acos(dot_vec(light, plan->norm));
 	if (angle <= 0)
 		rgb = 0x000000;
 	else
-		rgb = light_rgb(plan->rgb, angle * 0.6);
+		rgb = light_rgb(rgb, angle * 0.6);
 	return (rgb);
 }

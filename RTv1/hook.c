@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 16:45:29 by cboyer            #+#    #+#             */
-/*   Updated: 2016/02/28 12:41:10 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/17 14:54:29 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	expose_hook(t_map *map)
 		ft_error();
 	map->img.data = mlx_get_data_addr(map->img.img, &(map->img.bpp),
 	&(map->img.size_line), &(map->img.endian));
+	//multi_threading(map, &raytracer);
 	raytracer(map);
 	mlx_put_image_to_window(map->e.mlx, map->e.win, map->img.img, 0, 0);
 	mlx_destroy_image(map->e.mlx, map->img.img);

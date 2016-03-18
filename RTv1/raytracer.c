@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 16:47:16 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/17 16:50:33 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/18 12:30:40 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	raytracer(t_map *map)
 	void	*st[NB_OBJ];
 	int		rgb;
 	void	*small;
-	t_vec	ray;
+	t_vec	ray[3];
 
 	x[0] = 0;
 	while (x[0] < map->tab->screen.y)
@@ -82,8 +82,8 @@ void	raytracer(t_map *map)
 		while (x[1] < map->tab->screen.x)
 		{
 			rgb = 0x000000;
-			ray = init_ray(map, x[1], x[0]);
-			nearest_obj(map, ray, map->tab->cam.pos, st);
+			ray[0] = init_ray(map, x[1], x[0]);
+			nearest_obj(map, ray[0], map->tab->cam.pos, st);
 			if ((small = smaller_void(st)) != NULL)
 				rgb = multi_spot(st, small, ray, map);
 			pixel_put(map, x[1], x[0], rgb);

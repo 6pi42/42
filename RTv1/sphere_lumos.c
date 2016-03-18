@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/03 13:31:54 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/17 17:09:02 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/18 12:26:35 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int		sphere_lumos_diff(t_map *map, t_sphere *sphere, t_vec ray, int rgb)
 
 	inter = intersection(sphere, ray, map->tab->cam.pos);
 	light = sous_vec(*map->tab->spot_a, inter);
-	norm = get_normal_sphere(sphere, ray, map);
+	norm = sphere->norm;
 	angle = acos(dot_vec(light, norm));
 	if (angle <= 0)
 		rgb = 0x000000;
@@ -51,7 +51,7 @@ int		sphere_lumos_spec(t_map *map, t_sphere *sphere, t_vec ray, int rgb)
 
 	inter = intersection(sphere, ray, map->tab->cam.pos);
 	light = sous_vec(*map->tab->spot_a, inter);
-	norm = get_normal_sphere(sphere, ray, map);
+	norm = sphere->norm;
 	half = add_vec(norm, light);
 	tmp = fmax(dot_vec(norm, half), 0.0);
 	tmp = pow(tmp, 2.0);
@@ -60,6 +60,7 @@ int		sphere_lumos_spec(t_map *map, t_sphere *sphere, t_vec ray, int rgb)
 
 int		sphere_lumos(t_map *map, t_sphere *sphere, t_vec ray, int rgb)
 {
+	sphere->norm = get_normal_sphere(sphere, ray, map);
 	rgb = sphere_lumos_diff(map, sphere, ray, rgb);
 	rgb = sphere_lumos_spec(map, sphere, ray, rgb);
 	return (rgb);

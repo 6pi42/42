@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/04 11:27:19 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/17 17:29:34 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/18 11:51:51 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,10 @@ void	get_inter_cyl(t_cone *cyl, t_vec ray, t_vec org)
 	double	t2;
 
 	t1 = -1;
-	a[0] = dot_vec(ray, ray) - (dot_vec(ray, cyl->rot) * dot_vec(ray, cyl->rot));
-	a[1] = 2 * (dot_vec(ray, sous_vec_n(cyl->pos, org)) - (dot_vec(ray, cyl->rot) *
-		dot_vec(sous_vec_n(cyl->pos, org), cyl->rot)));
+	a[0] = dot_vec(ray, ray) - (dot_vec(ray, cyl->rot) *
+		dot_vec(ray, cyl->rot));
+	a[1] = 2 * (dot_vec(ray, sous_vec_n(cyl->pos, org)) -
+	(dot_vec(ray, cyl->rot) * dot_vec(sous_vec_n(cyl->pos, org), cyl->rot)));
 	a[2] = dot_vec(sous_vec_n(cyl->pos, org), sous_vec_n(cyl->pos, org)) -
 		(dot_vec(sous_vec_n(cyl->pos, org), cyl->rot) *
 		dot_vec(sous_vec_n(cyl->pos, org), cyl->rot)) -

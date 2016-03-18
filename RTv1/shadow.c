@@ -6,18 +6,27 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/03 15:10:23 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/17 12:54:07 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/18 15:11:07 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
+/*
+int	compare_vec(t_vec a, t_vec b, t_vec spot, t_vec org)
+{
+	if (a.x >= b.x && spot.x >= org.x && a.y >= b.y && spot.y >= org.y && a.z >= b.z && spot.z >= org.z)
+		return (1);
+	if (a.x <= b.x && spot.x <= org.x && a.y <= b.y && spot.y <= org.y && a.z <= b.z && spot.z <= org.z)
+		return (1);
+	return (0);
+}*/
 
-int	shadow(t_map *map, void *obj, t_vec light, t_vec spot)
+int	shadow(t_map *map, void *obj, t_vec ray[3], t_vec spot)
 {
 	void	*st[NB_OBJ];
 	void	*small;
 
-	nearest_obj(map, light, spot, st);
+	nearest_obj(map, ray[1], spot, st);
 	small = smaller_void(st);
 	if (small != NULL && small == obj)
 		return (1);

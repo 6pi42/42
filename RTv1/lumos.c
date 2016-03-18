@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 14:56:20 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/17 16:56:46 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/18 12:34:14 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,13 +90,15 @@ t_vec	get_light_ray(void *obj, t_vec ray, t_vec spot, t_map *map)
 }
 
 
-int		multi_spot(void **st, void *small, t_vec ray, t_map *map)
+int		multi_spot(void **st, void *small, t_vec rays[3], t_map *map)
 {
 	int     i;
 	int     tmp;
 	t_vec   inter;
 	int     rgb[map->tab->nb_spot];
+	t_vec	ray;
 
+	ray = rays[0];
 	i = 0;
 	inter = intersection(small, ray, map->tab->cam.pos);
 	while (i < map->tab->nb_spot)
@@ -111,8 +113,9 @@ int		multi_spot(void **st, void *small, t_vec ray, t_map *map)
 			rgb[i] = cyl_lumos(map, small, ray, rgb[i]);
 		//    else if (small == st[1])
 		//        tmp = plan_lumos(map, small, ray, tmp);
-		if (!(shadow(map, small, sous_vec_n(*map->tab->spot_a, inter), *map->tab->spot_a)))
-			rgb[i] = get_shadow(map, small, inter, rgb[i]);
+		rays[1] = sous_vec_n(*map->tab->spot_a, inter);
+		if (!(shadow(map, small, rays, *map->tab->spot_a)))
+			rgb[i] = get_shadow(map, small, rays, rgb[i]);
 		i++;
 	}
 	tmp = moy_rgb(rgb, map->tab->nb_spot);

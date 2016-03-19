@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 14:56:20 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/18 12:34:14 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/19 15:17:41 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,13 +107,13 @@ int		multi_spot(void **st, void *small, t_vec rays[3], t_map *map)
 		map->tab->spot_a = &(map->tab->spot[i]);
 		if (small == st[0])
 			rgb[i] = sphere_lumos(map, small, ray, rgb[i]);
+		else if (small == st[1])
+			rgb[i] = plan_lumos(map, small, ray, rgb[i]);
 		else if (small == st[2])
 			rgb[i] = cyl_lumos(map, small, ray, rgb[i]);
 		else if (small == st[3])
 			rgb[i] = cyl_lumos(map, small, ray, rgb[i]);
-		//    else if (small == st[1])
-		//        tmp = plan_lumos(map, small, ray, tmp);
-		rays[1] = sous_vec_n(*map->tab->spot_a, inter);
+		rays[1] = sous_vec(*map->tab->spot_a, inter);
 		if (!(shadow(map, small, rays, *map->tab->spot_a)))
 			rgb[i] = get_shadow(map, small, rays, rgb[i]);
 		i++;

@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 13:33:22 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/17 17:03:03 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/19 15:11:40 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ int		cyl_lumos_diff(t_map *map, t_cone *cyl, t_vec ray, int rgb)
 
 	org = *map->tab->spot_a;
 	inter = intersection(cyl, ray, map->tab->cam.pos);
-	light = sous_vec(org, inter);
-	angle = acos(dot_vec(light, cyl->norm));
+	light = sous_vec(inter, org);
+	angle = dot_vec(light, cyl->norm);
 	if (angle <= 0)
 		rgb = 0x000000;
 	else
-		rgb = light_rgb(rgb, angle * 0.6);
+		rgb = light_rgb(rgb, angle);
 	return (rgb);
 }
 
@@ -38,9 +38,9 @@ int		cyl_lumos_spec(t_map *map, t_cone *cyl, t_vec ray, int rgb)
 	double	dot;
 
 	inter = intersection(cyl, ray, map->tab->cam.pos);
-	light.x = inter.x - map->tab->spot_a->x;
-	light.y = inter.y - map->tab->spot_a->y;
-	light.z = inter.z - map->tab->spot_a->z;
+	light.x = map->tab->spot_a->x - inter.x;
+	light.y = map->tab->spot_a->y - inter.y;
+	light.z = map->tab->spot_a->z - inter.z;
 	normalize_vec(&light);
 	half.x = cyl->norm.x + light.x;
 	half.y = cyl->norm.y + light.y;

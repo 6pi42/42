@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/27 19:55:28 by Client            #+#    #+#             */
-/*   Updated: 2016/03/17 11:42:05 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/19 15:14:42 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,10 @@ int		plan_lumos(t_map *map, t_plan *plan, t_vec ray, int rgb)
 
 	org = *map->tab->spot_a;
 	inter = intersection(plan, ray, map->tab->cam.pos);
-	light = sous_vec(org, inter);
-	angle = acos(dot_vec(light, plan->norm));
+	light = sous_vec(inter, org);
+	angle = dot_vec(light, plan->norm);
 	if (angle <= 0)
 		rgb = 0x000000;
-	else
-		rgb = light_rgb(rgb, angle * 0.6);
+	rgb = light_rgb(rgb, angle);
 	return (rgb);
 }

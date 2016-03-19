@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/03 13:31:54 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/18 12:26:35 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/19 15:31:09 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ int		sphere_lumos_diff(t_map *map, t_sphere *sphere, t_vec ray, int rgb)
 	t_vec	inter;
 
 	inter = intersection(sphere, ray, map->tab->cam.pos);
-	light = sous_vec(*map->tab->spot_a, inter);
+	light = sous_vec(inter, *map->tab->spot_a);
 	norm = sphere->norm;
-	angle = acos(dot_vec(light, norm));
+	angle = dot_vec(light, norm);
 	if (angle <= 0)
 		rgb = 0x000000;
 	else
-		rgb = light_rgb(rgb, angle * 0.6);
+		rgb = light_rgb(rgb, angle);
 	return (rgb);
 }
 
@@ -49,9 +49,9 @@ int		sphere_lumos_spec(t_map *map, t_sphere *sphere, t_vec ray, int rgb)
 	double	tmp;
 	t_vec	inter;
 
-	inter = intersection(sphere, ray, map->tab->cam.pos);
-	light = sous_vec(*map->tab->spot_a, inter);
 	norm = sphere->norm;
+	inter = intersection(sphere, ray, map->tab->cam.pos);
+	light = sous_vec(inter, *map->tab->spot_a);
 	half = add_vec(norm, light);
 	tmp = fmax(dot_vec(norm, half), 0.0);
 	tmp = pow(tmp, 2.0);

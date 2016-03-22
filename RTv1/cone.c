@@ -6,40 +6,27 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/05 13:50:14 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/17 16:49:45 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/22 13:34:14 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-/*
-t_vec	get_normal_cone(t_cone *c, t_vec ray, t_vec org, double a)
-{
-	t_vec	norm;
-	double	m;
-
-	m = a / (c->radius * c->radius);
-	norm.x = (ray.x * c->t) + (org.x - c->pos.x) -
-		(1 + c->radius * c->radius) * (c->rot.x) * m;
-	norm.y = (ray.y * c->t) + (org.y - c->pos.y) -
-		(1 + c->radius * c->radius) * (c->rot.y) * m;
-	norm.x = (ray.z * c->t) + (org.z - c->pos.z) -
-		(1 + c->radius * c->radius) * (c->rot.z) * m;
-	normalize_vec(&norm);
-	return (norm);
-}
-*/
-
 t_vec	get_normal_cone(t_cone *cyl, t_vec ray, t_vec org)
 {
 	t_vec	norm;
 	double	m;
+	double	k;
 
+	k = cyl->radius;
 	m = (dot_vec(ray, cyl->rot) * cyl->t) +
 		(dot_vec(sous_vec_n(cyl->pos, org), cyl->rot));
-	norm.x = (ray.x * cyl->t) + (org.x - cyl->pos.x) - (cyl->rot.x * m);
-	norm.y = (ray.y * cyl->t) + (org.y - cyl->pos.y) - (cyl->rot.y * m);
-	norm.z = (ray.z * cyl->t) + (org.z - cyl->pos.z) - (cyl->rot.z * m);
+	norm.x = (ray.x * cyl->t) + (org.x - cyl->pos.x) -
+	((1 + k * k) * cyl->rot.x * m);
+	norm.y = (ray.y * cyl->t) + (org.y - cyl->pos.y) -
+	((1 + k * k) * cyl->rot.y * m);
+	norm.z = (ray.z * cyl->t) + (org.z - cyl->pos.z) -
+	((1 + k * k) * cyl->rot.z * m);
 	normalize_vec(&norm);
 	return (norm);
 }

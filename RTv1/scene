@@ -21,6 +21,6 @@ object:
 		pos: 50.0 0.0 0.0
 		radius: 15.0
 		rgb: 0x00FF00
-		rotate: 0.0 1.0 0.0
+		rotate: 1.0 1.0 0.0
 	spot:
-		pos: 0.0 100.0 0.0
+		pos: 100.0 50.0 100.0

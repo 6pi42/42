@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 16:36:48 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/17 16:57:55 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/22 15:15:33 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ int		main(int argc, char **argv)
 {
 	t_env	e;
 	t_map	*map;
+	char	*str;
 
 	if (argc != 2)
 		ft_error_arg();
@@ -96,12 +97,15 @@ int		main(int argc, char **argv)
 	print_tab(map->tab);
 	if (map->tab->screen.x <= 0 || map->tab->screen.y <= 0)
 		ft_error_file();
+	str = ft_strjoin("RTv1: ", argv[1]);
 	if (!(e.win =
-		mlx_new_window(e.mlx, map->tab->screen.x, map->tab->screen.y, "Rtv1")))
+		mlx_new_window(e.mlx, map->tab->screen.x, map->tab->screen.y, str)))
 		ft_error_mlx();
+	free(str);
 	map->e = e;
 	mlx_expose_hook(map->e.win, expose_hook, map);
 	mlx_key_hook(map->e.win, key_hook, map);
+	mlx_hook(e.win, 17, (1L << 17), red_cross, map);
 	mlx_loop(e.mlx);
 	return (0);
 }

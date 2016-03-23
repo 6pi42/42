@@ -6,19 +6,33 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/03 15:10:23 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/22 13:35:12 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/23 15:49:47 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
+double	dist_points(t_vec a, t_vec b)
+{
+	double	len;
+
+	len = sqrt((b.x - a.x) * (b.x - a.x) + (b.y - a.y) * (b.y - a.y) +
+		(b.z - a.z) * (b.z - a.z));
+	return (len);
+}
+
 int	shadow(t_map *map, void *obj, t_vec ray[3], t_vec spot)
 {
 	void	*st[NB_OBJ];
 	void	*small;
+	t_vec	inter;
+	t_vec	inter2;
 
 	nearest_obj(map, ray[1], spot, st);
 	small = smaller_void(st);
+	inter = intersection(obj, ray[0], map->tab->cam.pos);
+	if (small)
+		inter2 = intersection(small, ray[1], spot);
 	if (small != NULL && small == obj)
 		return (1);
 	return (0);

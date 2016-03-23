@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/04 11:27:19 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/18 11:51:51 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/23 16:14:14 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_vec	get_normal_cyl(t_cone *cyl, t_vec ray, t_vec org)
 	return (norm);
 }
 
-void	get_inter_cyl(t_cone *cyl, t_vec ray, t_vec org)
+void	get_inter_cyl(t_cone *cyl, t_vec ray, t_vec org, int n)
 {
 	double	a[4];
 	double	t1;
@@ -50,7 +50,7 @@ void	get_inter_cyl(t_cone *cyl, t_vec ray, t_vec org)
 			t1 = t2;
 	}
 	cyl->t = t1 <= 0 ? -1 : t1;
-	if (t1 > 0)
+	if (t1 > 0 && n)
 		cyl->norm = get_normal_cyl(cyl, ray, org);
 }
 
@@ -79,17 +79,19 @@ int		get_smaller_cyl(t_cone *cyl, int c)
 	return (j);
 }
 
-void	*nearest_cyl(t_vec ray, t_map *map, t_cone *cyl, t_vec org)
+void	*nearest_cyl(t_vec ray, t_map *map, int n, t_vec org)
 {
 	int	i;
 	int	small;
 	int	c;
+	t_cone	*cyl;
 
+	cyl = map->tab->cylinder;
 	c = map->tab->nb_cylinder;
 	i = 0;
 	while (i < c)
 	{
-		get_inter_cyl(&map->tab->cylinder[i], ray, org);
+		get_inter_cyl(&map->tab->cylinder[i], ray, org, n);
 		i++;
 	}
 	small = get_smaller_cyl(map->tab->cylinder, c);

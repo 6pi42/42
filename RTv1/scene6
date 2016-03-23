@@ -69,6 +69,10 @@ object:
 		pos: -50.0 100.0 -100.0
 		radius: 15.0
 		rgb: 0xAAAAAA
+	sphere:
+		pos: 0.0 20.0 50.0
+		radius: 15.0
+		rgb: 0xFF0000
 	spot:
 		pos: -125.0 50.0 200.0
 	spot:

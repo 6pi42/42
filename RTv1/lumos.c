@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 14:56:20 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/22 15:00:24 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/23 18:26:50 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		reflection(int rgb, double dot)
 	unsigned int	blue;
 	double			dif;
 
-	if (dot > 0.05)
+	if (dot > 0.01)
 		return (rgb);
 	red = (rgb & 0xFF0000) >> 16;
 	green = (rgb & 0xFF00) >> 8;
@@ -45,6 +45,43 @@ int		reflection(int rgb, double dot)
 	red = red < (rgb & 0xFF0000) >> 16 ? (rgb & 0xFF0000) >> 16 : red;
 	green = green < (rgb & 0xFF00) >> 8 ? (rgb & 0xFF00) >> 8 : green;
 	blue = blue < (rgb & 0xFF) ? (rgb & 0xFF) : blue;
+	red = red > 255 ? 255 : red;
+	blue = blue > 255 ? 255 : blue;
+	green = green > 255 ? 255 : green;
+	rgb = red << 16 | green << 8 | blue;
+	return (rgb);
+}
+
+int			mul_rgb(int rgb, int coef)
+{
+	int	red;
+	int	green;
+	int	blue;
+	int i;
+
+	red = (rgb & 0xFF0000) >> 16;
+	green = (rgb & 0xFF00) >> 8;
+	blue = rgb & 0xFF;
+	red *= coef;
+	green *= coef;
+	blue *= coef;
+	red = red > 255 ? 255 : red;
+	blue = blue > 255 ? 255 : blue;
+	green = green > 255 ? 255 : green;
+	i = red << 16 | green << 8 | blue;
+	return (i);
+}
+
+int		specular(int rgb, int lumos, double dot)
+{
+	int	red;
+	int	blue;
+	int	green;
+
+	lumos = mul_rgb(lumos, dot);
+	red = ((rgb & 0xFF0000) >> 16) + ((lumos & 0xFF0000) >> 16);
+	green = ((rgb & 0xFF00) >> 8) + ((lumos & 0xFF00) >> 8);
+	blue = (rgb & 0xFF) + (lumos & 0xFF);
 	red = red > 255 ? 255 : red;
 	blue = blue > 255 ? 255 : blue;
 	green = green > 255 ? 255 : green;
@@ -72,10 +109,11 @@ int		multi_spot(void **st, void *small, t_vec rays[3], t_map *map)
 		if (!(shadow(map, small, rays, *map->tab->spot_a)) && (i[2] = i[2] + 1))
 			rgb[i[0]] = get_shadow(map, small, rays, rgb[i[0]]);
 		else if (i[1] != 1)
-			rgb[i[0]] = lumos_spec[i[1]].f(map, small, rays[0], rgb[i[0]]);
-		rgb[i[0]] = lumos_diff[i[1]].f(map, small, rays[0], rgb[i[0]]);
+			rgb[i[0]] = lumos_spec[i[1]].f(map, small, inter, rgb[i[0]]);
+		rgb[i[0]] = lumos_diff[i[1]].f(map, small, inter, rgb[i[0]]);
 	}
-	rgb[0] = i[2] ? moy_rgb(rgb, map->tab->nb_spot) :
-		max_rgb(rgb, map->tab->nb_spot);
+	//rgb[0] = i[2] ? moy_rgb(rgb, map->tab->nb_spot) :
+	//	max_rgb(rgb, map->tab->nb_spot);
+	rgb[0] = moy_rgb(rgb, map->tab->nb_spot);
 	return (rgb[0]);
 }

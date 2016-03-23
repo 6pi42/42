@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 16:39:57 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/22 14:58:39 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/23 17:56:01 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,11 @@ int					get_shadow(t_map *map, void *obj, t_vec ray[3], int rgb);
 int					get_shadow_color(int color, int nb);
 int					shadow_rgb(int rgb, double angle);
 
-void				*nearest_cyl(t_vec ray, t_map *map, t_cone *c, t_vec org);
-void				*nearest_cone(t_vec ray, t_map *map, t_cone *c, t_vec org);
+void				*nearest_cyl(t_vec ray, t_map *map, int n, t_vec org);
+void				*nearest_cone(t_vec ray, t_map *map, int n, t_vec org);
 void				*nearest_plan(t_vec org, t_vec ray, t_map *map);
 void				nearest_obj(t_map *map, t_vec ray, t_vec org, void **st);
-void				*nearest_sphere(t_vec ray, t_map *m, t_sphere *s, t_vec o);
+void				*nearest_sphere(t_vec ray, t_map *m, int n, t_vec o);
 void				*smaller_void(void **st);
 
 int					light_rgb(int rgb, double angle);
@@ -132,5 +132,7 @@ int					moy_rgb(int *rgb, int len);
 int					add_rgb(int rgb);
 int					max_rgb(int *rgb, int len);
 int					min_rgb(int *rgb, int len);
+int					mul_rgb(int rgb, int coef);
+int					specular(int rgb, int lumos, double dot);
 
 #endif

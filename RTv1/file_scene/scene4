@@ -1,0 +1,19 @@
+scene:
+	camera:
+		pos: 0.0 20.0 250.0
+		rotate: 0.0 0.0 0.0
+	screen: 1000 800
+
+object:
+	plan:
+		rgb: 0x0000FF
+		normal: 0.0 1.0 0.0
+		pos: 0.0 0.0 0.0
+	sphere:
+		pos: 0.0 40.0 0.0
+		radius: 25.0
+		rgb: 0x00FF00
+	spot:
+		pos: 0.0 200.0 0.0
+	spot:
+		pos: 50.0 200.0 0.0

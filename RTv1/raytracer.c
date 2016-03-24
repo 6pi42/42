@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 16:47:16 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/24 13:36:14 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/24 15:57:16 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,18 @@
 t_vec	init_ray(t_map *map, int x, int y)
 {
 	t_vec	ray;
+	t_vec	tmp;
+	t_vec	rot;
 
+	rot = map->tab->cam.rotate;
+	normalize_vec(&rot);
 	ray.x = (double)x - ((double)map->tab->screen.x / 2);
-	ray.y = ((double)map->tab->screen.y / 2) - (double)y;
+	ray.y = (double)y - ((double)map->tab->screen.y / 2);
 	ray.z = -(map->tab->screen.x / (2 * tan((FOV / 2) * M_PI / 180.0)));
+	tmp = ray;
+	//ray.x *= tmp.x * rot.x;
+//	ray.y *= tmp.y * rot.y;
+//	ray.z *= tmp.z * rot.z;
 	normalize_vec(&ray);
 	return (ray);
 }

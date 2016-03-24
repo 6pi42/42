@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 16:39:57 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/23 17:56:01 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/24 13:19:13 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ int					moy_rgb(int *rgb, int len);
 int					add_rgb(int rgb);
 int					max_rgb(int *rgb, int len);
 int					min_rgb(int *rgb, int len);
-int					mul_rgb(int rgb, int coef);
+int					mul_rgb(int rgb, double coef);
 int					specular(int rgb, int lumos, double dot);
 
 #endif

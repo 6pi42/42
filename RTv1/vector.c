@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/03 13:27:52 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/22 13:31:57 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/24 12:53:32 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	normalize_vec(t_vec *vec)
 {
 	double tmp;
 
-	tmp = 1.0 / length_vec(*vec);
+	tmp = 1.0 / sqrt(vec->x * vec->x + vec->y * vec->y + vec->z * vec->z);
 	vec->x *= tmp;
 	vec->y *= tmp;
 	vec->z *= tmp;

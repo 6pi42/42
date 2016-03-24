@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 14:56:20 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/23 18:26:50 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/24 13:33:58 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,50 +26,19 @@ struct s_tab_f	lumos_diff[] = {
 	{&cyl_lumos_diff},
 };
 
-int		reflection(int rgb, double dot)
-{
-	unsigned int	red;
-	unsigned int	green;
-	unsigned int	blue;
-	double			dif;
-
-	if (dot > 0.01)
-		return (rgb);
-	red = (rgb & 0xFF0000) >> 16;
-	green = (rgb & 0xFF00) >> 8;
-	blue = rgb & 0xFF;
-	dif = (((dot) * (2.0 - 0.0)) / 0.01) + 0.0;
-	red = (red + (0xFF / dif)) / 2;
-	blue = (blue + (0xFF / dif)) / 2;
-	green = (green + (0xFF / dif)) / 2;
-	red = red < (rgb & 0xFF0000) >> 16 ? (rgb & 0xFF0000) >> 16 : red;
-	green = green < (rgb & 0xFF00) >> 8 ? (rgb & 0xFF00) >> 8 : green;
-	blue = blue < (rgb & 0xFF) ? (rgb & 0xFF) : blue;
-	red = red > 255 ? 255 : red;
-	blue = blue > 255 ? 255 : blue;
-	green = green > 255 ? 255 : green;
-	rgb = red << 16 | green << 8 | blue;
-	return (rgb);
-}
-
-int			mul_rgb(int rgb, int coef)
+int			mul_rgb(int rgb, double coef)
 {
 	int	red;
 	int	green;
 	int	blue;
-	int i;
 
-	red = (rgb & 0xFF0000) >> 16;
-	green = (rgb & 0xFF00) >> 8;
-	blue = rgb & 0xFF;
-	red *= coef;
-	green *= coef;
-	blue *= coef;
-	red = red > 255 ? 255 : red;
-	blue = blue > 255 ? 255 : blue;
-	green = green > 255 ? 255 : green;
-	i = red << 16 | green << 8 | blue;
-	return (i);
+	red = ((rgb & 0xFF0000) >> 16) * coef;
+	green = ((rgb & 0xFF00) >> 8) * coef;
+	blue = (rgb & 0xFF) * coef;
+	red = red > 0xFF ? 0xFF : red;
+	green = green > 0xFF ? 0xFF : green;
+	blue = blue > 0xFF ? 0xFF : blue;
+	return (red << 16 | green << 8 | blue);
 }
 
 int		specular(int rgb, int lumos, double dot)
@@ -82,11 +51,10 @@ int		specular(int rgb, int lumos, double dot)
 	red = ((rgb & 0xFF0000) >> 16) + ((lumos & 0xFF0000) >> 16);
 	green = ((rgb & 0xFF00) >> 8) + ((lumos & 0xFF00) >> 8);
 	blue = (rgb & 0xFF) + (lumos & 0xFF);
-	red = red > 255 ? 255 : red;
-	blue = blue > 255 ? 255 : blue;
-	green = green > 255 ? 255 : green;
-	rgb = red << 16 | green << 8 | blue;
-	return (rgb);
+	red = red > 0xFF ? 0xFF : red;
+	blue = blue > 0xFF ? 0xFF : blue;
+	green = green > 0xFF ? 0xFF : green;
+	return (red << 16 | green << 8 | blue);
 }
 
 int		multi_spot(void **st, void *small, t_vec rays[3], t_map *map)
@@ -112,8 +80,6 @@ int		multi_spot(void **st, void *small, t_vec rays[3], t_map *map)
 			rgb[i[0]] = lumos_spec[i[1]].f(map, small, inter, rgb[i[0]]);
 		rgb[i[0]] = lumos_diff[i[1]].f(map, small, inter, rgb[i[0]]);
 	}
-	//rgb[0] = i[2] ? moy_rgb(rgb, map->tab->nb_spot) :
-	//	max_rgb(rgb, map->tab->nb_spot);
 	rgb[0] = moy_rgb(rgb, map->tab->nb_spot);
 	return (rgb[0]);
 }

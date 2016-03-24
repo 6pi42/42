@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/03 13:31:54 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/24 13:32:52 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/24 13:38:22 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int		sphere_lumos_diff(t_map *map, void *obj, t_vec inter, int rgb)
 	rgb = light_rgb(rgb, angle);
 	return (rgb);
 }
+
 int		sphere_lumos_spec(t_map *map, void *ob, t_vec inter, int rgb)
 {
 	t_vec		light;

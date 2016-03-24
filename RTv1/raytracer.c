@@ -6,23 +6,11 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 16:47:16 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/24 11:48:52 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/24 13:36:14 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
-
-t_vec	intersection(void *obj, t_vec ray, t_vec org)
-{
-	t_vec	inter;
-	double	t;
-
-	t = *(double*)(obj);
-	inter.x = org.x + ray.x * t;
-	inter.y = org.y + ray.y * t;
-	inter.z = org.z + ray.z * t;
-	return (inter);
-}
 
 t_vec	init_ray(t_map *map, int x, int y)
 {

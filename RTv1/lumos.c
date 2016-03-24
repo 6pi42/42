@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 14:56:20 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/24 13:33:58 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/24 13:35:45 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ struct s_tab_f	lumos_diff[] = {
 	{&cyl_lumos_diff},
 };
 
-int			mul_rgb(int rgb, double coef)
+int		mul_rgb(int rgb, double coef)
 {
 	int	red;
 	int	green;

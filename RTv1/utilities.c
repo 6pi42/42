@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/26 11:26:30 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/17 17:03:51 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/24 13:36:07 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,16 @@ double	atoi_double(char *line)
 	while (dec >= 1.0)
 		dec = dec / 10.0;
 	return (dec + ent);
+}
+
+t_vec	intersection(void *obj, t_vec ray, t_vec org)
+{
+	t_vec	inter;
+	double	t;
+
+	t = *(double*)(obj);
+	inter.x = org.x + ray.x * t;
+	inter.y = org.y + ray.y * t;
+	inter.z = org.z + ray.z * t;
+	return (inter);
 }

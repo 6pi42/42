@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/05 13:50:14 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/23 16:15:20 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/29 15:57:06 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_vec	get_normal_cone(t_cone *cyl, t_vec ray, t_vec org)
 	double	m;
 	double	k;
 
-	k = cyl->radius;
+	k = cyl->k;
 	m = (dot_vec(ray, cyl->rot) * cyl->t) +
 		(dot_vec(sous_vec_n(cyl->pos, org), cyl->rot));
 	norm.x = (ray.x * cyl->t) + (org.x - cyl->pos.x) -
@@ -36,7 +36,7 @@ void	get_inter_cone(t_cone *cone, t_vec ray, t_vec org, int n)
 	double	a[6];
 	double	k;
 
-	k = cone->radius;
+	k = cone->k;
 	a[0] = -1;
 	a[0] = dot_vec(ray, ray) - (1 + k * k) *
 		(dot_vec(ray, cone->rot) * dot_vec(ray, cone->rot));
@@ -89,19 +89,17 @@ void	*nearest_cone(t_vec ray, t_map *map, int n, t_vec org)
 	int		i;
 	int		small;
 	int		c;
-	t_cone	*cone;
 
-	cone = map->tab->cone;
 	c = map->tab->nb_cone;
 	i = 0;
 	while (i < c)
 	{
-		get_inter_cone(&map->tab->cone[i], ray, org, n);
+		get_inter_cone(&(map->tab->cone[i]), ray, org, n);
 		i++;
 	}
 	small = get_smaller_cone(map->tab->cone, c);
 	if (small != -1)
-		return ((void*)(&cone[small]));
+		return ((void*)(&(map->tab->cone[small])));
 	else
 		return (NULL);
 }

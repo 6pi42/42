@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 14:56:20 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/24 13:35:45 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/29 16:17:21 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@ struct s_tab_f	lumos_spec[] = {
 	{&sphere_lumos_spec},
 	{0x0},
 	{&cyl_lumos_spec},
-	{&cyl_lumos_spec},
+	{&cone_lumos_spec},
 };
 
 struct s_tab_f	lumos_diff[] = {
 	{&sphere_lumos_diff},
 	{&plan_lumos},
 	{&cyl_lumos_diff},
-	{&cyl_lumos_diff},
+	{&cone_lumos_diff},
 };
 
 int		mul_rgb(int rgb, double coef)
@@ -67,7 +67,7 @@ int		multi_spot(void **st, void *small, t_vec rays[3], t_map *map)
 	i[0] = -1;
 	i[2] = 0;
 	inter = intersection(small, rays[0], map->tab->cam.pos);
-	while (i[0]++ < map->tab->nb_spot - 1)
+	while (i[0]++ < map->tab->nb_spot - 1 && small != NULL)
 	{
 		rgb[i[0]] = *(int*)(small + sizeof(double));
 		map->tab->spot_a = &(map->tab->spot[i[0]]);
@@ -80,6 +80,5 @@ int		multi_spot(void **st, void *small, t_vec rays[3], t_map *map)
 			rgb[i[0]] = lumos_spec[i[1]].f(map, small, inter, rgb[i[0]]);
 		rgb[i[0]] = lumos_diff[i[1]].f(map, small, inter, rgb[i[0]]);
 	}
-	rgb[0] = moy_rgb(rgb, map->tab->nb_spot);
-	return (rgb[0]);
+	return (moy_rgb(rgb, map->tab->nb_spot));
 }

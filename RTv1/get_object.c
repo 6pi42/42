@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 21:26:20 by Client            #+#    #+#             */
-/*   Updated: 2016/03/17 17:02:32 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/29 15:59:38 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ void			get_cone(int fd, t_tab *tab)
 			tab->cone[i].rgb = get_rgb(line + j[2]);
 		else if ((j[2] = ft_strchrstr(line, "pos:")) != -1)
 			tab->cone[i].pos = get_vec(line + j[2]);
-		else if ((j[2] = ft_strchrstr(line, "tan:")) != -1)
-			tab->cone[i].radius = get_radius(line + j[2]);
+		else if ((j[2] = ft_strchrstr(line, "k:")) != -1)
+			tab->cone[i].k = get_radius(line + j[2]);
 		else if ((j[2] = ft_strchrstr(line, "rotate:")) != -1)
 			tab->cone[i].rot = get_vec(line + j[2]);
 		else

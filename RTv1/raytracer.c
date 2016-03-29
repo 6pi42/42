@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 16:47:16 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/24 15:57:16 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/29 16:10:41 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,19 @@ t_vec	init_ray(t_map *map, int x, int y)
 	t_vec	rot;
 
 	rot = map->tab->cam.rotate;
-	normalize_vec(&rot);
-	ray.x = (double)x - ((double)map->tab->screen.x / 2);
-	ray.y = (double)y - ((double)map->tab->screen.y / 2);
-	ray.z = -(map->tab->screen.x / (2 * tan((FOV / 2) * M_PI / 180.0)));
+	ray.x = (x - (map->tab->screen.x / 2));
+	ray.y = ((map->tab->screen.y - y) - (map->tab->screen.y / 2));
+	ray.z = -(map->tab->screen.x / (2 * tan((50 / 2) * M_PI / 180.0)));
+	normalize_vec(&ray);
 	tmp = ray;
-	//ray.x *= tmp.x * rot.x;
-//	ray.y *= tmp.y * rot.y;
-//	ray.z *= tmp.z * rot.z;
+	ray.x = tmp.x * cos(to_rad(rot.z)) - tmp.y * sin(to_rad(rot.z));
+	ray.y = tmp.x * sin(to_rad(rot.z)) + tmp.y * cos(to_rad(rot.z));
+	tmp = ray;
+	ray.y = tmp.y * cos(to_rad(rot.x)) - tmp.z * sin(to_rad(rot.x));
+	ray.z = tmp.y * sin(to_rad(rot.x)) + tmp.z * cos(to_rad(rot.x));
+	tmp = ray;
+	ray.z = tmp.z * cos(to_rad(rot.y)) - tmp.x * sin(to_rad(rot.y));
+	ray.x = tmp.z * sin(to_rad(rot.y)) + tmp.x * cos(to_rad(rot.y));
 	normalize_vec(&ray);
 	return (ray);
 }
@@ -43,7 +48,7 @@ void	*smaller_void(void **st)
 	while (i < NB_OBJ)
 	{
 		if (st[i] != NULL && ((tmp == -1 && (*(double*)st[i] != -1))
-			|| (tmp > (*(double*)st[i]))))
+			|| (tmp > (*(double*)st[i]) && *(double*)st[i] != -1)))
 		{
 			tmp = *(double*)st[i];
 			j = i;
@@ -88,8 +93,11 @@ void	raytracer(t_map *map)
 			rgb = 0x000000;
 			ray[0] = init_ray(map, x[1], x[0]);
 			nearest_obj_n(map, ray[0], map->tab->cam.pos, st);
+			small = smaller_void(st);
 			if ((small = smaller_void(st)) != NULL)
 				rgb = multi_spot(st, small, ray, map);
+			//if (small)
+			//	rgb = *(int*)(small + sizeof(double));
 			pixel_put(map, x[1], x[0], rgb);
 			x[1]++;
 		}

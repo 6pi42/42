@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/27 19:42:15 by Client            #+#    #+#             */
-/*   Updated: 2016/03/23 16:10:55 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/29 15:54:37 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,22 +70,20 @@ void	*nearest_sphere(t_vec ray, t_map *map, int n, t_vec org)
 	int			i;
 	int			small;
 	int			c;
-	t_sphere	*sphere;
 
-	sphere = map->tab->sphere;
 	c = map->tab->nb_sphere;
 	i = 0;
 	while (i < c)
 	{
-		get_inter_sphere(&map->tab->sphere[i], ray, org);
+		get_inter_sphere(&(map->tab->sphere[i]), ray, org);
 		i++;
 	}
 	small = get_smaller_sphere(map->tab->sphere, c);
 	if (small != -1)
 	{
 		if (n)
-			sphere[small].norm = get_normal_sphere(&sphere[small], ray, map);
-		return ((void*)(&sphere[small]));
+			map->tab->sphere[small].norm = get_normal_sphere(&(map->tab->sphere[small]), ray, map);
+		return ((void*)(&(map->tab->sphere[small])));
 	}
 	else
 		return (NULL);

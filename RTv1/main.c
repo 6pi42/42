@@ -6,12 +6,13 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 16:36:48 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/22 15:15:33 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/29 15:58:28 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
+#include <stdio.h>
 void	print_object(t_tab *tab)
 {
 	int i;
@@ -49,10 +50,12 @@ void	print_object(t_tab *tab)
 	while (i < tab->nb_cone)
 	{
 		printf("cone[%d]\n\n", i);
-		printf("rayon: %f\n", tab->cone[i].radius);
+		printf("rayon: %f\n", tab->cone[i].k);
 		printf("pos: x %f y %f z %f\n", tab->cone[i].pos.x,
 		tab->cone[i].pos.y, tab->cone[i].pos.z);
 		printf("rgb: %d\n", tab->cone[i].rgb);
+		printf("rotate: x %f y %f z %f\n", tab->cone[i].rot.x,
+		tab->cone[i].rot.y, tab->cone[i].rot.z);
 		i++;
 	}
 	i = 0;
@@ -64,6 +67,8 @@ void	print_object(t_tab *tab)
 		printf("pos: x %f y %f z %f\n", tab->cylinder[i].pos.x,
 		tab->cylinder[i].pos.y, tab->cylinder[i].pos.z);
 		printf("rgb: %#x\n", tab->cylinder[i].rgb);
+		printf("rotate: x %f y %f z %f\n", tab->cylinder[i].rot.x,
+		tab->cylinder[i].rot.y, tab->cylinder[i].rot.z);
 		i++;
 	}
 	i = 0;

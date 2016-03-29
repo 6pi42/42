@@ -6,13 +6,13 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/04 11:27:19 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/24 13:35:33 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/29 15:57:49 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-t_vec	get_normal_cyl(t_cone *cyl, t_vec ray, t_vec org)
+t_vec	get_normal_cyl(t_cyl *cyl, t_vec ray, t_vec org)
 {
 	t_vec	norm;
 	double	m;
@@ -26,16 +26,15 @@ t_vec	get_normal_cyl(t_cone *cyl, t_vec ray, t_vec org)
 	return (norm);
 }
 
-void	get_inter_cyl(t_cone *cyl, t_vec ray, t_vec org, int n)
+void	get_inter_cyl(t_cyl *cyl, t_vec ray, t_vec org, int n)
 {
 	double	a[4];
 	double	t1;
 	double	t2;
 
 	t1 = -1;
-	a[0] = dot_vec(ray, ray) - (dot_vec(ray, cyl->rot) *
-		dot_vec(ray, cyl->rot));
-	a[1] = 2 * (dot_vec(ray, sous_vec_n(cyl->pos, org)) -
+	a[0] = dot_vec(ray, ray) - (dot_vec(ray, cyl->rot) * dot_vec(ray, cyl->rot));
+	a[1] = 2.0 * (dot_vec(ray, sous_vec_n(cyl->pos, org)) -
 	(dot_vec(ray, cyl->rot) * dot_vec(sous_vec_n(cyl->pos, org), cyl->rot)));
 	a[2] = dot_vec(sous_vec_n(cyl->pos, org), sous_vec_n(cyl->pos, org)) -
 		(dot_vec(sous_vec_n(cyl->pos, org), cyl->rot) *
@@ -54,7 +53,7 @@ void	get_inter_cyl(t_cone *cyl, t_vec ray, t_vec org, int n)
 		cyl->norm = get_normal_cyl(cyl, ray, org);
 }
 
-int		get_smaller_cyl(t_cone *cyl, int c)
+int		get_smaller_cyl(t_cyl *cyl, int c)
 {
 	int		i;
 	int		j;
@@ -84,19 +83,17 @@ void	*nearest_cyl(t_vec ray, t_map *map, int n, t_vec org)
 	int		i;
 	int		small;
 	int		c;
-	t_cone	*cyl;
 
-	cyl = map->tab->cylinder;
 	c = map->tab->nb_cylinder;
 	i = 0;
 	while (i < c)
 	{
-		get_inter_cyl(&map->tab->cylinder[i], ray, org, n);
+		get_inter_cyl(&(map->tab->cylinder[i]), ray, org, n);
 		i++;
 	}
 	small = get_smaller_cyl(map->tab->cylinder, c);
 	if (small != -1)
-		return ((void*)(&cyl[small]));
+		return ((void*)(&(map->tab->cylinder[small])));
 	else
 		return (NULL);
 }

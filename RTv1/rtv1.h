@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 16:39:57 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/24 13:19:13 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/29 16:09:12 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@
 # include <math.h>
 # include <pthread.h>
 # include "type.h"
-#include <stdio.h>
+# include <float.h>
 # define KEY_ESC 53
 # define NB_OBJ 4
 # define FOV 60
+#include <stdio.h>
 
 typedef struct		s_env
 {
@@ -65,6 +66,7 @@ int					ft_strchrstr(char *str, char *chr);
 double				atoi_double(char *line);
 int					atoi_hex(char *line);
 int					correct_line(char *line);
+double				to_rad(double a);
 
 t_pos				get_screen(char *line);
 t_vec				get_vec(char *line);
@@ -127,6 +129,8 @@ int					sphere_lumos_diff(t_map *map, void *s, t_vec ray, int rgb);
 int					cyl_lumos_spec(t_map *map, void *cyl, t_vec ray, int rgb);
 int					cyl_lumos_diff(t_map *map, void *cyl, t_vec ray, int rgb);
 int					plan_lumos(t_map *map, void *plan, t_vec ray, int rgb);
+int					cone_lumos_spec(t_map *map, void *obj, t_vec inter, int rgb);
+int					cone_lumos_diff(t_map *map, void *obj, t_vec inter, int rgb);
 
 int					moy_rgb(int *rgb, int len);
 int					add_rgb(int rgb);

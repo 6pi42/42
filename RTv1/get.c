@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 16:03:17 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/17 16:43:14 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/30 16:25:36 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ t_pos	get_screen(char *line)
 		i++;
 	}
 	free(tab);
+	if (screen.x <= 0 || screen.y <= 0 || screen.x > 2500 || screen.y > 1400)
+		ft_error_file();
 	return (screen);
 }
 

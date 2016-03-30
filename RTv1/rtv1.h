@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 16:39:57 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/29 16:09:12 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/30 14:37:05 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,9 @@ t_cam				get_cam(int fd);
 void				get_spot(int fd, t_tab *tab);
 
 void				raytracer(t_map *map);
-t_vec				init_ray(t_map *map, int x, int y);
+t_vec				init_ray(t_map *map, double x, double y);
 t_vec				get_light_ray(void *ob, t_vec ray, t_vec inter, t_map *map);
+void				multi_sampling(int x, int y, t_map *map);
 
 int					shadow(t_map *map, void *obj, t_vec ray[3], t_vec spot);
 int					get_shadow(t_map *map, void *obj, t_vec ray[3], int rgb);
@@ -129,8 +130,8 @@ int					sphere_lumos_diff(t_map *map, void *s, t_vec ray, int rgb);
 int					cyl_lumos_spec(t_map *map, void *cyl, t_vec ray, int rgb);
 int					cyl_lumos_diff(t_map *map, void *cyl, t_vec ray, int rgb);
 int					plan_lumos(t_map *map, void *plan, t_vec ray, int rgb);
-int					cone_lumos_spec(t_map *map, void *obj, t_vec inter, int rgb);
-int					cone_lumos_diff(t_map *map, void *obj, t_vec inter, int rgb);
+int					cone_lumos_spec(t_map *map, void *obj, t_vec intr, int rgb);
+int					cone_lumos_diff(t_map *map, void *obj, t_vec intr, int rgb);
 
 int					moy_rgb(int *rgb, int len);
 int					add_rgb(int rgb);

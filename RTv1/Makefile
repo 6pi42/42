@@ -6,7 +6,7 @@
 #    By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/01/08 12:28:01 by cboyer            #+#    #+#              #
-#    Updated: 2016/03/29 13:53:42 by cboyer           ###   ########.fr        #
+#    Updated: 2016/03/30 14:23:12 by cboyer           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ SRC =	main.c			\
 		lumos.c			\
 		color.c			\
 		color_add.c		\
+		multi_sampling.c\
 
 OBJ = $(SRC:.c=.o)
 NAME = rtv1

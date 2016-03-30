@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 14:56:20 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/29 16:17:21 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/30 15:30:12 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,26 +59,27 @@ int		specular(int rgb, int lumos, double dot)
 
 int		multi_spot(void **st, void *small, t_vec rays[3], t_map *map)
 {
-	int		i[3];
 	t_vec	inter;
 	int		rgb[map->tab->nb_spot];
+	int		i;
+	int		j;
 
-	i[1] = 0;
-	i[0] = -1;
-	i[2] = 0;
+	i = 0;
+	j = 0;
 	inter = intersection(small, rays[0], map->tab->cam.pos);
-	while (i[0]++ < map->tab->nb_spot - 1 && small != NULL)
+	while (j < map->tab->nb_spot && small != NULL)
 	{
-		rgb[i[0]] = *(int*)(small + sizeof(double));
-		map->tab->spot_a = &(map->tab->spot[i[0]]);
+		rgb[j] = *(int*)(small + sizeof(double));
+		map->tab->spot_a = &(map->tab->spot[j]);
 		rays[1] = sous_vec(*map->tab->spot_a, inter);
-		while (small != st[i[1]] && i[1] < NB_OBJ)
-			i[1]++;
-		if (!(shadow(map, small, rays, *map->tab->spot_a)) && (i[2] = i[2] + 1))
-			rgb[i[0]] = get_shadow(map, small, rays, rgb[i[0]]);
-		else if (i[1] != 1)
-			rgb[i[0]] = lumos_spec[i[1]].f(map, small, inter, rgb[i[0]]);
-		rgb[i[0]] = lumos_diff[i[1]].f(map, small, inter, rgb[i[0]]);
+		while (small != st[i] && i < NB_OBJ)
+			i++;
+		if (!(shadow(map, small, rays, *map->tab->spot_a)))
+			rgb[j] = get_shadow(map, small, rays, rgb[j]);
+		else if (i != 1)
+			rgb[j] = lumos_spec[i].f(map, small, inter, rgb[j]);
+		rgb[j] = lumos_diff[i].f(map, small, inter, rgb[j]);
+		j++;
 	}
 	return (moy_rgb(rgb, map->tab->nb_spot));
 }

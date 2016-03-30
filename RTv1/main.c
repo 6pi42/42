@@ -6,13 +6,12 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 16:36:48 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/29 15:58:28 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/30 16:22:07 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-#include <stdio.h>
 void	print_object(t_tab *tab)
 {
 	int i;

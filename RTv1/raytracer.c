@@ -6,13 +6,13 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 16:47:16 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/29 16:10:41 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/30 17:40:44 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-t_vec	init_ray(t_map *map, int x, int y)
+t_vec	init_ray(t_map *map, double x, double y)
 {
 	t_vec	ray;
 	t_vec	tmp;
@@ -60,14 +60,6 @@ void	*smaller_void(void **st)
 	return (st[j]);
 }
 
-void	nearest_obj_n(t_map *map, t_vec ray, t_vec org, void **st)
-{
-	st[0] = nearest_sphere(ray, map, 1, org);
-	st[1] = nearest_plan(org, ray, map);
-	st[2] = nearest_cyl(ray, map, 1, org);
-	st[3] = nearest_cone(ray, map, 1, org);
-}
-
 void	nearest_obj(t_map *map, t_vec ray, t_vec org, void **st)
 {
 	st[0] = nearest_sphere(ray, map, 0, org);
@@ -78,29 +70,18 @@ void	nearest_obj(t_map *map, t_vec ray, t_vec org, void **st)
 
 void	raytracer(t_map *map)
 {
-	int		x[2];
-	void	*st[NB_OBJ];
-	int		rgb;
-	void	*small;
-	t_vec	ray[3];
+	int		x;
+	int		y;
 
-	x[0] = 0;
-	while (x[0] < map->tab->screen.y)
+	y = 0;
+	while (y < map->tab->screen.y)
 	{
-		x[1] = 0;
-		while (x[1] < map->tab->screen.x)
+		x = 0;
+		while (x < map->tab->screen.x)
 		{
-			rgb = 0x000000;
-			ray[0] = init_ray(map, x[1], x[0]);
-			nearest_obj_n(map, ray[0], map->tab->cam.pos, st);
-			small = smaller_void(st);
-			if ((small = smaller_void(st)) != NULL)
-				rgb = multi_spot(st, small, ray, map);
-			//if (small)
-			//	rgb = *(int*)(small + sizeof(double));
-			pixel_put(map, x[1], x[0], rgb);
-			x[1]++;
+			multi_sampling(x, y, map);
+			x++;
 		}
-		x[0]++;
+		y++;
 	}
 }

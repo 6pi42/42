@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 17:28:16 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/29 15:59:25 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/30 16:15:47 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,20 @@ t_tab	*init_tab(char *file)
 	tab->nb_cone = get_nb_struct(file, "\tcone:");
 	tab->nb_plan = get_nb_struct(file, "\tplan:");
 	tab->nb_spot = get_nb_struct(file, "\tspot:");
-	if (!(tab->sphere = (t_sphere*)malloc(sizeof(t_sphere) * tab->nb_sphere)))
+	if (tab->nb_sphere &&
+		!(tab->sphere = (t_sphere*)malloc(sizeof(t_sphere) * tab->nb_sphere)))
 		ft_error_malloc();
-	if (!(tab->plan = (t_plan*)malloc(sizeof(t_plan) * tab->nb_plan)))
+	if (tab->nb_plan &&
+		!(tab->plan = (t_plan*)malloc(sizeof(t_plan) * tab->nb_plan)))
 		ft_error_malloc();
-	if (!(tab->cylinder = (t_cyl*)malloc(sizeof(t_cyl) * tab->nb_cylinder)))
+	if (tab->nb_cylinder &&
+		!(tab->cylinder = (t_cyl*)malloc(sizeof(t_cyl) * tab->nb_cylinder)))
 		ft_error_malloc();
-	if (!(tab->cone = (t_cone*)malloc(sizeof(t_cone) * tab->nb_cone)))
+	if (tab->nb_cone &&
+		!(tab->cone = (t_cone*)malloc(sizeof(t_cone) * tab->nb_cone)))
 		ft_error_malloc();
-	if (!(tab->spot = (t_vec*)malloc(sizeof(t_vec) * tab->nb_spot)))
+	if (tab->nb_spot &&
+		!(tab->spot = (t_vec*)malloc(sizeof(t_vec) * tab->nb_spot)))
 		ft_error_malloc();
 	return (tab);
 }

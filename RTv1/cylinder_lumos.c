@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 13:33:22 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/29 16:09:27 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/30 14:35:41 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ int		cyl_lumos_spec(t_map *map, void *obj, t_vec inter, int rgb)
 	dot = pow(dot, 16.0);
 	return (specular(rgb, 0xFFFFFF, dot));
 }
-
 
 int		cone_lumos_diff(t_map *map, void *obj, t_vec inter, int rgb)
 {

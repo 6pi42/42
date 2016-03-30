@@ -20,11 +20,11 @@ object:
 		rgb: 0xFF0000
 	cylinder:
 		pos: -50.0 0.0 10.0
-		rotate: 0.0 1.0 0.0
+		rotate: 0.7 1.0 0.0
 		radius: 15.0
 		rgb: 0x00FF00
 	cone:
 		pos: 40.0 30.0 0.0
 		k: 0.3
 		rotate: -2.0 1.0 0.0
-		rgb: 0xFFFF00
+		rgb: 0x0000FF

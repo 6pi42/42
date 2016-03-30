@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   diff_spec_shade_add.c                              :+:      :+:    :+:   */
+/*   color_add.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 13:46:09 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/24 14:02:02 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/30 11:37:15 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	moyenne(int *n, int len)
 		nb += n[i];
 		i++;
 	}
-	nb /= len;
+	nb /= i;
 	return (nb);
 }
 
@@ -48,9 +48,8 @@ int			moy_rgb(int *rgb, int len)
 	red[0] = moyenne(red, len);
 	blue[0] = moyenne(blue, len);
 	green[0] = moyenne(green, len);
-	red[0] = red[0] > 255 ? 255 : red[0];
-	blue[0] = blue[0] > 255 ? 255 : blue[0];
-	green[0] = green[0] > 255 ? 255 : green[0];
-	i = red[0] << 16 | green[0] << 8 | blue[0];
-	return (i);
+	red[0] = red[0] > 0xFF ? 0xFF : red[0];
+	blue[0] = blue[0] > 255 ? 0xFF : blue[0];
+	green[0] = green[0] > 0xFF ? 0xFF : green[0];
+	return (red[0] << 16 | green[0] << 8 | blue[0]);
 }

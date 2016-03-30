@@ -6,7 +6,7 @@
 /*   By: cboyer <cboyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:37:04 by cboyer            #+#    #+#             */
-/*   Updated: 2016/03/29 16:02:35 by cboyer           ###   ########.fr       */
+/*   Updated: 2016/03/30 15:54:51 by cboyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,17 +75,17 @@ typedef struct		s_tab
 {
 	t_sphere		*sphere;
 	t_cone			*cone;
+	t_plan			*plan;
+	t_cyl			*cylinder;
 	int				nb_sphere;
 	int				nb_cylinder;
 	int				nb_cone;
 	int				nb_plan;
 	int				nb_spot;
-	t_plan			*plan;
 	t_cam			cam;
 	t_pos			screen;
 	t_vec			*spot;
 	t_vec			*spot_a;
-	t_cyl			*cylinder;
 }					t_tab;
 
 #endif

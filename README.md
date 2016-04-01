@@ -8,4 +8,5 @@ Project | :pineapple: | Moulinette | Mark |
 **Fdf** | :pineapple: | NONE | **118**/100|
 **Fractol** | :pineapple: | NONE | **108**/100|
 **Wolf3D** | :pineapple: | NONE | **125**/100|
-**RTV1** | | | |
+**RTV1** | :pineapple: | NONE | **120**/100|
+**RT** | | | |

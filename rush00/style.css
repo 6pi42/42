@@ -1,0 +1,296 @@
+html {
+	margin:0;
+	width: 100%;
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	width: 100%;
+	height: 100%;
+	background-image: url(https://mobilierliving.files.wordpress.com/2011/11/mobilier-living-corano-4.jpg);
+	background-size: 2550px 1250px;
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	background-position: center top;
+	background-color: #140000;
+}
+
+a {
+	text-decoration: none;
+	color: #000;
+}
+
+.banner {
+	width: 100%;
+	height: 42px;
+	position: relative;
+	background-color: #36444F;
+	border: 1px solid #37447A;
+	z-index: 4;
+	padding-left: 20px;
+	padding-top: 5px;
+	font-size: 30px;
+	font-family: "Verdana";
+	font-variant: small-caps;
+	color: #fff;
+}
+
+.leftmodule1 {
+	float: left;
+	width: 210px;
+	height: 630px;
+	background-color: #36444F;
+	border: 1px solid #3E2717;
+	z-index: 4;
+	font-family: "Verdana";
+	font-variant: small-caps;
+	font-size: 30px;
+	opacity: 0.9;
+	position: absolute;
+}
+
+.blocs {
+	z-index: 4;
+	background-color: #1C1713;
+	border: 1px solid #030000;
+	padding-left: 10px;
+	opacity: 0.9;
+	font-size: 28px;
+	color: #fff;
+}
+
+.classe {
+	background-color: #574030;
+	position: relative;
+	font-size: 25px;
+	border: 2px solid #D2B48C;
+	text-align: center;
+}
+
+#menu, #menu ul {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	list-style-type: none;
+}
+
+#menu ul {
+	overflow: hidden;
+	left: -999em;
+	position: absolute;
+	color: #fff;
+	width: 100%;
+	background-color: #1C1713;
+}
+
+#year, #year ul {
+	font-size: 22px;
+}
+
+#menu li li {
+	background-color: #1C1713;
+	border: 1px solid #030000;
+	color: #fff;
+}
+
+#menu li li:hover {
+	background-color: #AD3A3B;
+	cursor: hand;
+}
+
+.classe:hover {
+	background-color: #D2B48C;
+	border: 2px solid #574030;
+	cursor: hand;
+}
+
+#menu li:hover ul {
+	left: 209px;
+	position: absolute;
+	top: 0px;
+}
+
+.leftmodule2 {
+	float: right;
+	width: 220px;
+	height: 630px;
+	background-color: #36444F;
+	border: 1px solid #3E2717;
+	z-index: 4;
+	opacity: 0.9;
+	position: relative;
+	z-index: 4;
+	font-family: "Verdana";
+	font-variant: small-caps;
+	font-size: 30px;
+	opacity: 0.9;
+}
+
+.log {
+	background-color: #1C1713;
+	border: 1px solid #030000;
+	position: relative;
+	font-size: 25px;
+	text-align: center;
+	color: #fff;
+	z-index: 4;
+	opacity: 0.9;
+	padding-bottom: 10px;
+	height: 180px;
+}
+
+.sub {
+	width: 150px;
+	background-color: #574030;
+	border: 1px solid #D2B48C;
+	padding: 5px 5px 5px 5px;
+	font-size: 15px;
+	z-index: 20;
+	opacity: 0.9;
+	font-family: "Verdana";
+	font-variant: small-caps;
+	text-decoration: none;
+}
+
+
+.modif {
+	margin: center;
+	text-align: center;
+	position: relative;
+	height: 150px;
+	padding: 35px 10px 0px 10px;
+}
+
+p {
+	font-size: 15px;
+}
+
+.ident {
+	padding: 5px 5px 5px 5px;
+	font-size: 15px;
+	z-index: 20;
+	opacity: 0.9;
+	background-color: #574030;
+	border: 1px solid #D2B48C;
+}
+
+.panier {
+	font-size: 25px;
+	background-color: #574030;
+	border: 1px solid #D2B48C;
+	color: #000;
+	padding: 5px 5px 5px 5px;
+	margin: 0;
+}
+
+.achat {
+	font-size: 20px;
+	background-color: #574030;
+	border: 1px solid #D2B48C;
+	color: #000;
+	padding: 5px 5px 5px 5px;
+	text-align: center;
+}
+
+.sub:hover {cursor:hand;}
+
+.ident:hover {background-color: #C75455;}
+
+.sub:hover {background-color: #C75455;}
+
+.panier:hover {background-color: #C75455;}
+
+.catalog {
+	width: 70%;
+	margin-top: 20px;
+	margin-left: 30%;
+	margin-right: 10%;
+	display :inline-block;
+	background-color:#36444F;
+	border-radius: 20px 20px 20px 20px;
+	float: right;
+	opacity: 0.9;
+	z-index: 6;
+}
+
+#article {
+	padding-top: 10px;
+	padding-bottom: 20px;
+	margin: auto;
+	position: relative;
+	float: left;
+	width: 25%;
+}
+
+.image_catalog {
+	border-radius: 10px 10px 0px 0px;
+	padding-top: 20px;
+	margin:auto;
+	width: 35%;
+	height: 100px;
+}
+
+#detail {
+	border-radius: 0px 0px 10px 10px;
+	margin:auto;
+	width:35%;
+	height: 30px;
+	font-family:verdana;
+	font-size:11;
+	text-align:center;
+	background-color: white;
+}
+
+.article_unique {
+	background-color: white;
+	width: 70%;
+	margin-top: 20px;
+	margin-left: 30%;
+	margin-right: 10%;
+	display :inline-block;
+	background-color:#36444F;
+	border-radius: 20px 20px 20px 20px;
+	float: right;
+	opacity: 0.9;
+	z-index: 6;
+}
+.detail_article{
+	margin-top:0;
+	padding-top:5%;
+	margin-bottom:5%;
+	border-radius: 0px 0px 10px 10px;
+	position:relative;
+	font-family:verdana;
+	background-color: #D2B48C;
+	text-align:center
+}
+.image_article {
+	margin-top:5%;
+	background-color: white;
+	border-radius: 10px 10px 0px 0px;
+	float:left;
+}
+
+.acheter {
+	font-family:verdana;
+	background-color:#574030;
+	border: 1px solid black;
+	border-radius: 10px 10px 0px 0px;
+	font-size: 15px;
+}
+.acheter:hover {
+	background-color:#C75455;	
+}
+
+.table_panier {
+	padding-bottom:50px;
+	width:80%;
+	margin:auto;
+}
+.image_panier {
+	border-radius: 10px 10px 0px 0px;
+	padding-top: 20px;
+	margin:auto;
+	width: 25%;
+}
